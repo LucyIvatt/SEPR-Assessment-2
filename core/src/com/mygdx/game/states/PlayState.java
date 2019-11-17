@@ -14,7 +14,6 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("playbg.png");
-        test = new Unit(50, 400);
         obstacle = new Entity(500, 400);
     }
 
@@ -30,7 +29,6 @@ public class PlayState extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
         sb.draw(background, 0, 0, Test.WIDTH, Test.HEIGHT);
-        sb.draw(test.getTexture(), test.getPosition().x, test.getPosition().y);
         sb.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y);
         sb.end();
     }

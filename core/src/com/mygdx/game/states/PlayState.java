@@ -24,10 +24,14 @@ public class PlayState extends State {
 
     @Override
     public void handleInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            gsm.push(new EndState(gsm));
+        }
     }
 
     @Override
     public void update(float dt) {
+        handleInput();
     }
 
     @Override
@@ -36,7 +40,6 @@ public class PlayState extends State {
         sb.draw(background, 0, 0, Test.WIDTH, Test.HEIGHT);
         sb.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y);
         sb.end();
-
         truckMovement(obstacle);
     }
      // https://stackoverflow.com/questions/33283867/how-to-make-a-sprite-move-with-keyboard-in-javalibgdx?rq=1 source used

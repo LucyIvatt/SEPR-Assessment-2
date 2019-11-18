@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3239cce4-397a-490d-9560-181614556b2a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/EndState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/assets/menuExample.png" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/menuExample.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/MenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/MenuState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/PlayState.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/PlayState.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +32,7 @@
   <component name="ProjectId" id="1TkVSYSGtqBZXaII2MTf28YcZyt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/core/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Coding/LibGdx/build.gradle" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">

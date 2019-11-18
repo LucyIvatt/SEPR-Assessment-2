@@ -11,6 +11,9 @@ public class Entity {
     private int width;
     private int height;
 
+    public void update(float dt){
+    }
+
     public Vector3 getPosition() {
         return position;
     }

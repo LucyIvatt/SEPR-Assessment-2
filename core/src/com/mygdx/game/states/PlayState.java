@@ -25,12 +25,13 @@ public class PlayState extends State {
     public void handleInput() {
         if (Gdx.input.isTouched()) {
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-
         }
     }
 
     @Override
     public void update(float dt) {
+        handleInput();
+        test.update(dt);
     }
 
     @Override

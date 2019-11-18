@@ -9,7 +9,6 @@ public abstract class Unit extends Entity {
     private int currentHealth;
     private int range;
 
-
     public int getMaxHealth() {
         return maxHealth;
     }

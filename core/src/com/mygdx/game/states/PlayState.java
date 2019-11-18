@@ -17,6 +17,7 @@ public class PlayState extends State {
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
+        // https://github.com/libgdx/libgdx/wiki/Tile-maps possible way of making a map?
         background = new Texture("playbg.png");
         obstacle = new Entity(500, 400);
     }
@@ -38,6 +39,8 @@ public class PlayState extends State {
 
         truckMovement(obstacle);
     }
+     // https://stackoverflow.com/questions/33283867/how-to-make-a-sprite-move-with-keyboard-in-javalibgdx?rq=1 source used
+    // Should really have a 'SPEED' constant instead of using the number 10 so that it can be changed easily.
 
     public void truckMovement(Entity truck) {
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {

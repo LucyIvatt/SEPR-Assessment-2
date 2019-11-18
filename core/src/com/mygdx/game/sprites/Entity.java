@@ -31,8 +31,6 @@ public class Entity {
         this.texture = texture;
     }
 
-
-
     public Entity(Vector3 position, int width, int height) { // used to create non-obstacles
         this.position = position;
         this.width = width;

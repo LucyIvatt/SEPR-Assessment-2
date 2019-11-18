@@ -1,7 +1,9 @@
 package com.mygdx.game.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Test;
 import com.mygdx.game.sprites.Entity;
 import com.mygdx.game.sprites.Unit;
@@ -11,6 +13,8 @@ public class PlayState extends State {
     private Unit test;
     private Entity obstacle;
 
+    Vector3 touchPos;
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("playbg.png");
@@ -19,6 +23,10 @@ public class PlayState extends State {
 
     @Override
     public void handleInput() {
+        if (Gdx.input.isTouched()) {
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+
+        }
     }
 
     @Override

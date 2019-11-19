@@ -18,7 +18,6 @@ public class EndState extends State{
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             gsm.pop();
         }
-
     }
 
     @Override

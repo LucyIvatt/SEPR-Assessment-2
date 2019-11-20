@@ -31,8 +31,7 @@ public class MenuState extends State {
         else {
             buttonTexture = new Texture("blue_button00.png");
         }
-        System.out.println(position);
-        }
+    }
 
     @Override
     public void update(float dt) {

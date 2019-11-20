@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Test extends ApplicationAdapter {
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 700;
-
 	public static final String TITLE = "Test Game";
 
 	private GameStateManager gsm;

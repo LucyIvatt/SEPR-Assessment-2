@@ -26,7 +26,7 @@ public class PlayState extends State {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             gsm.push(new EndState(gsm));
         }
-        truckMovement(obstacle);
+//        truckMovement(obstacle);
     }
 
     @Override

@@ -1,10 +1,6 @@
 package com.mygdx.game.sprites;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-
-public abstract class Unit extends Entity {
+public abstract class Unit extends TestEntity {
     private int maxHealth;
     private int currentHealth;
     private int range;

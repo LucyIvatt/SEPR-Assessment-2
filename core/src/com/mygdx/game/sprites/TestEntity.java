@@ -5,11 +5,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-public class Entity {
+public class TestEntity {
     private static final int SPEED = 10;
     private Texture texture;
     private Vector3 position;
-    private Vector3 velocity;
     private int width;
     private int height;
 
@@ -44,35 +43,31 @@ public class Entity {
         this.texture = texture;
     }
 
-    public Entity(Vector3 position, int width, int height) { // used to create non-obstacles
+    public TestEntity(Vector3 position, int width, int height) { // used to create non-obstacles
         this.position = position;
         this.width = width;
         this.height = height;
         this.texture = new Texture("exampleUnit.png");
-        velocity = new Vector3(0, 0, 0);
     }
 
-    public Entity(Texture texture, Vector3 position, int width, int height) { // used when creating inherited objects
+    public TestEntity(Texture texture, Vector3 position, int width, int height) { // used when creating inherited objects
         this.texture = texture;
         this.position = position;
         this.width = width;
         this.height = height;
-        velocity = new Vector3(0, 0, 0);
     }
 
-    public Entity(int x, int y) { // Default constructor for easy testing
+    public TestEntity(int x, int y) { // Default constructor for easy testing
         this.texture = new Texture("exampleUnit.png");
         this.position = new Vector3(x, y, 0);
         this.width = 100;
         this.height = 100;
-        velocity = new Vector3(0, 0, 0);
     }
 
-    public Entity() {
+    public TestEntity() {
         this.texture = new Texture("exampleUnit.png");
         this.position = new Vector3(50, 50, 0);
         this.width = 100;
         this.height = 100;
-        velocity = new Vector3(0, 0, 0);
     }
 }

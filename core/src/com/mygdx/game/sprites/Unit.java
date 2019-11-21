@@ -1,6 +1,6 @@
 package com.mygdx.game.sprites;
 
-public abstract class Unit extends TestEntity {
+public abstract class Unit extends TestEntity { //needs to be changed to extend entity
     private int maxHealth;
     private int currentHealth;
     private int range;

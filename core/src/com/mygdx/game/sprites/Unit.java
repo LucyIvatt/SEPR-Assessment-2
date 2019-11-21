@@ -5,6 +5,10 @@ public abstract class Unit extends TestEntity {
     private int currentHealth;
     private int range;
 
+    public Unit() {
+        super();
+    }
+
     public int getMaxHealth() {
         return maxHealth;
     }

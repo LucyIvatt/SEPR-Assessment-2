@@ -27,6 +27,9 @@ public class MenuState extends State {
         position = new Vector2(Gdx.input.getX(), 700 - Gdx.input.getY());
         if (position.x >= 300 && position.x <= 300 + 100 && position.y >= 200 && position.y <= 200 + 20) {
             buttonTexture = new Texture("green_button00.png");
+            if (Gdx.input.isTouched()) {
+                gsm.set(new PlayState(gsm));
+            }
             }
         else {
             buttonTexture = new Texture("blue_button00.png");

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.mygdx.game.Button;
 import com.mygdx.game.Test;
 
@@ -12,13 +11,12 @@ public class MenuState extends State {
 
     private Texture background;
     private Button play;
-    private Vector2 position;
 
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("menuExample.png");
-        play = new Button(new Texture("blue.jpg"), new Texture("green.jpg"), 100, 20, new Vector2(300, 200));
+        play = new Button(new Texture("blue.jpg"), new Texture("green.jpg"), 400, 60, new Vector2(300, 200));
 
     }
 
@@ -45,7 +43,7 @@ public class MenuState extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
         sb.draw(background, 0, 0, Test.WIDTH, Test.HEIGHT);
-        sb.draw(play.getTexture(), 300, 200, 100, 20);
+        sb.draw(play.getTexture(), play.getPosition().x, play.getPosition().y, play.getWidth(), play.getHeight());
         sb.end();
 
     }

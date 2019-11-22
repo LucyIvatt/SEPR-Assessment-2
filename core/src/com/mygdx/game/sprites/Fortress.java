@@ -9,7 +9,7 @@ public class Fortress extends Unit {
 
     public Fortress(int posX, int posY, int maxHealth, int currentHealth, int range, int spawnRate, String img) {
         // (posX, posY, width, height, active, maxHealth, currentHealth, range)
-        super(); // expecting unit to take these arguments for its constructor
+        super(); 
         this.spawnRate = spawnRate;
         this.fortressImg = img;
     }

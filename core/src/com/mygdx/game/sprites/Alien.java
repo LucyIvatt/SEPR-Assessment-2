@@ -9,8 +9,8 @@ public class Alien extends Character {
     private long timeWhenLastMoved = 0;
     private float timeInterval = 0.001f;
 
-
-    public Alien (Vector3[] wayPoints){
+    public Alien (Vector3[] wayPoints, Unit target, int speed, int dps, int bearing){
+        super(target, speed, dps, bearing);
         this.wayPoints = wayPoints;
         setBearing(0);
         setTarget(null);

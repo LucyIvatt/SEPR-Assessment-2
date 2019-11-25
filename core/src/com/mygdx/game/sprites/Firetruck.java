@@ -11,6 +11,7 @@ public class Firetruck extends Character {
     private boolean selected;
     private int BORDER; //move to more suitable place
 
+
     // Getters and Setters
     public int getMax_water() {
         return max_water;
@@ -32,20 +33,47 @@ public class Firetruck extends Character {
         this.selected = selected;
     }
 
-    // constructor
-    public Firetruck(int max_water, boolean selected) {
+    // Constructor
+    public Firetruck(int max_water, boolean selected, Unit target, int speed, int dps, int bearing) {
+        super(target, speed, dps, bearing);
         this.max_water = max_water;
         this.current_water = max_water;
         this.selected = selected;
     }
 
+    // Attack alien/fortress
+    public void firetruckAttack(Unit target, int current_water){
+
+        if (this.current_water == 0){
+            //tell them to move to refill square to refill
+        } else {
+            setCurrent_water(current_water - 10);
+            target.takeDamage();
+        }
+    }
+
+    // Refill water level of firetruck
     public void refillWater(){
         //need to call the mini-game
     }
 
+    // Set which firetruck is selected
     public void select(){
-        // make the selected attribute true for the selected firetruck and make the rest false
+        // make the 'selected' attribute true for the selected firetruck and make the rest false
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    public void moveTruck(){
 //        //move up by 10 unless the firetruck is at the top of the border already

@@ -83,4 +83,9 @@ public class Button {
         Vector2 mousePos = new Vector2(Gdx.input.getX(), Test.HEIGHT - Gdx.input.getY());
         return (mousePos.x >= (position.x) && mousePos.x <= (position.x + width) && mousePos.y >= (position.y) && mousePos.y <= (position.y + height));
     }
+
+    public boolean clickInRegion(int x, int y) {
+        return (x >= position.x && x <= (position.x + width) && Test.HEIGHT - y >= position.y && Test.HEIGHT - y <= (position.y + height));
+
+    }
 }

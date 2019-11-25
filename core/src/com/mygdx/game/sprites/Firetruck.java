@@ -48,7 +48,7 @@ public class Firetruck extends Character {
             //tell them to move to refill square to refill
         } else {
             setCurrent_water(current_water - 10);
-            target.takeDamage();
+            target.takeDamage(10);
         }
     }
 

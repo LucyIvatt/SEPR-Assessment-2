@@ -22,22 +22,23 @@ public class MenuState extends State implements InputProcessor {
         background = new Texture("menuExample.png");
         play = new Button(new Texture("blue.jpg"), new Texture("green.jpg"), 400, 60, new Vector2(300, 200));
         musicToggle = new Button(new Texture("blue.jpg"), new Texture("green.jpg"), 400, 60, new Vector2(300, 400));
-        settings = Gdx.app.getPreferences("My Preferences");
-        settings.putBoolean("music", true);
         Gdx.input.setInputProcessor(this);
+        settings = Gdx.app.getPreferences("My Preferences");
     }
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//        if (screenX >= (musicToggle.getPosition().x) && musicToggle.getPosition().x <= (musicToggle.getPosition().x + musicToggle.getWidth()) && screenY >= (musicToggle.getPosition().y) && screenY <= (musicToggle.getPosition().y + musicToggle.getHeight())){
-        if (settings.getBoolean("music") == true) {
-            settings.putBoolean("music", false);
-        }
-        else {
-            settings.putBoolean("music", true);
+        if (musicToggle.clickInRegion(screenX, screenY)) {
+            if (settings.getBoolean("music")) {
+                settings.putBoolean("music", false);
+            } else {
+                settings.putBoolean("music", true);
+            }
+
+            System.out.println(settings.getBoolean("music"));
+            System.out.println("END");
+            return false;
         }
 
-        System.out.println(settings.getBoolean("music"));
-        System.out.println("END");
         return false;
     }
     @Override

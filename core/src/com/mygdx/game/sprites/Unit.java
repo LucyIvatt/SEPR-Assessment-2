@@ -62,8 +62,21 @@ public abstract class Unit extends TestEntity { //needs to be changed to extend 
         
         return false;
     }
+
+    public void healHealth(int heal){
+        int newHealth = getCurrentHealth() + heal;
+        if (newHealth > maxHealth) {
+            newHealth = maxHealth;
+        }
+        setCurrentHealth(newHealth);
+    }
     
-    public void takeDamage() {
-    	
+    public void takeDamage(int damage) {
+        int newHealth = getCurrentHealth() - damage;
+        if (isDead()) {
+            // don't know how we're dealing with this atm
+        } else {
+            setCurrentHealth(newHealth);
+        }
     }
 }

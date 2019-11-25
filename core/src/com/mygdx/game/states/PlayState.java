@@ -6,19 +6,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Test;
+import com.mygdx.game.sprites.Entity;
 import com.mygdx.game.sprites.TestEntity;
 
 public class PlayState extends State {
 
     private Texture background;
-    private TestEntity obstacle;
+    private Entity obstacle;
     private Vector3 touchPos;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         // https://github.com/libgdx/libgdx/wiki/Tile-maps possible way of making a map?
         background = new Texture("playbg.png");
-        obstacle = new TestEntity(500, 400);
+        Texture ob = new Texture("exampleUnit.png");
+        obstacle = new Entity(500, 400, 100, 100, ob);
     }
 
     @Override

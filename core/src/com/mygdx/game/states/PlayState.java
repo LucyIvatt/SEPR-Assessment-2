@@ -6,21 +6,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Test;
-import com.mygdx.game.sprites.Entity;
 import com.mygdx.game.sprites.TestEntity;
+//import com.mygdx.game.sprites.Firetruck;
 
 public class PlayState extends State {
 
     private Texture background;
-    private Entity obstacle;
+    private TestEntity obstacle;
     private Vector3 touchPos;
+    //private Firetruck firetruck;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         // https://github.com/libgdx/libgdx/wiki/Tile-maps possible way of making a map?
         background = new Texture("playbg.png");
-        Texture ob = new Texture("exampleUnit.png");
-        obstacle = new Entity(500, 400, 100, 100, ob);
+        obstacle = new TestEntity(500, 400);
+        //firetruck = new Firetruck(400, true);
     }
 
     @Override
@@ -28,6 +29,7 @@ public class PlayState extends State {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             gsm.push(new EndState(gsm));
         }
+
 //        truckMovement(obstacle);
     }
 

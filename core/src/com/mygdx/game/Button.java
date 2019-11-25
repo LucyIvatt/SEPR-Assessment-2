@@ -31,12 +31,56 @@ public class Button {
         }
     }
 
+    public Texture getOnTexture() {
+        return onTexture;
+    }
+
+    public void setOnTexture(Texture onTexture) {
+        this.onTexture = onTexture;
+    }
+
+    public Texture getOffTexture() {
+        return offTexture;
+    }
+
+    public void setOffTexture(Texture offTexture) {
+        this.offTexture = offTexture;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
     public void setActive(boolean active) {
         this.active = active;
     }
 
     public boolean mouseInRegion() {
-        Vector2 mousePos = new Vector2(Gdx.input.getX(), 700 - Gdx.input.getY());
+        Vector2 mousePos = new Vector2(Gdx.input.getX(), Test.HEIGHT - Gdx.input.getY());
         return (mousePos.x >= (position.x) && mousePos.x <= (position.x + width) && mousePos.y >= (position.y) && mousePos.y <= (position.y + height));
     }
 }

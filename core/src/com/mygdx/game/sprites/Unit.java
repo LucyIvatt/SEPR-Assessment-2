@@ -1,9 +1,43 @@
 package com.mygdx.game.sprites;
 
-public abstract class Unit extends TestEntity {
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
+
+public abstract class Unit extends TestEntity { //needs to be changed to extend entity
     private int maxHealth;
     private int currentHealth;
     private int range;
+    
+    private Texture texture;
+    
+    public Unit() { // Default constructor for easy testing
+    	super();
+    	this.maxHealth = 100;
+        this.currentHealth = 100;
+        this.range = 5;
+    }
+
+    public Unit(Vector3 position, int width, int height) { // Default constructor
+        super(position, width, height);
+        this.maxHealth = 100;
+        this.currentHealth = 100;
+        this.range = 5;
+    }
+    
+    public Unit(Vector3 position, int width, int height, int maxHealth) { 
+        super(position, width, height);
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
+        this.range = 5;
+    }
+    
+    public Unit(Vector3 position, int width, int height, int maxHealth, int range) { 
+        super(position, width, height);
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
+        this.range = range;
+    }
+    
 
     public int getMaxHealth() {
         return maxHealth;
@@ -21,12 +55,28 @@ public abstract class Unit extends TestEntity {
         this.currentHealth = currentHealth;
     }
 
-    public boolean is_dead() {
+    public boolean isDead() {
         if(this.currentHealth == 0) {
             return true;
         }
-        else {
-            return false;
+        
+        return false;
+    }
+
+    public void healHealth(int heal){
+        int newHealth = getCurrentHealth() + heal;
+        if (newHealth > maxHealth) {
+            newHealth = maxHealth;
+        }
+        setCurrentHealth(newHealth);
+    }
+    
+    public void takeDamage(int damage) {
+        int newHealth = getCurrentHealth() - damage;
+        if (isDead()) {
+            // don't know how we're dealing with this atm
+        } else {
+            setCurrentHealth(newHealth);
         }
     }
 }

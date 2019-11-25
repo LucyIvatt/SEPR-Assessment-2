@@ -33,9 +33,6 @@ public class MenuState extends State implements InputProcessor {
             } else {
                 settings.putBoolean("music", true);
             }
-
-            System.out.println(settings.getBoolean("music"));
-            System.out.println("END");
             return false;
         }
 

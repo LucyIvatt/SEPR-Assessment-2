@@ -2,9 +2,10 @@ package com.mygdx.game.sprites;
 
 import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 import java.util.Timer;
 import java.util.TimerTask;
+import com.badlogic.gdx.math.Vector3;
 
 public class Fortress extends Unit {
 
@@ -12,10 +13,23 @@ public class Fortress extends Unit {
     private String fortressImg;
     private Texture texture;
     private Timer timer = new Timer();
+    private ArrayList<Alien> aliens;
 
-    public Fortress(int posX, int posY, int maxHealth, int currentHealth, int range, int spawnRate, String img) {
-        // (posX, posY, width, height, active, maxHealth, currentHealth, range)
-        super();
+
+     public Fortress(int width, int height, Texture texture, Vector2 position) { // Default constructor
+        super(width, height, texture, position);
+        this.spawnRate = 5;
+        this.fortressImg = "fortress";
+    }
+
+    public Fortress(int width, int height, Texture texture, Vector2 position, String img) { // basic fortress
+        super(width, height, texture, position);
+        this.spawnRate = 5;
+        this.fortressImg = img;
+    }
+
+    public Fortress(int width, int height, Texture texture, Vector2 position, String img, int spawnRate) {
+        super(width, height, texture, position);
         this.spawnRate = spawnRate;
         this.fortressImg = img;
     }
@@ -44,3 +58,6 @@ public class Fortress extends Unit {
         }
     }
 }
+
+// check alien way points dont over lap
+//

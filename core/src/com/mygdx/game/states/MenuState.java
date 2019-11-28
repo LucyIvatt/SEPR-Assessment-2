@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Button;
 import com.mygdx.game.Test;
+import com.badlogic.gdx.audio.Music;
 
 public class MenuState extends State implements InputProcessor {
 
@@ -15,6 +16,7 @@ public class MenuState extends State implements InputProcessor {
     private Button play;
     private Button musicToggle;
     private Preferences settings;
+    private Music bgMusic;
 
 
     public MenuState(GameStateManager gsm) {
@@ -22,22 +24,22 @@ public class MenuState extends State implements InputProcessor {
         background = new Texture("menuExample.png");
         play = new Button(new Texture("blue.jpg"), new Texture("green.jpg"), 400, 60, new Vector2(300, 200));
         musicToggle = new Button(new Texture("blue.jpg"), new Texture("green.jpg"), 400, 60, new Vector2(300, 400));
-        settings = Gdx.app.getPreferences("My Preferences");
-        settings.putBoolean("music", true);
         Gdx.input.setInputProcessor(this);
+        settings = Gdx.app.getPreferences("My Preferences");
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("core/assets/totallynottheskyrimtheme.mp3"));
+        bgMusic.play();
     }
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//        if (screenX >= (musicToggle.getPosition().x) && musicToggle.getPosition().x <= (musicToggle.getPosition().x + musicToggle.getWidth()) && screenY >= (musicToggle.getPosition().y) && screenY <= (musicToggle.getPosition().y + musicToggle.getHeight())){
-        if (settings.getBoolean("music") == true) {
-            settings.putBoolean("music", false);
-        }
-        else {
-            settings.putBoolean("music", true);
+        if (musicToggle.clickInRegion(screenX, screenY)) {
+            if (settings.getBoolean("music")) {
+                settings.putBoolean("music", false);
+            } else {
+                settings.putBoolean("music", true);
+            }
+            return false;
         }
 
-        System.out.println(settings.getBoolean("music"));
-        System.out.println("END");
         return false;
     }
     @Override
@@ -90,6 +92,13 @@ public class MenuState extends State implements InputProcessor {
 
         if (musicToggle.mouseInRegion()) {
             musicToggle.setActive(true);
+            if (Gdx.input.isTouched()) {
+                if (bgMusic.isPlaying()){
+                    bgMusic.pause();
+                }else{
+                    bgMusic.play();
+                }
+            }
         } else {
             musicToggle.setActive(false);
         }

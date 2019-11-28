@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Preferences;
 import com.mygdx.game.states.GameStateManager;
 import com.mygdx.game.states.MenuState;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -14,6 +15,7 @@ public class Test extends ApplicationAdapter {
 
 	private GameStateManager gsm;
 	private SpriteBatch batch;
+	private Preferences settings;
 	
 	@Override
 	public void create () {
@@ -21,6 +23,8 @@ public class Test extends ApplicationAdapter {
 		gsm = new GameStateManager();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gsm.push(new MenuState(gsm));
+		settings = Gdx.app.getPreferences("My Preferences");
+		settings.putBoolean("music", true);
 	}
 
 	@Override

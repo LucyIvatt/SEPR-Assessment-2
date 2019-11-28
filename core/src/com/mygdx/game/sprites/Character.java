@@ -6,6 +6,15 @@ public abstract class Character extends Unit {
     private int dps;
     private int bearing;
 
+    // Constructor
+    public Character(Unit target, int speed, int dps, int bearing){
+        this.target = target;
+        this.speed = speed;
+        this.dps = dps;
+        this.bearing = bearing;
+    }
+
+    // Getters and Setters
     public Unit getTarget() {
         return target;
     }
@@ -29,4 +38,6 @@ public abstract class Character extends Unit {
     public void setBearing(int bearing) {
         this.bearing = bearing;
     }
+
+
 }

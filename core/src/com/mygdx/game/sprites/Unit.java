@@ -95,7 +95,7 @@ public abstract class Unit extends Entity {
     }
 
     // checks if a fireTruck is in the search area can be extended to check if walls are in front of firetrucks
-    public boolean isInArea(Vector3 fireTruck, Vector3[] location){
+    public boolean isInArea(Vector2 fireTruck, Vector2[] location){
         if (fireTruck.x <= location[1].x && fireTruck.x >= location[0].x && fireTruck.y <= location[0].y && fireTruck.y >= location[2].y){
             return true;
         } else

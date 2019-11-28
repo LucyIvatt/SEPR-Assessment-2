@@ -35,7 +35,7 @@ public class Alien extends Character {
 
     // checks for fireTrucks in sight area and sets as target if found
     private void seeTarget(){
-        Vector3[] squaresInSight = createHitBox();
+        Vector2[] squaresInSight = createHitBox();
         Firetruck[] allFireTrucks = getAllFireTrucks();
         boolean hasTarget = false;
         for (int i =0; i < allFireTrucks.length;i++){
@@ -64,7 +64,7 @@ public class Alien extends Character {
 
 
     // translation equations returns a new vector
-    private Vector3 translate(Vector2 destination, Vector2 currentPos){
+    private Vector2 translate(Vector2 destination, Vector2 currentPos){
         Vector2 nextPos = new Vector2();
         float dx = destination.x-currentPos.x;
         float dy = destination.y -currentPos.y;

@@ -10,53 +10,28 @@ public abstract class Unit extends Entity {
     private int range;
 
     private Texture texture;
-<<<<<<< HEAD
-=======
 
-    public Unit() { // Default constructor for easy testing
-        super();
-        this.maxHealth = 100;
-        this.currentHealth = 100;
-        this.range = 5;
-    }
->>>>>>> a1078823cf3dbdd9fc49a87f0fd7fd2c1ab8107f
 
-    public Unit(Vector2 position, int width, int height, Texture texture) { // Default constructor
+    public Unit(int width, int height, Texture texture, Vector2 position) { // Default constructor
         super(width, height, texture, position);
         this.maxHealth = 100;
         this.currentHealth = 100;
         this.range = 5;
     }
-<<<<<<< HEAD
-    
+
     public Unit(int width, int height, Texture texture, Vector2 position, int maxHealth) {
         super(width, height, texture, position);
-=======
-
-    public Unit(Vector3 position, int width, int height, int maxHealth) {
-        super(position, width, height);
->>>>>>> a1078823cf3dbdd9fc49a87f0fd7fd2c1ab8107f
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.range = 5;
     }
-<<<<<<< HEAD
     
     public Unit(Vector2 position, int width, int height, int maxHealth, int range, Texture texture) {
         super(width, height, texture, position);
-=======
-
-    public Unit(Vector3 position, int width, int height, int maxHealth, int range) {
-        super(position, width, height);
->>>>>>> a1078823cf3dbdd9fc49a87f0fd7fd2c1ab8107f
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.range = range;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> a1078823cf3dbdd9fc49a87f0fd7fd2c1ab8107f
 
     public int getMaxHealth() {
         return maxHealth;
@@ -100,9 +75,9 @@ public abstract class Unit extends Entity {
     }
 
     // hit boxes are arrays with length 4, where each vector3 represents the corners of the hitbox
-    public Vector3[] createHitBox(){
-        Vector3[] hitBox = new Vector3[4];
-        Vector3 currentSquare = getPosition();
+    public Vector2[] createHitBox(){
+        Vector2[] hitBox = new Vector2[4];
+        Vector2 currentSquare = getPosition();
         int range = getRange();
         //TL
         hitBox[0].x = currentSquare.x - range;

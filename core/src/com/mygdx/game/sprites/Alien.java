@@ -1,6 +1,7 @@
 package com.mygdx.game.sprites;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.states.GameStateManager;
 
 public class Alien extends Character {
 
@@ -8,12 +9,14 @@ public class Alien extends Character {
     private int currentWP; //The current index of
     private long timeWhenLastMoved = 0;
     private float timeInterval = 0.05f;
+    private float timeWhenLastAttacked = 0;
 
     public Alien (Vector3[] wayPoints, Unit target, int speed, int dps, int bearing){
         super(target, speed, dps, bearing);
         this.wayPoints = wayPoints;
         setBearing(0);
         setTarget(null);
+        setPosition(wayPoints[0].x, wayPoints[0].y);
     }
 
     // is called each frame
@@ -21,39 +24,12 @@ public class Alien extends Character {
         moveTo();
         seeTarget();
     }
-    // hit boxes are arrays with length 4, where each vector3 represents the corners of the hitbox
-    private Vector3[] createHitBox(){
-        Vector3[] hitBox = new Vector3[4];
-        Vector3 currentSquare = getPosition();
-        int range = getRange();
-        //TL
-        hitBox[0].x = currentSquare.x - range;
-        hitBox[0].y = currentSquare.y + range;
-        //TR
-        hitBox[1].x = currentSquare.x + range;
-        hitBox[1].y = currentSquare.y + range;
-        //BL
-        hitBox[2].x = currentSquare.x - range;
-        hitBox[2].y = currentSquare.y - range;
-        //BR
-        hitBox[3].x = currentSquare.x + range;
-        hitBox[3].y = currentSquare.y - range;
-        return hitBox;
-    }
 
     // gets an array of all fireTrucks in game
     private Firetruck[] getAllFireTrucks(){
         Firetruck[] alltrucks = new Firetruck[4];
         // must access a method in game state manager or something?
         return alltrucks;
-    }
-
-    // checks if a fireTruck is in the search area can be extended to check if walls are in front of firetrucks
-    private boolean isInArea(Vector3 fireTruck, Vector3[] location){
-        if (fireTruck.x <= location[1].x && fireTruck.x >= location[0].x && fireTruck.y <= location[0].y && fireTruck.y >= location[2].y){
-            return true;
-        } else
-            return false;
     }
 
     // checks for fireTrucks in sight area and sets as target if found
@@ -86,6 +62,7 @@ public class Alien extends Character {
     }
 
 
+    // translation equations returns a new vector
     private Vector3 translate(Vector3 destination, Vector3 currentPos){
         Vector3 nextPos = new Vector3();
         float dx = destination.x-currentPos.x;
@@ -107,6 +84,18 @@ public class Alien extends Character {
             Vector3 newPos = translate(wayPoints[currentWP], getPosition());
             setPosition(newPos.x, newPos.y);
             timeWhenLastMoved = System.currentTimeMillis();
+        }
+    }
+
+    // Attacks target if a target is set
+    private void attackIfInRange(){
+        // if the target is not null: meaning that there is a target present
+        if (getTarget() != null){
+            // presumably 1000 here represent a second
+            if (System.currentTimeMillis() > timeWhenLastAttacked + 1000) {
+                timeWhenLastAttacked = System.currentTimeMillis();
+                getTarget().takeDamage(getDps());
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.mygdx.game.sprites;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.states.GameStateManager;
 
 public class Alien extends Character {
 

@@ -92,7 +92,6 @@ public class Alien extends Character {
 
             timeWhenLastMoved = System.currentTimeMillis();
         }
-        // need to get the time of the game to be able to make this functions
     }
 
 

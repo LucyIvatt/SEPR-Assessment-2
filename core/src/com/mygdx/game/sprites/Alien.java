@@ -7,7 +7,7 @@ public class Alien extends Character {
     private Vector3[] wayPoints;
     private int currentWP; //The current index of
     private long timeWhenLastMoved = 0;
-    private float timeInterval = 0.001f;
+    private float timeInterval = 0.05f;
 
     public Alien (Vector3[] wayPoints, Unit target, int speed, int dps, int bearing){
         super(target, speed, dps, bearing);
@@ -85,14 +85,27 @@ public class Alien extends Character {
         }
     }
 
+
+    private Vector3 translate(Vector3 destination, Vector3 currentPos){
+        Vector3 nextPos = new Vector3();
+        float dx = destination.x-currentPos.x;
+        float dy = destination.y -currentPos.y;
+        double length = Math.sqrt(dx*dx+dy*dy);
+        dx/=length;
+        dy/=length;
+        dx *= getSpeed();
+        dy *= getSpeed();
+        nextPos.x += dx;
+        nextPos.y += dy;
+        return nextPos;
+    }
+
     // Moves the alien between the wayPoints
     private void moveTo(){
-        Vector3 destination = wayPoints[currentWP];
-        Vector3 currentPos = getPosition();
-        Vector3 nextPos;
-        nextPos = currentPos;
+
         if (System.currentTimeMillis() > timeWhenLastMoved + timeInterval){
-            currentPos = nextPos;
+            Vector3 newPos = translate(wayPoints[currentWP], getPosition());
+            setPosition(newPos.x, newPos.y);
             timeWhenLastMoved = System.currentTimeMillis();
         }
     }

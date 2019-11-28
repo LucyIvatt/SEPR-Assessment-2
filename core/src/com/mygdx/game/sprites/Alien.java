@@ -8,12 +8,14 @@ public class Alien extends Character {
     private int currentWP; //The current index of
     private long timeWhenLastMoved = 0;
     private float timeInterval = 0.05f;
+    private float timeWhenLastAttacked = 0;
 
     public Alien (Vector3[] wayPoints, Unit target, int speed, int dps, int bearing){
         super(target, speed, dps, bearing);
         this.wayPoints = wayPoints;
         setBearing(0);
         setTarget(null);
+        setPosition(wayPoints[0].x, wayPoints[0].y);
     }
 
     // is called each frame
@@ -86,6 +88,7 @@ public class Alien extends Character {
     }
 
 
+    // translation equations returns a new vector
     private Vector3 translate(Vector3 destination, Vector3 currentPos){
         Vector3 nextPos = new Vector3();
         float dx = destination.x-currentPos.x;
@@ -107,6 +110,18 @@ public class Alien extends Character {
             Vector3 newPos = translate(wayPoints[currentWP], getPosition());
             setPosition(newPos.x, newPos.y);
             timeWhenLastMoved = System.currentTimeMillis();
+        }
+    }
+
+    // Attacks target if a target is set
+    private void attackIfInRange(){
+        // if the target is not null: meaning that there is a target present
+        if (getTarget() != null){
+            // presumably 1000 here represent a second
+            if (System.currentTimeMillis() > timeWhenLastAttacked + 1000) {
+                timeWhenLastAttacked = System.currentTimeMillis();
+                getTarget().takeDamage(getDps());
+            }
         }
     }
 

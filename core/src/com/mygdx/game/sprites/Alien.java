@@ -1,17 +1,17 @@
 package com.mygdx.game.sprites;
 import com.badlogic.gdx.math.Vector;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.states.GameStateManager;
 
 public class Alien extends Character {
 
-    private Vector3[] wayPoints;
+    private Vector2[] wayPoints;
     private int currentWP; //The current index of
     private long timeWhenLastMoved = 0;
     private float timeInterval = 0.05f;
     private float timeWhenLastAttacked = 0;
 
-    public Alien (Vector3[] wayPoints, Unit target, int speed, int dps, int bearing){
+    public Alien (Vector2[] wayPoints, Unit target, int speed, int dps, int bearing){
         super(target, speed, dps, bearing);
         this.wayPoints = wayPoints;
         setBearing(0);
@@ -23,6 +23,7 @@ public class Alien extends Character {
     public void update(){
         moveTo();
         seeTarget();
+        attackIfInRange();
     }
 
     // gets an array of all fireTrucks in game
@@ -63,8 +64,8 @@ public class Alien extends Character {
 
 
     // translation equations returns a new vector
-    private Vector3 translate(Vector3 destination, Vector3 currentPos){
-        Vector3 nextPos = new Vector3();
+    private Vector3 translate(Vector2 destination, Vector2 currentPos){
+        Vector2 nextPos = new Vector2();
         float dx = destination.x-currentPos.x;
         float dy = destination.y -currentPos.y;
         double length = Math.sqrt(dx*dx+dy*dy);
@@ -81,7 +82,7 @@ public class Alien extends Character {
     private void moveTo(){
 
         if (System.currentTimeMillis() > timeWhenLastMoved + timeInterval){
-            Vector3 newPos = translate(wayPoints[currentWP], getPosition());
+            Vector2 newPos = translate(wayPoints[currentWP], getPosition());
             setPosition(newPos.x, newPos.y);
             timeWhenLastMoved = System.currentTimeMillis();
         }

@@ -7,15 +7,15 @@ import com.badlogic.gdx.math.Vector3;
 public class Entity {
 
     private Texture texture;
-    private Vector3 position;
+    private Vector2 position;
     private int width;
     private int height;
 
-    public void setPosition(float x, float y) {
-        this.position = new Vector3(x, y, 0);
+    public void setPosition(int x, int y) {
+        this.position = new Vector2(x, y);
     }
 
-    public Vector3 getPosition() {
+    public Vector2 getPosition() {
         return position;
     }
 
@@ -35,8 +35,8 @@ public class Entity {
         this.texture = texture;
     }
 
-    public Entity(int x, int y, int width, int height, Texture texture) {
-        this.position = new Vector3(x, y, 0);
+    public Entity(int width, int height, Texture texture, Vector2 position) {
+        this.position = position;
         this.width = width;
         this.height = height;
         this.texture = texture;

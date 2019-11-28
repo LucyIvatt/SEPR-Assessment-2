@@ -41,9 +41,8 @@ public class Firetruck extends Character {
         this.selected = selected;
     }
 
-    // Attack alien/fortress
+    // User attacks alien/fortress and firetruck water level decreases
     public void firetruckAttack(Unit target, int current_water){
-
         if (this.current_water == 0){
             //tell them to move to refill square to refill
         } else {

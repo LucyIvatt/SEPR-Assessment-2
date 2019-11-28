@@ -1,43 +1,36 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-public abstract class Unit extends TestEntity { //needs to be changed to extend entity
+public abstract class Unit extends Entity {
     private int maxHealth;
     private int currentHealth;
     private int range;
     
     private Texture texture;
-    
-    public Unit() { // Default constructor for easy testing
-    	super();
-    	this.maxHealth = 100;
-        this.currentHealth = 100;
-        this.range = 5;
-    }
 
-    public Unit(Vector3 position, int width, int height) { // Default constructor
-        super(position, width, height);
+    public Unit(Vector2 position, int width, int height, Texture texture) { // Default constructor
+        super(width, height, texture, position);
         this.maxHealth = 100;
         this.currentHealth = 100;
         this.range = 5;
     }
     
-    public Unit(Vector3 position, int width, int height, int maxHealth) { 
-        super(position, width, height);
+    public Unit(int width, int height, Texture texture, Vector2 position, int maxHealth) {
+        super(width, height, texture, position);
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.range = 5;
     }
     
-    public Unit(Vector3 position, int width, int height, int maxHealth, int range) { 
-        super(position, width, height);
+    public Unit(Vector2 position, int width, int height, int maxHealth, int range, Texture texture) {
+        super(width, height, texture, position);
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.range = range;
     }
-    
 
     public int getMaxHealth() {
         return maxHealth;

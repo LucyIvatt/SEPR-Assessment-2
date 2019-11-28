@@ -1,15 +1,21 @@
 package com.mygdx.game.sprites;
 
 import java.util.ArrayList;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Fortress extends Unit {
 
     private int spawnRate;
     private String fortressImg;
+    private Texture texture;
+    private Timer timer = new Timer();
 
     public Fortress(int posX, int posY, int maxHealth, int currentHealth, int range, int spawnRate, String img) {
         // (posX, posY, width, height, active, maxHealth, currentHealth, range)
-        super(); 
+        super();
         this.spawnRate = spawnRate;
         this.fortressImg = img;
     }
@@ -23,10 +29,18 @@ public class Fortress extends Unit {
     }
 
     public void produceAlien(int spawnRate) {
-        //ArrayList<Object> aliens = new ArrayList<Object>(); // use a get method to get list of current aliens on map
+        Firetruck ft = new Firetruck(50, True, new Unit(), 10, 5, 0); // List of firetrucks from current gamestate?
+        ArrayList<String> aliens = new ArrayList<String>(); // list of aliens in current game state?
 
-        //for (int i=0; i<this.spawnRate; i++) {
-        //    aliens.add(Alien()); // would be an alien
-        //}
+        while (aliens.length() < 20) {
+            timer.schedule(new TimerTask(){
+                @Override
+                public void run() {
+                    aliens.add("alien");
+                }
+            },1000*this.spawnRate,1000*this.spawnRate); // 1000*5=5000 mlsec. i.e. 5 seconds. u can change accordngly
+            // given two times, first is for first time to execute this
+            // code and second is for interval time
+        }
     }
 }

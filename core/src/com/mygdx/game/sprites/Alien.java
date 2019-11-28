@@ -1,4 +1,5 @@
 package com.mygdx.game.sprites;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.states.GameStateManager;
@@ -7,16 +8,16 @@ public class Alien extends Character {
 
     private Vector2[] wayPoints;
     private int currentWP; //The current index of
-    private long timeWhenLastMoved = 0;
-    private float timeInterval = 0.05f;
-    private float timeWhenLastAttacked = 0;
+    private long timeWhenLastMoved;
+    private float timeInterval;
+    private float timeWhenLastAttacked;
 
-    public Alien (Vector2[] wayPoints, Unit target, int speed, int dps, int bearing){
-        super(target, speed, dps, bearing);
+    public Alien(Vector2 position, int width, int height, int maxHealth, int range, Texture texture, Unit target, int speed, int dps, int bearing, Vector2[] wayPoints) {
+        super(position, width, height, maxHealth, range, texture, target, speed, dps, bearing);
         this.wayPoints = wayPoints;
-        setBearing(0);
-        setTarget(null);
-        setPosition(wayPoints[0].x, wayPoints[0].y);
+        this.timeWhenLastMoved = 0;
+        this.timeInterval = 0.05f;
+        this.timeWhenLastAttacked = 0;
     }
 
     // is called each frame
@@ -83,7 +84,7 @@ public class Alien extends Character {
 
         if (System.currentTimeMillis() > timeWhenLastMoved + timeInterval){
             Vector2 newPos = translate(wayPoints[currentWP], getPosition());
-            setPosition(newPos.x, newPos.y);
+            setPosition(    Math.round(newPos.x), Math.round(newPos.y));
             timeWhenLastMoved = System.currentTimeMillis();
         }
     }

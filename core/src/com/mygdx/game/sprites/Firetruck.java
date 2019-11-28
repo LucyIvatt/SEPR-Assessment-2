@@ -2,6 +2,8 @@ package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 public class Firetruck extends Character {
 
@@ -9,7 +11,7 @@ public class Firetruck extends Character {
     private int max_water;
     private int current_water;
     private boolean selected;
-    private int BORDER; //move to more suitable place
+   // private int BORDER; //move to more suitable place
 
 
     // Getters and Setters
@@ -34,17 +36,18 @@ public class Firetruck extends Character {
     }
 
     // Constructor
-    public Firetruck(int max_water, boolean selected, Unit target, int speed, int dps, int bearing) {
-        super(target, speed, dps, bearing);
+    public Firetruck(Vector2 position, int width, int height, int maxHealth, int range, Texture texture, Unit target, int speed, int dps, int bearing, int max_water, int current_water, boolean selected, int BORDER) {
+        super(position, width, height, maxHealth, range, texture, target, speed, dps, bearing);
         this.max_water = max_water;
-        this.current_water = max_water;
-        this.selected = selected;
+        this.current_water = current_water;
+        this.selected = false;
+       // this.BORDER = BORDER;
     }
 
     // User attacks alien/fortress and firetruck water level decreases
     public void firetruckAttack(Unit target, int current_water){
         if (this.current_water == 0){
-            //tell them to move to refill square to refill
+            //show message telling them they have ran out of water and to go refill to continue
         } else {
             setCurrent_water(current_water - 10);
             target.takeDamage(10);
@@ -53,12 +56,13 @@ public class Firetruck extends Character {
 
     // Refill water level of firetruck
     public void refillWater(){
-        //need to call the mini-game
+        //Call Mini-game
     }
 
     // Set which firetruck is selected
-    public void select(){
-        // make the 'selected' attribute true for the selected firetruck and make the rest false
+    public void select(Firetruck firetruck){
+        // when the firetruck is clicked, set the 'selected' attribute for that object true
+
     }
 
 

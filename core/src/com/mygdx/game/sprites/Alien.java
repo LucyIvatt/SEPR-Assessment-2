@@ -87,9 +87,12 @@ public class Alien extends Character {
 
     // Moves the alien between the wayPoints
     private void moveTo(){
-        Vector3 newPos = wayPoints[currentWP];
+        Vector3 destination = wayPoints[currentWP];
+        Vector3 currentPos = getPosition();
+        Vector3 nextPos;
+        nextPos = currentPos;
         if (System.currentTimeMillis() > timeWhenLastMoved + timeInterval){
-
+            currentPos = nextPos;
             timeWhenLastMoved = System.currentTimeMillis();
         }
     }

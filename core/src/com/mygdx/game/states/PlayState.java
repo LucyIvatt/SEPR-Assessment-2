@@ -32,7 +32,7 @@ public class PlayState extends State {
         obstacle = new Entity(100, 100, new Texture("blue.jpg"), new Vector2(500, 400));
         obstacle2 = new Entity(400, 400, new Texture("green.jpg"), new Vector2(400, 100));
         settings = Gdx.app.getPreferences("My Preferences");
-        truck1 = new Firetruck(new Vector2(50, 550), 100, 100, 5, 2, new Texture("truck.png"), null, 5, 10, 10, 10, 10, true, 10);
+        truck1 = new Firetruck(new Vector2(50, 550), 100, 100, 5, 2, new Texture("truck.png"), null, 5, 10, 10, 10, true);
     }
 
     @Override

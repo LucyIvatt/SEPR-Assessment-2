@@ -20,28 +20,28 @@ public class Alien extends Character {
         this.timeInterval = 0.05f;
         this.timeWhenLastAttacked = 0;
     }
-    // is called each frame
-    public void update(){
-        moveTo();
-        seeTarget();
-        attackIfInRange();
-    }
+//    // is called each frame
+//    public void update(){
+//        moveTo();
+//        seeTarget();
+//        attackIfInRange();
+//    }
 
     // create a rectangle with a width and height of range * 2 - COLLISION DETECTION
-    private void seeTarget(){
-        Vector2[] squaresInSight = createHitBox();
-        Firetruck[] allFireTrucks = getAllFireTrucks();
-        boolean hasTarget = false;
-        for (int i =0; i < allFireTrucks.length;i++){
-            if (isInArea(getAllFireTrucks()[i].getPosition(), squaresInSight)){
-                setTarget(getAllFireTrucks()[i]);
-                hasTarget = true;
-            }
-        }
-        if (!hasTarget){
-            setTarget(null);
-        }
-    }
+//    private void seeTarget(){
+//        Vector2[] squaresInSight = createHitBox();
+//        Firetruck[] allFireTrucks = getAllFireTrucks();
+//        boolean hasTarget = false;
+//        for (int i =0; i < allFireTrucks.length;i++){
+//            if (isInArea(getAllFireTrucks()[i].getPosition(), squaresInSight)){
+//                setTarget(getAllFireTrucks()[i]);
+//                hasTarget = true;
+//            }
+//        }
+//        if (!hasTarget){
+//            setTarget(null);
+//        }
+//    }
 
     // checks whether the alien is already at the next wayPoint if so sets the target wayPoint to the next in line
     private void nextWayPoint(){

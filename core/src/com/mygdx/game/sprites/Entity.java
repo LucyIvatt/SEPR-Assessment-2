@@ -10,9 +10,11 @@ public class Entity {
     private Vector2 position;
     private int width;
     private int height;
+    private Vector2 topRight;
 
-    public void setPosition(int x, int y) {
+    public void setPosition(float x, float y) {
         this.position = new Vector2(x, y);
+        this.topRight = new Vector2(x + width, y + height);
     }
 
     public Vector2 getPosition() {
@@ -40,5 +42,10 @@ public class Entity {
         this.width = width;
         this.height = height;
         this.texture = texture;
+        this.topRight = new Vector2(position.x + width, position.y + height);
+    }
+
+    public Vector2 getTopRight() {
+        return topRight;
     }
 }

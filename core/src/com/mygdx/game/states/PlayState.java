@@ -5,26 +5,34 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Test;
+import com.mygdx.game.sprites.Entity;
+import com.mygdx.game.sprites.Firetruck;
 import com.mygdx.game.sprites.TestEntity;
+
+import java.util.ArrayList;
 //import com.mygdx.game.sprites.Firetruck;
 
 public class PlayState extends State {
 
     private Texture background;
-    private TestEntity obstacle;
-    private Vector3 touchPos;
+    private Entity obstacle;
+    private Entity obstacle2;
     private Preferences settings;
-    //private Firetruck firetruck;
+    private Firetruck truck1;
+    public ArrayList<Entity> obstacles = new ArrayList<Entity>();
+    public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         // https://github.com/libgdx/libgdx/wiki/Tile-maps possible way of making a map?
         background = new Texture("playbg.png");
-        obstacle = new TestEntity(500, 400);
+        obstacle = new Entity(100, 100, new Texture("blue.jpg"), new Vector2(500, 400));
+        obstacle2 = new Entity(400, 400, new Texture("green.jpg"), new Vector2(400, 100));
         settings = Gdx.app.getPreferences("My Preferences");
-        //firetruck = new Firetruck(400, true);
+        truck1 = new Firetruck(new Vector2(50, 550), 100, 100, 5, 2, new Texture("truck.png"), null, 5, 10, 10, 10, 10, true, 10);
     }
 
     @Override
@@ -33,11 +41,11 @@ public class PlayState extends State {
             gsm.push(new EndState(gsm));
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.L)) {
             gsm.push(new MenuState(gsm));
         }
 
-//        truckMovement(obstacle);
+        truckMovement(truck1);
     }
 
     @Override
@@ -49,48 +57,58 @@ public class PlayState extends State {
     public void render(SpriteBatch sb) {
         sb.begin();
         sb.draw(background, 0, 0, Test.WIDTH, Test.HEIGHT);
-        sb.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y);
+        sb.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y, obstacle.getWidth(), obstacle.getHeight());
+        sb.draw(obstacle2.getTexture(), obstacle2.getPosition().x, obstacle2.getPosition().y, obstacle2.getWidth(), obstacle2.getHeight());
+        sb.draw(truck1.getTexture(), truck1.getPosition().x, truck1.getPosition().y, 100, 100);
         sb.end();
     }
      // https://stackoverflow.com/questions/33283867/how-to-make-a-sprite-move-with-keyboard-in-javalibgdx?rq=1 source used
     // Should really have a 'SPEED' constant instead of using the number 10 so that it can be changed easily.
 
-//    public void truckMovement(Entity truck) {
-//        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-//            if(truck.getPosition().y == 550) {
-//                truck.setPosition(truck.getPosition().x, 550);
-//            }
-//            else {
-//                truck.move(0, 10);
-//            }
-//        }
-//        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-//            if(truck.getPosition().y == 50) {
-//                truck.setPosition(truck.getPosition().x, 50);
-//            }
-//            else {
-//                truck.move(0, -10);
-//            }
-//        }
-//
-//        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-//            if(truck.getPosition().x == 50) {
-//                truck.setPosition(50, truck.getPosition().y);
-//            }
-//            else {
-//                truck.move(-10, 0);
-//            }
-//        }
-//
-//        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-//            if(truck.getPosition().x == 850) {
-//                truck.setPosition(850, truck.getPosition().y);
-//            }
-//            else {
-//                truck.move(10, 0);
-//            }
-//        }
-//    }
+    public void truckMovement(Firetruck truck) {
+        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            if(truck.getPosition().y == 550) {
+                truck.setPosition(truck.getPosition().x, 550);
+            }
+            else if (truck.willCollide(obstacle2, "up")) {
+            }
+            else {
+                truck.move("up");
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+            if(truck.getPosition().y == 50) {
+                truck.setPosition(truck.getPosition().x, 50);
+            }
+            else if (truck.willCollide(obstacle2, "down")) {
+            }
+            else {
+                truck.move("down");
+            }
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if(truck.getPosition().x == 50) {
+                truck.setPosition(50, truck.getPosition().y);
+            }
+            else if (truck.willCollide(obstacle2, "left")) {
+            }
+            else {
+                truck.move("left");
+            }
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            if(truck.getPosition().x == 850) {
+                truck.setPosition(850, truck.getPosition().y);
+            }
+            else if (truck.willCollide(obstacle2, "right")) {
+            }
+            else {
+                truck.move("right");
+            }
+        }
+    }
 
     @Override
     public void dispose() {

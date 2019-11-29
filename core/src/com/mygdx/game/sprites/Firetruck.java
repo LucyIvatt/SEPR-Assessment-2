@@ -65,6 +65,58 @@ public class Firetruck extends Character {
 
     }
 
+    public void move(String direction) {
+        if (direction == "right") {
+            setPosition(getPosition().x + getSpeed(), getPosition().y);
+        }
+        else if (direction == "left") {
+            setPosition(getPosition().x - getSpeed(), getPosition().y);
+        }
+        else if (direction == "up") {
+            setPosition(getPosition().x, getPosition().y + getSpeed());
+        }
+        else if (direction == "down") {
+            setPosition(getPosition().x, getPosition().y - getSpeed());
+        }
+    }
+
+    public boolean willCollide(Entity other, String direction) {
+        if (direction == "up") {
+            if (getPosition().y > other.getTopRight().y || getTopRight().y + getSpeed() < getPosition().y) {
+                return false;
+            } else if (getPosition().x > other.getTopRight().x || getTopRight().x < other.getPosition().x) {
+                return false;
+            }
+        }
+
+        else if (direction == "down") {
+            if (getPosition().y - getSpeed() > other.getTopRight().y || getTopRight().y < other.getPosition().y) {
+                return false;
+            }
+            else if (getPosition().x > other.getTopRight().x || getTopRight().x < other.getPosition().x) {
+                return false;
+            }
+        }
+
+        else if (direction == "right") {
+            if (getTopRight().x + getSpeed() < other.getPosition().x || getPosition().x > other.getTopRight().x) {
+                    return false;
+                }
+            else if (getPosition().y > other.getTopRight().y || getTopRight().y < other.getPosition().y) {
+                return false;
+            }
+        }
+        else if (direction == "left") {
+            if (getPosition().x - getSpeed() > other.getTopRight().x || getTopRight().x < other.getPosition().x) {
+                return false;
+            }
+            else if (getPosition().y > other.getTopRight().y || getTopRight().y < other.getPosition().y) {
+                return false;
+            }
+        }
+        return true;
+        }
+
 
 
 

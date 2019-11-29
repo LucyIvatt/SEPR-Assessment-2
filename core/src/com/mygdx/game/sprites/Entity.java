@@ -10,7 +10,7 @@ public class Entity {
     private Vector2 position;
     private int width;
     private int height;
-    private Vector2 topRight;
+    private Vector2 topRight; // Not needed as an argument for the constructor as it is calculated using position, width and height
 
     public void setPosition(float x, float y) {
         this.position = new Vector2(x, y);

@@ -7,15 +7,14 @@ public abstract class Character extends Unit {
     private Unit target;
     private int speed;
     private int dps;
-    private int bearing;
 
     // Constructor
-    public Character(Vector2 position, int width, int height, int maxHealth, int range, Texture texture, Unit target, int speed, int dps, int bearing) {
+    public Character(Vector2 position, int width, int height, int maxHealth, int range,
+                     Texture texture, Unit target, int speed, int dps) {
         super(position, width, height, maxHealth, range, texture);
         this.target = target;
         this.speed = speed;
         this.dps = dps;
-        this.bearing = bearing;
     }
 
     // Getters and Setters
@@ -31,17 +30,8 @@ public abstract class Character extends Unit {
         return dps;
     }
 
-    public int getBearing() {
-        return bearing;
-    }
-
     public void setTarget(Unit target) {
         this.target = target;
     }
-
-    public void setBearing(int bearing) {
-        this.bearing = bearing;
-    }
-
 
 }

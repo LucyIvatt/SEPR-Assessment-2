@@ -6,20 +6,20 @@ import com.mygdx.game.states.GameStateManager;
 
 public class Alien extends Character {
 
-    private Vector2[] wayPoints;
+    private Vector2[] wayPoints; // change to array list
     private int currentWP; //The current index of
     private long timeWhenLastMoved;
     private float timeInterval;
     private float timeWhenLastAttacked;
 
-    public Alien(Vector2 position, int width, int height, int maxHealth, int range, Texture texture, Unit target, int speed, int dps, int bearing, Vector2[] wayPoints) {
-        super(position, width, height, maxHealth, range, texture, target, speed, dps, bearing);
+    public Alien(Vector2 position, int width, int height, int maxHealth, int range, Texture texture, Unit target,
+                 int speed, int dps, int bearing, Vector2[] wayPoints) {
+        super(position, width, height, maxHealth, range, texture, target, speed, dps);
         this.wayPoints = wayPoints;
         this.timeWhenLastMoved = 0;
         this.timeInterval = 0.05f;
         this.timeWhenLastAttacked = 0;
     }
-
     // is called each frame
     public void update(){
         moveTo();
@@ -27,14 +27,7 @@ public class Alien extends Character {
         attackIfInRange();
     }
 
-    // gets an array of all fireTrucks in game
-    private Firetruck[] getAllFireTrucks(){
-        Firetruck[] alltrucks = new Firetruck[4];
-        // must access a method in game state manager or something?
-        return alltrucks;
-    }
-
-    // checks for fireTrucks in sight area and sets as target if found
+    // create a rectangle with a width and height of range * 2 - COLLISION DETECTION
     private void seeTarget(){
         Vector2[] squaresInSight = createHitBox();
         Firetruck[] allFireTrucks = getAllFireTrucks();
@@ -64,7 +57,7 @@ public class Alien extends Character {
     }
 
 
-    // translation equations returns a new vector
+    // translation equations returns a new vector - make to run on 90 degree angles
     private Vector2 translate(Vector2 destination, Vector2 currentPos){
         Vector2 nextPos = new Vector2();
         float dx = destination.x-currentPos.x;

@@ -55,7 +55,7 @@ public abstract class Unit extends Entity {
         return false;
     }
 
-    public void healHealth(int heal){
+    public void addHealth(int heal){
         int newHealth = getCurrentHealth() + heal;
         if (newHealth > maxHealth) {
             newHealth = maxHealth;
@@ -71,33 +71,4 @@ public abstract class Unit extends Entity {
             setCurrentHealth(newHealth);
         }
     }
-
-    // hit boxes are arrays with length 4, where each vector3 represents the corners of the hitbox
-    public Vector2[] createHitBox(){
-        Vector2[] hitBox = new Vector2[4];
-        Vector2 currentSquare = getPosition();
-        int range = getRange();
-        //TL
-        hitBox[0].x = currentSquare.x - range;
-        hitBox[0].y = currentSquare.y + range;
-        //TR
-        hitBox[1].x = currentSquare.x + range;
-        hitBox[1].y = currentSquare.y + range;
-        //BL
-        hitBox[2].x = currentSquare.x - range;
-        hitBox[2].y = currentSquare.y - range;
-        //BR
-        hitBox[3].x = currentSquare.x + range;
-        hitBox[3].y = currentSquare.y - range;
-        return hitBox;
-    }
-
-    // checks if a fireTruck is in the search area can be extended to check if walls are in front of firetrucks
-    public boolean isInArea(Vector2 fireTruck, Vector2[] location){
-        if (fireTruck.x <= location[1].x && fireTruck.x >= location[0].x && fireTruck.y <= location[0].y && fireTruck.y >= location[2].y){
-            return true;
-        } else
-            return false;
-    }
-
 }

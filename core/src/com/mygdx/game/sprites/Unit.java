@@ -9,8 +9,6 @@ public abstract class Unit extends Entity {
     private int currentHealth;
     private int range;
 
-    private Texture texture;
-
 
     public Unit(int width, int height, Texture texture, Vector2 position) { // Default constructor
         super(width, height, texture, position);

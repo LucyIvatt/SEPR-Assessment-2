@@ -44,7 +44,12 @@ public abstract class Unit extends Entity {
     }
 
     public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
+        //Ensuring no negative numbers
+        if(currentHealth >= 0){
+            this.currentHealth = currentHealth;
+        }
+
+        this.currentHealth = 0;
     }
 
     public boolean isDead() {

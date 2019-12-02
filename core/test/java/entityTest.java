@@ -1,25 +1,42 @@
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.sprites.Entity;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
+//Class to test methods in the Entity Class.
 public class entityTest {
 
-    @BeforeAll
-    static void initAll() {
-    }
+    //Instance of entity class to test methods on
+    Entity testEntity = new Entity(100, 100, null,
+            new Vector2(100, 100));
 
+    //Testing a standard move and checking corners
     @Test
-    public void testAdd() {
-        assertEquals(42, 42);
+    public void testSetPositionStandard(){
+        testEntity.setPosition(100, 100);
+        assertEquals(new Vector2(100, 100), testEntity.getPosition());
+        assertEquals(new Vector2(200, 200), testEntity.getTopRight());
     }
 
-    @AfterAll
-    static void tearDownAll(){
-
+    //Testing nothing changes when 0 is inputted
+    @Test
+    public void testSetPositionShouldAllowForZeros() {
+        testEntity.setPosition(0, 0);
+        assertEquals(new Vector2(0, 0), testEntity.getPosition());
+        assertEquals(new Vector2(100, 100), testEntity.getTopRight());
     }
+
+    //Testing negative numbers
+    @Test
+    public void testSetPositionNegativeNumbersShouldReturnArgumentException() throws  IllegalArgumentException{
+        testEntity.setPosition(-1, -1);
+        assertEquals(new Vector2(-1, -1) , testEntity.getPosition());
+    }
+
 
 }
+
+
 
 
 

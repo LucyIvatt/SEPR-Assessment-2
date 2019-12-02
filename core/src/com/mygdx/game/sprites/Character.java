@@ -8,6 +8,8 @@ public abstract class Character extends Unit {
     private int speed;
     private int dps;
 
+    //Thinking the standard constructor should not force a target since the firetruck will
+    //spawn with no enemies in target.
     // Constructor
     public Character(Vector2 position, int width, int height, int maxHealth, int range,
                      Texture texture, Unit target, int speed, int dps) {
@@ -30,6 +32,7 @@ public abstract class Character extends Unit {
         return dps;
     }
 
+    //Will we allow for targets outside of the range? if not then uncomment suggested code below.
     public void setTarget(Unit target) {
         this.target = target;
     }

@@ -47,17 +47,17 @@ public abstract class Unit extends Entity {
         //Ensuring no negative numbers
         if(currentHealth >= 0){
             this.currentHealth = currentHealth;
+        } else {
+            this.currentHealth = 0;
         }
-
-        this.currentHealth = 0;
     }
 
     public boolean isDead() {
         if(this.currentHealth == 0) {
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     public void addHealth(int heal){

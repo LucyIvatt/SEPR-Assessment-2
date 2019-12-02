@@ -13,8 +13,6 @@ class unitTestClass extends Unit {
 }
 
 
-
-
 //Class to test the methods in the Unit Class
 public class unitTest {
 
@@ -24,6 +22,7 @@ public class unitTest {
     //Test if isDead() works when health is above 0
     @Test
     public void testIsDeadStandard(){
+        testUnit.setCurrentHealth(70);
         assertFalse(testUnit.isDead(), "Unit had full health during test");
     }
 
@@ -40,6 +39,23 @@ public class unitTest {
         testUnit.setCurrentHealth(-1);
         assertTrue(testUnit.isDead(), "Unit had '-1' health during test");
     }
+
+    //Test if addHealth() will add health (not hitting max health)
+    @Test
+    public void testAddHealthWithNormalValues(){
+        testUnit.setCurrentHealth(50);
+        testUnit.addHealth(20);
+        assertEquals(70, testUnit.getCurrentHealth());
+    }
+
+    //test if setCurrentHealth will cap the additional health to maxHealth
+    @Test
+    public void testAddHealthWillCapAddedHealth(){
+        testUnit.setCurrentHealth(100);
+        testUnit.addHealth(50);
+        assertEquals(100, testUnit.getCurrentHealth());
+    }
+
 
 
 }

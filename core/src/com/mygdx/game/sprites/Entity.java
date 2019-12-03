@@ -12,6 +12,14 @@ public class Entity {
     private int height;
     private Vector2 topRight; // Not needed as an argument for the constructor as it is calculated using position, width and height
 
+    public Entity(int width, int height, Texture texture, Vector2 position) {
+        this.position = position;
+        this.width = width;
+        this.height = height;
+        this.texture = texture;
+        this.topRight = new Vector2(position.x + width, position.y + height);
+    }
+
     public void setPosition(float x, float y) {
         this.position = new Vector2(x, y);
         this.topRight = new Vector2(x + width, y + height);
@@ -35,14 +43,6 @@ public class Entity {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
-    }
-
-    public Entity(int width, int height, Texture texture, Vector2 position) {
-        this.position = position;
-        this.width = width;
-        this.height = height;
-        this.texture = texture;
-        this.topRight = new Vector2(position.x + width, position.y + height);
     }
 
     public Vector2 getTopRight() {

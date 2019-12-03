@@ -48,12 +48,26 @@ public class unitTest {
         assertEquals(70, testUnit.getCurrentHealth());
     }
 
-    //test if setCurrentHealth will cap the additional health to maxHealth
+    //Test if setCurrentHealth will cap the additional health to maxHealth
     @Test
     public void testAddHealthWillCapAddedHealth(){
         testUnit.setCurrentHealth(100);
         testUnit.addHealth(50);
         assertEquals(100, testUnit.getCurrentHealth());
+    }
+
+    //Test if addHealth will ??
+    @Test
+    public void testAddHealthRejectNegativeHeal(){
+        //Decide with group
+    }
+
+    //Test if takeDamage works within a standard range (not 0 or negatives)
+    @Test
+    public void testTakeDamageStandard(){
+        testUnit.setCurrentHealth(100);
+        testUnit.takeDamage(50);
+        assertEquals(50, testUnit.getCurrentHealth());
     }
 
 

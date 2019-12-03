@@ -26,7 +26,7 @@ public class entityTest {
         assertEquals(new Vector2(100, 100), testEntity.getTopRight());
     }
 
-    //Testing negative numbers
+    //Testing negative numbers !!! Dont think this works
     @Test
     public void testSetPositionNegativeNumbersShouldReturnArgumentException() throws  IllegalArgumentException{
         testEntity.setPosition(-1, -1);

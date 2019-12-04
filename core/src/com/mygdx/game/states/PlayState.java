@@ -22,6 +22,7 @@ public class PlayState extends State {
     private Entity obstacle2;
     private Preferences settings;
     private Firetruck truck1;
+    private Firetruck truck2;
     public ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
 
@@ -33,6 +34,7 @@ public class PlayState extends State {
         obstacle2 = new Entity(400, 400, new Texture("green.jpg"), new Vector2(400, 100));
         settings = Gdx.app.getPreferences("My Preferences");
         truck1 = new Firetruck(new Vector2(50, 550), 100, 100, 5, 2, new Texture("truck.png"), null, 20, 10, 10, 10, true);
+        truck2 = new Firetruck(new Vector2(50, 100), 100, 100, 5, 2, new Texture("truck.png"), null, 20, 10, 10, 10, false);
     }
 
     @Override
@@ -44,8 +46,23 @@ public class PlayState extends State {
         if (Gdx.input.isKeyPressed(Input.Keys.L)) {
             gsm.push(new MenuState(gsm));
         }
+        Vector2 mousePos = new Vector2(Gdx.input.getX(), Test.HEIGHT - Gdx.input.getY());
+        for (Firetruck truck : trucks) {
+            if (mousePos.x >= (truck.getPosition().x) && mousePos.x <= (truck.getPosition().x + truck.getWidth()) && mousePos.y >= (truck.getPosition().y) && mousePos.y <= (truck.getPosition().y + truck.getHeight())) {
+                if (Gdx.input.isTouched()){
+                    for (Firetruck clearTruck : trucks){
+                        clearTruck.setSelected(false);
+                    }
+                    truck.setSelected(true);
+                }
+            }
+        }
+        if (truck1.isSelected()) {
+            truckMovement(truck1);
+        } else if (truck2.isSelected()){
+            truckMovement(truck2);
+        }
 
-        truckMovement(truck1);
     }
 
     @Override
@@ -60,6 +77,7 @@ public class PlayState extends State {
         sb.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y, obstacle.getWidth(), obstacle.getHeight());
         sb.draw(obstacle2.getTexture(), obstacle2.getPosition().x, obstacle2.getPosition().y, obstacle2.getWidth(), obstacle2.getHeight());
         sb.draw(truck1.getTexture(), truck1.getPosition().x, truck1.getPosition().y, 100, 100);
+        sb.draw(truck2.getTexture(), truck2.getPosition().x, truck2.getPosition().y, 100, 100);
         sb.end();
     }
      // https://stackoverflow.com/questions/33283867/how-to-make-a-sprite-move-with-keyboard-in-javalibgdx?rq=1 source used

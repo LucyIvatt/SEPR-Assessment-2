@@ -28,8 +28,8 @@ public class Firetruck extends Character {
         this.current_water = current_water;
     }
 
-    public void setSelected() {
-        this.selected = !(selected);
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     // Constructor

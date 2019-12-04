@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Alien extends Character {
 
     private Vector2[] wayPoints; // change to array list
-    private int currentWP; //The current index of
+    private int currentWP = 0; //The current index of
     private float timeWhenLastAttacked; // The time since the Alien last attacked
     private boolean forwards = true; // determines if the alien is moving forwards...
     // ... through the way points list or backwards
@@ -38,7 +38,7 @@ public class Alien extends Character {
         // Gets the next translation point
         Vector2 newPos = translateInGridMovement(getPosition(), wayPoints[currentWP]);
         // Sets the position to the next position between way points
-        setPosition(Math.round(newPos.x), Math.round(newPos.y));
+        setPosition(newPos.x, newPos.y);
     }
 
     // checks whether the alien is already at the next wayPoint if so sets the target wayPoint to the next in line

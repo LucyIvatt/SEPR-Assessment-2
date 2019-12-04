@@ -24,7 +24,7 @@ public class Alien extends Character {
     // is called each frame
   public void update(){
        moveTo();
-        attackIfHasTarget();
+       attackIfHasTarget();
     }
 
     // Moves the alien between the wayPoints
@@ -45,14 +45,12 @@ public class Alien extends Character {
     // if the alien is at the end of the list of way points it will return to the starting way point
     private void nextWayPoint(){
 
-        if (getPosition() == wayPoints[currentWP]){
+        if (getPosition().y == wayPoints[currentWP].y && getPosition().x == wayPoints[currentWP].x){
             // if alien has completed list of way points
-            if (currentWP == ((wayPoints.length)-1)){
+            currentWP ++;
+            if (currentWP >= (wayPoints.length)){
                 // set current way point to the first way point
                 currentWP = 0;
-            }
-            else {
-                currentWP++;
             }
         }
     }
@@ -60,12 +58,9 @@ public class Alien extends Character {
     // Same as the above, but if the alien reaches the end of the list of way points it will move back through all
     // previous way points before going back to the starting way point
     private void nextWayPointAlt(){
-        if (getPosition() == wayPoints[currentWP]){
+        if (getPosition().y == wayPoints[currentWP].y && getPosition().x == wayPoints[currentWP].x){
             // if alien has completed list of way points
-            if (currentWP == ((wayPoints.length)-1) || currentWP == 0){
-                // Make the alien move the opposite way through way points list
-                forwards = !forwards;
-            }
+
             if (forwards){
                 // if going forwards through way points list increment the way points index by 1
                 currentWP++;
@@ -73,12 +68,19 @@ public class Alien extends Character {
                 // else decrement index by 1
                 currentWP --;
             }
+            if (currentWP >= wayPoints.length){
+                // Make the alien move the opposite way through way points list
+                forwards = false;
+            } else if (currentWP < 0) {
+                forwards = true;
+                currentWP = 0;
+            }
         }
     }
 
     // Movement at only 90 degree angles
     private Vector2 translateInGridMovement(Vector2 currentPos, Vector2 destination){
-        Vector2 nextPos = new Vector2();
+        Vector2 nextPos = currentPos;
         // if the x movement is complete: move along the y axis
         if (currentPos.x == destination.x){
             // if the destination is above the current position move up otherwise move down
@@ -101,7 +103,7 @@ public class Alien extends Character {
     // currently unused function, would move the enemy between points at angles rather than just 90 degree movement
     // Would prefer if you did not delete this in case we need it in the future!!!!
     private Vector2 translate(Vector2 destination, Vector2 currentPos){
-        Vector2 nextPos = new Vector2();
+        Vector2 nextPos = currentPos;
         // nX and nY (nextY, nextX )represent the increase needed for the current pos to translate towards the destination
         float nX = destination.x-currentPos.x;
         float nY = destination.y -currentPos.y;

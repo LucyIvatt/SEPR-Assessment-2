@@ -15,9 +15,9 @@ public class Alien extends Character {
     // ..for what happens when the alien reaches the final way point in the list, this boolean decides which..
     // .. version is followed
 
-    public Alien(Vector2 position, int width, int height, int maxHealth, int range, Texture texture, Unit target,
+    public Alien(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                  int speed, int dps, int bearing, Vector2[] wayPoints) {
-        super(position, width, height, maxHealth, range, texture, target, speed, dps);
+        super(position, width, height, texture, maxHealth, range, target, speed, dps);
         this.wayPoints = wayPoints;
         this.timeWhenLastAttacked = 0;
     }

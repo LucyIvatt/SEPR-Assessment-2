@@ -8,7 +8,7 @@ import com.mygdx.game.sprites.Unit;
 class unitTestClass extends Unit {
 
     public unitTestClass(int width, int height, Texture texture, Vector2 position) {
-        super(width, height, texture, position);
+        super(position, width, height, texture);
     }
 }
 

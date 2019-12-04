@@ -10,22 +10,22 @@ public abstract class Unit extends Entity {
     private int range;
 
 
-    public Unit(int width, int height, Texture texture, Vector2 position) { // Default constructor
-        super(width, height, texture, position);
+    public Unit( Vector2 position, int width, int height, Texture texture) { // Default constructor
+        super(position, width, height, texture);
         this.maxHealth = 100;
         this.currentHealth = 100;
         this.range = 5;
     }
 
-    public Unit(int width, int height, Texture texture, Vector2 position, int maxHealth) {
-        super(width, height, texture, position);
+    public Unit( Vector2 position, int width, int height, Texture texture, int maxHealth) {
+        super(position, width, height, texture);
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.range = 5;
     }
     
-    public Unit(Vector2 position, int width, int height, int maxHealth, int range, Texture texture) {
-        super(width, height, texture, position);
+    public Unit(Vector2 position, int width, int height,  Texture texture, int maxHealth, int range) {
+        super(position, width, height, texture);
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.range = range;

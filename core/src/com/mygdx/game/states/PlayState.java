@@ -36,25 +36,26 @@ public class PlayState extends State {
         super(gsm);
         // https://github.com/libgdx/libgdx/wiki/Tile-maps possible way of making a map?
         background = new Texture("playbg.png");
-        obstacle = new Entity(100, 100, new Texture("blue.jpg"), new Vector2(500, 400));
-        obstacle2 = new Entity(100, 100, new Texture("green.jpg"),
-                new Vector2(400, 100));
+
+        obstacle = new Entity(new Vector2(500, 400),100, 100, new Texture("blue.jpg"));
+        obstacle2 = new Entity(new Vector2(400, 100),100, 100, new Texture("green.jpg"));
         obstacles.add(obstacle);
         obstacles.add(obstacle2);
+
         settings = Gdx.app.getPreferences("My Preferences");
 
-        truck1 = new Firetruck(new Vector2(50, 550), 100, 100, 5, 2,
-                new Texture("truck.png"), null, 10, 10, 10, 10,
+        truck1 = new Firetruck(new Vector2(50, 550), 100, 100, new Texture("truck.png"), 5, 2,
+                 null, 10, 10, 10, 10,
                 true);
-        truck2 = new Firetruck(new Vector2(50, 100), 100, 100, 5, 2,
-                new Texture("truck.png"), null, 10, 10, 10, 10,
+        truck2 = new Firetruck(new Vector2(50, 100), 100, 100, new Texture("truck.png"), 5, 2,
+                 null, 10, 10, 10, 10,
                 false);
 
         Vector2[] vectors = new Vector2[]{
                 new Vector2(500,100),
                 new Vector2(500, 500)};
-        alien1 = new Alien(new Vector2(500, 100), 100, 100, 100, 5,
-                new Texture("alien.png"), null, 10, 10, 10,
+        alien1 = new Alien(new Vector2(500, 100), 100, 100, new Texture("alien.png"), 100, 5,
+                 null, 10, 10, 10,
                 vectors);
         trucks.add(truck1);
         trucks.add(truck2);
@@ -108,7 +109,7 @@ public class PlayState extends State {
         sb.draw(alien1.getTexture(), alien1.getPosition().x, alien1.getPosition().y, 100, 100);
         sb.end();
     }
-     //https://stackoverflow.com/questions/33283867/how-to-make-a-sprite-move-with-keyboard-in-javalibgdx?rq=1 source
+    //https://stackoverflow.com/questions/33283867/how-to-make-a-sprite-move-with-keyboard-in-javalibgdx?rq=1 source
     //used. Should really have a 'SPEED' constant instead of using the number 10 so that it can be changed easily.
 
     public void truckMovement(Firetruck truck) {

@@ -8,12 +8,15 @@ import com.mygdx.game.sprites.Character;
 //Instance of the Unit class to test on (is abstract)
 class characterTestClass extends Character {
 
-    public characterTestClass(Vector2 position, int width, int height, int maxHealth, int range, Texture texture, Unit target, int speed, int dps) {
-        super(position, width, height, maxHealth, range, texture, target, speed, dps);
+    public characterTestClass(Vector2 position, int width, int height,  Texture texture, int maxHealth, int range,
+                              Unit target, int speed, int dps) {
+        super(position, width, height, texture, maxHealth, range, target, speed, dps);
     }
 }
 
 public class testCharacter {
+//    Character testCharacter = new characterTestClass();
+
 
 
 }

@@ -11,9 +11,9 @@ public abstract class Character extends Unit {
     //Thinking the standard constructor should not force a target since the firetruck will
     //spawn with no enemies in target.
     // Constructor
-    public Character(Vector2 position, int width, int height, int maxHealth, int range,
-                     Texture texture, Unit target, int speed, int dps) {
-        super(position, width, height, maxHealth, range, texture);
+    public Character(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
+                     int speed, int dps) {
+        super(position, width, height, texture, maxHealth, range);
         this.target = target;
         this.speed = speed;
         this.dps = dps;

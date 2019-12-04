@@ -21,19 +21,19 @@ public class Fortress extends Unit {
     private ArrayList<Vector2> objectPositions;
 
      public Fortress(int width, int height, Texture texture, Vector2 position) { // Default constructor
-        super(width, height, texture, position);
+        super(position, width, height, texture);
         this.spawnRate = 5;
         this.fortressImg = "fortress";
     }
 
     public Fortress(int width, int height, Texture texture, Vector2 position, String img) { // basic fortress
-        super(width, height, texture, position);
+        super(position, width, height, texture);
         this.spawnRate = 5;
         this.fortressImg = img;
     }
 
     public Fortress(int width, int height, Texture texture, Vector2 position, String img, int spawnRate) {
-        super(width, height, texture, position);
+        super(position, width, height, texture);
         this.spawnRate = spawnRate;
         this.fortressImg = img;
     }

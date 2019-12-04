@@ -33,9 +33,9 @@ public class Firetruck extends Character {
     }
 
     // Constructor
-    public Firetruck(Vector2 position, int width, int height, int maxHealth, int range, Texture texture, Unit target,
+    public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                      int speed, int dps, int bearing, int max_water, boolean selected) {
-        super(position, width, height, maxHealth, range, texture, target, speed, dps);
+        super(position, width, height,  texture, maxHealth, range, target, speed, dps);
         this.max_water = max_water;
         this.current_water = max_water;
         this.selected = selected;

@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class entityTest {
 
     //Instance of entity class to test methods on
-    Entity testEntity = new Entity(100, 100, null,
-            new Vector2(100, 100));
+    Entity testEntity = new Entity(new Vector2(100, 100), 100, 100, null);
 
     //Testing a standard move and checking corners
     @Test

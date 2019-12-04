@@ -21,8 +21,9 @@ public class Alien extends Character {
         this.wayPoints = wayPoints;
         this.timeWhenLastAttacked = 0;
     }
+
     // is called each frame
-  public void update(){
+    public void update(){
        moveTo();
        attackIfHasTarget();
     }

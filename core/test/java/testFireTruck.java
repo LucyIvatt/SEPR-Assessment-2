@@ -32,4 +32,36 @@ public class testFireTruck {
         assertEquals(90, testUnit.getCurrentHealth());
     }
 
+    //Test that FireTruck does continuous damage
+    @Test
+    public void testTestFireTruckShouldContinuousDamage() {
+        for(int i=0; i < 9; i++) {
+            testFireTruck.firetruckAttack(testUnit);
+        }
+        assertEquals(10, testFireTruck.getCurrentWater());
+        assertEquals(10, testUnit.getCurrentHealth());
+    }
+
+    //Test that FireTruck does not go into negative currentWater and testUnit is dead after going to 0 health from
+    //attacks
+    @Test
+    public void testFireTruckShouldNotHaveNegativeCurrentWater() {
+        for(int i=0; i <= 10; i++) {
+            testFireTruck.firetruckAttack(testUnit);
+        }
+        assertEquals(0, testFireTruck.getCurrentWater());
+        assertEquals(0, testUnit.getCurrentHealth());
+        assertTrue(testUnit.isDead());
+    }
+
+    //No tests needed for:
+        //No variable passed: we won't call the method without a target to pass
+        //If the target isDead(): only pass alive aliens and even if dead the alien can't go into negative through
+            //setCurrentHealth()
+
+        //move(): it works in game
+        //willCollide(): already works
+
+
+
 }

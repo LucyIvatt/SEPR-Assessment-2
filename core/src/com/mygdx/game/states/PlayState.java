@@ -38,7 +38,7 @@ public class PlayState extends State {
         background = new Texture("playbg.png");
 
         obstacle = new Entity(new Vector2(500, 400),100, 100, new Texture("blue.jpg"));
-        obstacle2 = new Entity(new Vector2(400, 100),100, 100, new Texture("green.jpg"));
+        obstacle2 = new Entity(new Vector2(200, 400),100, 100, new Texture("green.jpg"));
         obstacles.add(obstacle);
         obstacles.add(obstacle2);
 

@@ -70,7 +70,7 @@ public class Firetruck extends Character {
 
     public boolean willCollide(Entity other, String direction) {
         if (direction == "up") {
-            if (getPosition().y > other.getTopRight().y || getTopRight().y + getSpeed() < getPosition().y) {
+            if (getPosition().y > other.getTopRight().y || getTopRight().y + getSpeed() < other.getPosition().y) {
                 return false;
             } else if (getPosition().x > other.getTopRight().x || getTopRight().x < other.getPosition().x) {
                 return false;

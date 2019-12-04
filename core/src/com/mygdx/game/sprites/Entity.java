@@ -10,7 +10,8 @@ public class Entity {
     private Vector2 position;
     private int width;
     private int height;
-    private Vector2 topRight; // Not needed as an argument for the constructor as it is calculated using position, width and height
+    private Vector2 topRight; // Not needed as an argument for the constructor as it is calculated using position,
+    // width and height
 
     public Entity(int width, int height, Texture texture, Vector2 position) {
         this.position = position;

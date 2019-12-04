@@ -70,27 +70,24 @@ public class Firetruck extends Character {
 
     public boolean willCollide(Entity other, String direction) {
         if (direction == "up") {
-            if (getPosition().y > other.getTopRight().y || getTopRight().y + getSpeed() < other.getPosition().y) {
-                return false;
-            } else if (getPosition().x > other.getTopRight().x || getTopRight().x < other.getPosition().x) {
+            if (getPosition().y >= other.getTopRight().y || getTopRight().y + getSpeed() <= other.getPosition().y ||
+                    getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
                 return false;
             }
         } else if (direction == "down") {
-            if (getPosition().y - getSpeed() > other.getTopRight().y || getTopRight().y < other.getPosition().y) {
-                return false;
-            } else if (getPosition().x > other.getTopRight().x || getTopRight().x < other.getPosition().x) {
+            if (getPosition().y - getSpeed() >= other.getTopRight().y || getTopRight().y <= other.getPosition().y ||
+                    getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
                 return false;
             }
         } else if (direction == "right") {
-            if (getTopRight().x + getSpeed() < other.getPosition().x || getPosition().x > other.getTopRight().x) {
-                return false;
-            } else if (getPosition().y > other.getTopRight().y || getTopRight().y < other.getPosition().y) {
+            // Not sure why this needs to be multiplied by two but YOLO
+            if (getTopRight().x + getSpeed() * 2 <= other.getPosition().x || getPosition().x >= other.getTopRight().x ||
+                    getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
                 return false;
             }
         } else if (direction == "left") {
-            if (getPosition().x - getSpeed() > other.getTopRight().x || getTopRight().x < other.getPosition().x) {
-                return false;
-            } else if (getPosition().y > other.getTopRight().y || getTopRight().y < other.getPosition().y) {
+            if (getPosition().x - getSpeed() >= other.getTopRight().x || getTopRight().x <= other.getPosition().x ||
+                    getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
                 return false;
             }
         }

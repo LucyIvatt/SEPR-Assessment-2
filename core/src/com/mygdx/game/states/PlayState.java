@@ -44,10 +44,10 @@ public class PlayState extends State {
 
         settings = Gdx.app.getPreferences("My Preferences");
 
-        truck1 = new Firetruck(new Vector2(50, 550), 100, 100, new Texture("truck.png"), 5, 2,
+        truck1 = new Firetruck(new Vector2(50, 550), 90, 100, new Texture("blue.jpg"), 5, 2,
                  null, 10, 10, 10, 10,
                 true);
-        truck2 = new Firetruck(new Vector2(50, 100), 100, 100, new Texture("truck.png"), 5, 2,
+        truck2 = new Firetruck(new Vector2(50, 100), 90, 100, new Texture("truckthin.png"), 5, 2,
                  null, 10, 10, 10, 10,
                 false);
 

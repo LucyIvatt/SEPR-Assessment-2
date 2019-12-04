@@ -7,25 +7,25 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Firetruck extends Character {
 
-    private int max_water;
-    private int current_water;
+    private int maxWater;
+    private int currentWater;
     private boolean selected;
 
     // Getters and Setters
-    public int getMax_water() {
-        return max_water;
+    public int getMaxWater() {
+        return maxWater;
     }
 
-    public int getCurrent_water() {
-        return current_water;
+    public int getCurrentWater() {
+        return currentWater;
     }
 
     public boolean isSelected() {
         return selected;
     }
 
-    public void setCurrent_water(int current_water) {
-        this.current_water = current_water;
+    public void setCurrentWater(int currentWater) {
+        this.currentWater = currentWater;
     }
 
     public void setSelected(boolean selected) {
@@ -34,26 +34,26 @@ public class Firetruck extends Character {
 
     // Constructor
     public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
-                     int speed, int dps, int bearing, int max_water, boolean selected) {
+                     int speed, int dps, int bearing, int maxWater, boolean selected) {
         super(position, width, height,  texture, maxHealth, range, target, speed, dps);
-        this.max_water = max_water;
-        this.current_water = max_water;
+        this.maxWater = maxWater;
+        this.currentWater = maxWater;
         this.selected = selected;
     }
 
     // User attacks alien/fortress and firetruck water level decreases
-    public void firetruckAttack(Unit target, int current_water) {
-        if (this.current_water == 0) {
+    public void firetruckAttack(Unit target) {
+        if (this.currentWater == 0) {
             //show message telling them they have ran out of water and to go refill to continue
         } else {
-            setCurrent_water(current_water - 10);
+            setCurrentWater(this.currentWater - 10);
             target.takeDamage(10);
         }
     }
 
     // Refill water level of firetruck
     public void refillWater() {
-        this.current_water = max_water;
+        this.currentWater = maxWater;
     }
 
     public void move(String direction) { //change from string to 1, 2, 3, 4

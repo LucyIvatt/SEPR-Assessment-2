@@ -7,7 +7,7 @@ import com.mygdx.game.sprites.Unit;
 //Instance of the Unit class to test on (is abstract)
 class unitTestClass extends Unit {
 
-    public unitTestClass(int width, int height, Texture texture, Vector2 position) {
+    public unitTestClass( Vector2 position, int width, int height, Texture texture) {
         super(position, width, height, texture);
     }
 }
@@ -17,7 +17,7 @@ class unitTestClass extends Unit {
 public class unitTest {
 
     //Instance of the Unit class to test on
-    Unit testUnit = new unitTestClass(100, 100, null, new Vector2(0, 0));
+    Unit testUnit = new unitTestClass(new Vector2(0, 0),100, 100, null);
 
     //Test if isDead() works when health is above 0
     @Test

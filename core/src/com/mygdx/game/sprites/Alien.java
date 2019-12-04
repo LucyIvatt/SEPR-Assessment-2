@@ -2,6 +2,8 @@ package com.mygdx.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 public class Alien extends Character {
 
     private Vector2[] wayPoints; // change to array list
@@ -132,4 +134,22 @@ public class Alien extends Character {
         }
     }
 
+    public void truckInAttackRange(ArrayList<Firetruck> firetrucks) {
+        for(Firetruck firetruck : firetrucks) {
+            if (this.getTopRight().y < firetruck.getPosition().y || getPosition().y > firetruck.getTopRight().y ||
+                    getTopRight().x < firetruck.getPosition().x || getPosition().x > firetruck.getTopRight().x) {
+
+                if (getTarget() == firetruck) {
+                    setTarget(null);
+                }
+            }
+            else {
+                if (getTarget() == null || firetruck.getCurrentHealth() < getTarget().getCurrentHealth()) {
+                    setTarget(firetruck);
+                }
+                }
+
+            }
+        }
+    }
 }

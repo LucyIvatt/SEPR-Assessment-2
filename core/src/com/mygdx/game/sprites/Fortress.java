@@ -70,7 +70,7 @@ public class Fortress extends Unit {
 //                    //Alien alien = new Alien(, 10, 10, 100, 10, );
 //                    //aliens.add(alien);
 //                }
-//            },1000*this.spawnRate,1000*this.spawnRate); // 1000*5=5000 mlsec. i.e. 5 seconds. u can change accordngly
+//            },1000*this.spawnRate,1000*this.spawnRate); // 1000*5=5000 mlsec. i.e. 5 seconds. u can change accordingly
 //            // given two times, first is for first time to execute this
 //            // code and second is for interval time
 //        }

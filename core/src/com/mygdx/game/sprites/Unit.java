@@ -62,6 +62,7 @@ public abstract class Unit extends Entity {
         }
     }
 
+
     public void addHealth(int heal){
         int newHealth = getCurrentHealth() + Math.abs(heal);
         if (newHealth > maxHealth) {
@@ -69,6 +70,7 @@ public abstract class Unit extends Entity {
         }
         setCurrentHealth(newHealth);
     }
+
 
     public void takeDamage(int damage) {
         int newHealth = getCurrentHealth() - damage;

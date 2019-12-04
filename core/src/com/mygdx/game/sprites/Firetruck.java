@@ -44,7 +44,7 @@ public class Firetruck extends Character {
     // User attacks alien/fortress and firetruck water level decreases
     public void firetruckAttack(Unit target) {
         if (this.currentWater == 0) {
-            //show message telling them they have ran out of water and to go refill to continue
+            //show message telling the user they have ran out of water and to go refill to continue
         } else {
             setCurrentWater(this.currentWater - 10);
             target.takeDamage(10);

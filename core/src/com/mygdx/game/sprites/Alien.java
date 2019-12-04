@@ -151,6 +151,5 @@ public class Alien extends Character {
                 }
 
             }
-        }
     }
 }

@@ -50,10 +50,10 @@ public class PlayState extends State {
                 false);
 
         Vector2[] vectors = new Vector2[]{
-                new Vector2(500,100),
-                new Vector2(500, 500)};
-        alien1 = new Alien(new Vector2(500, 100), 100, 100, new Texture("alien.png"), 100, 5,
-                 null, 10, 10, 10,
+                new Vector2(100,100),
+                new Vector2(100, 150),};
+        alien1 = new Alien(new Vector2(100, 100), 100, 100, new Texture("alien.png"), 100, 5,
+                 null, 1, 10, 10,
                 vectors);
         trucks.add(truck1);
         trucks.add(truck2);

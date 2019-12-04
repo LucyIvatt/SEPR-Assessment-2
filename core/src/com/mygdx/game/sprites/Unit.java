@@ -43,10 +43,12 @@ public abstract class Unit extends Entity {
         return range;
     }
 
-    public void setCurrentHealth(int currentHealth) {
-        //Ensuring no negative numbers
-        if(currentHealth >= 0){
-            this.currentHealth = currentHealth;
+    public void setCurrentHealth(int newHealth) {
+        //Ensuring no negative numbers or over
+        if(newHealth >= 0 && newHealth <= maxHealth){
+            this.currentHealth = newHealth;
+        } else if (newHealth > maxHealth){
+            this.currentHealth = maxHealth;
         } else {
             this.currentHealth = 0;
         }
@@ -61,7 +63,7 @@ public abstract class Unit extends Entity {
     }
 
     public void addHealth(int heal){
-        int newHealth = getCurrentHealth() + heal;
+        int newHealth = getCurrentHealth() + Math.abs(heal);
         if (newHealth > maxHealth) {
             newHealth = maxHealth;
         }
@@ -70,9 +72,7 @@ public abstract class Unit extends Entity {
 
     public void takeDamage(int damage) {
         int newHealth = getCurrentHealth() - damage;
-        if (isDead()) {
-            // don't know how we're dealing with this atm
-        } else {
+        if (!isDead()) {
             setCurrentHealth(newHealth);
         }
     }

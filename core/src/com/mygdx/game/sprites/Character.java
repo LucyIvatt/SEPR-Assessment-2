@@ -32,7 +32,7 @@ public abstract class Character extends Unit {
         return dps;
     }
 
-    //Will we allow for targets outside of the range? if not then uncomment suggested code below.
+    //Will we allow for targets outside of the range?
     public void setTarget(Unit target) {
         this.target = target;
     }

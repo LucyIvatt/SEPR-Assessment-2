@@ -40,6 +40,13 @@ public class unitTest {
         assertTrue(testUnit.isDead(), "Unit had '-1' health during test");
     }
 
+    @Test
+    public void testSetCurrentHealthShouldCapMaxHealth() {
+        testUnit.setCurrentHealth(100000);
+        assertEquals(100, testUnit.getCurrentHealth());
+    }
+
+
     //Test if addHealth() will add health (not hitting max health)
     @Test
     public void testAddHealthWithNormalValues(){
@@ -56,10 +63,12 @@ public class unitTest {
         assertEquals(100, testUnit.getCurrentHealth());
     }
 
-    //Test if addHealth will ??
+    //Test if addHealth will take the absolute value of the argument
     @Test
     public void testAddHealthRejectNegativeHeal(){
-        //Decide with group
+        testUnit.setCurrentHealth(50);
+        testUnit.addHealth(-50);
+        assertEquals(100, testUnit.getCurrentHealth());
     }
 
     //Test if takeDamage works within a standard range (not 0 or negatives)
@@ -69,6 +78,17 @@ public class unitTest {
         testUnit.takeDamage(50);
         assertEquals(50, testUnit.getCurrentHealth());
     }
+
+    //Test if takeDamage caps the health at 0.
+    @Test
+    public void testTakeDamageCapsCurrentHealth(){
+        testUnit.setCurrentHealth(100);
+        testUnit.takeDamage(101);
+        assertEquals(0, testUnit.getCurrentHealth());
+        assertTrue(testUnit.isDead(), "Test Unit took 101 damage (-1 in health) so should be dead");
+    }
+
+
 
 
 

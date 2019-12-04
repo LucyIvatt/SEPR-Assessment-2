@@ -59,6 +59,9 @@ public class testFireTruck {
         //If the target isDead(): only pass alive aliens and even if dead the alien can't go into negative through
             //setCurrentHealth()
 
+        //move(): it works in game
+        //willCollide(): already works
+
 
 
 }

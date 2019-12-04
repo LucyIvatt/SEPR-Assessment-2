@@ -9,8 +9,8 @@ public abstract class Unit extends Entity {
     private int currentHealth;
     private int range;
 
-
-    public Unit( Vector2 position, int width, int height, Texture texture) { // Default constructor
+    // Default constructor
+    public Unit( Vector2 position, int width, int height, Texture texture) {
         super(position, width, height, texture);
         this.maxHealth = 100;
         this.currentHealth = 100;
@@ -61,7 +61,6 @@ public abstract class Unit extends Entity {
             return false;
         }
     }
-
 
     public void addHealth(int heal){
         int newHealth = getCurrentHealth() + Math.abs(heal);

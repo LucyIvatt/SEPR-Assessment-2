@@ -135,6 +135,7 @@ public class Alien extends Character {
     }
 
     public void truckInAttackRange(ArrayList<Firetruck> firetrucks) {
+        //float bottomLeftRange = new Vector2(getPosition().x - getRange(), getPosition().y - getRange());
         for(Firetruck firetruck : firetrucks) {
             if (this.getTopRight().y < firetruck.getPosition().y || getPosition().y > firetruck.getTopRight().y ||
                     getTopRight().x < firetruck.getPosition().x || getPosition().x > firetruck.getTopRight().x) {

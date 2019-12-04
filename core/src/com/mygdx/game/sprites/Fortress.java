@@ -13,29 +13,25 @@ import java.util.Random;
 public class Fortress extends Unit {
 
     private int spawnRate;
-    private String fortressImg;
     private Texture texture;
     private Timer timer = new Timer();
     private ArrayList<Alien> aliens;
 
     private ArrayList<Vector2> objectPositions;
 
-     public Fortress(int width, int height, Texture texture, Vector2 position) { // Default constructor
+     public Fortress(Vector2 position,int width, int height, Texture texture) { // Default constructor
         super(position, width, height, texture);
         this.spawnRate = 5;
-        this.fortressImg = "fortress";
     }
 
-    public Fortress(int width, int height, Texture texture, Vector2 position, String img) { // basic fortress
+    public Fortress(Vector2 position, int width, int height, Texture texture, String img) { // basic fortress
         super(position, width, height, texture);
         this.spawnRate = 5;
-        this.fortressImg = img;
     }
 
-    public Fortress(int width, int height, Texture texture, Vector2 position, String img, int spawnRate) {
+    public Fortress(Vector2 position, int width, int height, Texture texture, int spawnRate) {
         super(position, width, height, texture);
         this.spawnRate = spawnRate;
-        this.fortressImg = img;
     }
 
     public int getSpawnRate() {

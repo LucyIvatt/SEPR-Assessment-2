@@ -4,14 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Test;
-import com.mygdx.game.sprites.Alien;
-import com.mygdx.game.sprites.Entity;
-import com.mygdx.game.sprites.Firetruck;
-import com.mygdx.game.sprites.TestEntity;
+import com.mygdx.game.Timer;
+import com.mygdx.game.sprites.*;
 
 import java.util.ArrayList;
 //import com.mygdx.game.sprites.Firetruck;
@@ -20,6 +19,7 @@ public class PlayState extends State {
 
     private Texture background;
     private Preferences settings;
+    private Timer timer;
 
     private Entity obstacle;
     private Entity obstacle2;
@@ -27,7 +27,10 @@ public class PlayState extends State {
     private Firetruck truck1;
     private Firetruck truck2;
 
+    private Fortress minster;
+
     private Alien alien1;
+
     public ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
     public ArrayList<Alien> aliens = new ArrayList<Alien>();
@@ -36,6 +39,7 @@ public class PlayState extends State {
         super(gsm);
         // https://github.com/libgdx/libgdx/wiki/Tile-maps possible way of making a map?
         background = new Texture("playbg.png");
+        timer = new Timer();
 
         obstacle = new Entity(new Vector2(500, 400),100, 100, new Texture("blue.jpg"));
         obstacle2 = new Entity(new Vector2(200, 400),100, 100, new Texture("green.jpg"));
@@ -44,21 +48,23 @@ public class PlayState extends State {
 
         settings = Gdx.app.getPreferences("My Preferences");
 
-        truck1 = new Firetruck(new Vector2(50, 550), 90, 100, new Texture("blue.jpg"), 5, 2,
+        truck1 = new Firetruck(new Vector2(50, 550), 90, 100, new Texture("truckthin.png"), 5, 2,
                  null, 10, 10, 10, 10,
                 true);
         truck2 = new Firetruck(new Vector2(50, 100), 90, 100, new Texture("truckthin.png"), 5, 2,
                  null, 10, 10, 10, 10,
                 false);
 
-        Vector2[] vectors = new Vector2[]{
-                new Vector2(100,100),
-                new Vector2(100, 150),};
+        trucks.add(truck1);
+        trucks.add(truck2);
+
+        Vector2[] vectors = new Vector2[]{new Vector2(100,100), new Vector2(100, 150)};
+
         alien1 = new Alien(new Vector2(100, 100), 100, 100, new Texture("alien.png"), 100, 5,
                  null, 1, 10, 10,
                 vectors);
-        trucks.add(truck1);
-        trucks.add(truck2);
+
+        minster = new Fortress(new Vector2(800, 200), 100, 300, new Texture("grey.png"), 2);
     }
 
     @Override
@@ -104,9 +110,11 @@ public class PlayState extends State {
                 obstacle.getHeight());
         sb.draw(obstacle2.getTexture(), obstacle2.getPosition().x, obstacle2.getPosition().y, obstacle2.getWidth(),
                 obstacle2.getHeight());
-        sb.draw(truck1.getTexture(), truck1.getPosition().x, truck1.getPosition().y, 100, 100);
-        sb.draw(truck2.getTexture(), truck2.getPosition().x, truck2.getPosition().y, 100, 100);
-        sb.draw(alien1.getTexture(), alien1.getPosition().x, alien1.getPosition().y, 100, 100);
+        sb.draw(truck1.getTexture(), truck1.getPosition().x, truck1.getPosition().y, truck1.getWidth(), truck1.getHeight());
+        sb.draw(truck2.getTexture(), truck2.getPosition().x, truck2.getPosition().y, truck2.getWidth(), truck2.getHeight());
+        sb.draw(alien1.getTexture(), alien1.getPosition().x, alien1.getPosition().y, alien1.getWidth(), alien1.getHeight());
+        sb.draw(minster.getTexture(), minster.getPosition().x, minster.getPosition().y, minster.getWidth(), minster.getHeight());
+        timer.drawTime(sb);
         sb.end();
     }
     //https://stackoverflow.com/questions/33283867/how-to-make-a-sprite-move-with-keyboard-in-javalibgdx?rq=1 source

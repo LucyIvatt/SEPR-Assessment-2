@@ -80,8 +80,7 @@ public class Firetruck extends Character {
                 return false;
             }
         } else if (direction == "right") {
-            // Not sure why this needs to be multiplied by two but YOLO
-            if (getTopRight().x + getSpeed() * 2 <= other.getPosition().x || getPosition().x >= other.getTopRight().x ||
+            if (getTopRight().x + getSpeed() <= other.getPosition().x || getPosition().x >= other.getTopRight().x ||
                     getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
                 return false;
             }

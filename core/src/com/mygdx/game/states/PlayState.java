@@ -36,10 +36,12 @@ public class PlayState extends State {
         super(gsm);
         // https://github.com/libgdx/libgdx/wiki/Tile-maps possible way of making a map?
         background = new Texture("playbg.png");
+
         obstacle = new Entity(new Vector2(500, 400),100, 100, new Texture("blue.jpg"));
-        obstacle2 = new Entity(new Vector2(400, 100),30, 10, new Texture("green.jpg"));
+        obstacle2 = new Entity(new Vector2(200, 400),100, 100, new Texture("green.jpg"));
         obstacles.add(obstacle);
         obstacles.add(obstacle2);
+
         settings = Gdx.app.getPreferences("My Preferences");
 
         truck1 = new Firetruck(new Vector2(50, 550), 100, 100, new Texture("truck.png"), 5, 2,
@@ -112,44 +114,60 @@ public class PlayState extends State {
 
     public void truckMovement(Firetruck truck) {
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            boolean obstacleCollision = false;
             if(truck.getPosition().y == 550) {
-                truck.setPosition(truck.getPosition().x, 550);
+                obstacleCollision = true;
             }
-            else if (truck.willCollide(obstacle2, "up")) {
+            for (Entity obstacle : obstacles) {
+                if (truck.willCollide(obstacle, "up")) {
+                    obstacleCollision = true;
+                }
             }
-            else {
+            if (!obstacleCollision) {
                 truck.move("up");
             }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+            boolean obstacleCollision = false;
             if(truck.getPosition().y == 50) {
-                truck.setPosition(truck.getPosition().x, 50);
+                obstacleCollision = true;
             }
-            else if (truck.willCollide(obstacle2, "down")) {
+            for (Entity obstacle : obstacles) {
+                if (truck.willCollide(obstacle, "down")) {
+                    obstacleCollision = true;
+                }
             }
-            else {
+            if (!obstacleCollision) {
                 truck.move("down");
             }
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            boolean obstacleCollision = false;
             if(truck.getPosition().x == 50) {
-                truck.setPosition(50, truck.getPosition().y);
+                obstacleCollision = true;
             }
-            else if (truck.willCollide(obstacle2, "left")) {
+            for (Entity obstacle : obstacles) {
+                if (truck.willCollide(obstacle, "left")) {
+                    obstacleCollision = true;
+                }
             }
-            else {
+            if (!obstacleCollision) {
                 truck.move("left");
             }
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            boolean obstacleCollision = false;
             if(truck.getPosition().x == 850) {
-                truck.setPosition(850, truck.getPosition().y);
+                obstacleCollision = true;
             }
-            else if (truck.willCollide(obstacle2, "right")) {
+            for (Entity obstacle : obstacles) {
+                if (truck.willCollide(obstacle, "right")) {
+                    obstacleCollision = true;
+                }
             }
-            else {
+            if (!obstacleCollision) {
                 truck.move("right");
             }
         }

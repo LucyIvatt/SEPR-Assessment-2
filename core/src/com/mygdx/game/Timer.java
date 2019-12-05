@@ -8,7 +8,7 @@ public class Timer {
     private BitmapFont font;
     private float deltaTime = 0;
     private boolean stopped;
-    String time = "0";
+    private String timeString = "0";
 
     public Timer() {
         font = new BitmapFont();
@@ -18,7 +18,7 @@ public class Timer {
     public void update(){
         if (!this.stopped) {
             deltaTime += (Gdx.graphics.getDeltaTime());
-            time = String.format("%.0f", deltaTime);
+            timeString = String.format("%.0f", deltaTime);
         }
     }
 
@@ -26,12 +26,12 @@ public class Timer {
         this.stopped = true;
     }
 
+
     public void start(){
         this.stopped = false;
     }
 
     public void drawTime(SpriteBatch batch) {
-        font.draw(batch, time, 50, 30);
+        font.draw(batch, "Time: " + timeString, 50, 30);
     }
-
 }

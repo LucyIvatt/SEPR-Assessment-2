@@ -1,5 +1,6 @@
 package com.mygdx.game.sprites;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -7,6 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Test;
+import com.mygdx.game.states.State;
 
 import java.util.Random;
 
@@ -14,20 +16,8 @@ public class Fortress extends Unit {
 
     private int spawnRate;
     private Texture texture;
-    private Timer timer = new Timer();
-    private ArrayList<Alien> aliens;
 
-    private ArrayList<Vector2> objectPositions;
-
-     public Fortress(Vector2 position,int width, int height, Texture texture) { // Default constructor
-        super(position, width, height, texture);
-        this.spawnRate = 5;
-    }
-
-    public Fortress(Vector2 position, int width, int height, Texture texture, String img) { // basic fortress
-        super(position, width, height, texture);
-        this.spawnRate = 5;
-    }
+    private ArrayList<Vector2> alienPositions;
 
     public Fortress(Vector2 position, int width, int height, Texture texture, int spawnRate) {
         super(position, width, height, texture);
@@ -42,6 +32,8 @@ public class Fortress extends Unit {
         this.spawnRate = new_spawnRate;
     }
 
+
+    }
 //    public void produceAlien(int spawnRate) {
 //        while (aliens.size() < 20) {
 //            timer.schedule(new TimerTask(){
@@ -72,16 +64,15 @@ public class Fortress extends Unit {
 //        }
 //    }
 
-    public boolean checkWaypoint(Vector2 waypoint1) {
-         if (objectPositions.contains(waypoint1)) {
-             return false;
-         }
-
-         return true;
-    }
-
-
-}
+//    public boolean checkWaypoint(Vector2 waypoint1) {
+//         if (objectPositions.contains(waypoint1)) {
+//             return false;
+//         }
+//
+//         return true;
+//    }
+//
+//}
 
 // check alien way points dont over lap
 //

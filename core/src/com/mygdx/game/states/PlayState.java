@@ -12,14 +12,17 @@ import com.mygdx.game.Test;
 import com.mygdx.game.Timer;
 import com.mygdx.game.sprites.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 //import com.mygdx.game.sprites.Firetruck;
 
 public class PlayState extends State {
 
     private Texture background;
     private Preferences settings;
-    private Timer timer;
+    public Timer timer;
 
     private Entity obstacle;
     private Entity obstacle2;
@@ -30,6 +33,8 @@ public class PlayState extends State {
     private Fortress minster;
 
     private Alien alien1;
+    private ArrayList<Vector2> spawnCoords = new ArrayList<Vector2>();
+    private int alienSpawnCountdown = 300;
 
     public ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
@@ -37,7 +42,6 @@ public class PlayState extends State {
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        // https://github.com/libgdx/libgdx/wiki/Tile-maps possible way of making a map?
         background = new Texture("playbg.png");
         timer = new Timer();
 
@@ -63,8 +67,16 @@ public class PlayState extends State {
         alien1 = new Alien(new Vector2(100, 100), 100, 100, new Texture("alien.png"), 100, 5,
                  null, 1, 10, 10,
                 vectors);
+        spawnCoords.add(new Vector2(700, 100));
+        spawnCoords.add(new Vector2(700, 200));
+        spawnCoords.add(new Vector2(700, 300));
+        spawnCoords.add(new Vector2(700, 400));
+        spawnCoords.add(new Vector2(700, 500));
+        spawnCoords.add(new Vector2(800, 500));
+        spawnCoords.add(new Vector2(800, 100));
 
-        minster = new Fortress(new Vector2(800, 200), 100, 300, new Texture("grey.png"), 2);
+        minster = new Fortress(new Vector2(800, 200), 100, 300, new Texture("grey.png"),
+                10);
     }
 
     @Override
@@ -99,6 +111,15 @@ public class PlayState extends State {
     @Override
     public void update(float dt) {
         alien1.update();
+        for (Alien alien : aliens) {
+            alien.update();
+        }
+        alienSpawnCountdown -= dt;
+
+        if (alienSpawnCountdown <= 0 ) {
+            produceAlien();
+            alienSpawnCountdown = 300;
+        }
         handleInput();
     }
 
@@ -114,6 +135,9 @@ public class PlayState extends State {
         sb.draw(truck2.getTexture(), truck2.getPosition().x, truck2.getPosition().y, truck2.getWidth(), truck2.getHeight());
         sb.draw(alien1.getTexture(), alien1.getPosition().x, alien1.getPosition().y, alien1.getWidth(), alien1.getHeight());
         sb.draw(minster.getTexture(), minster.getPosition().x, minster.getPosition().y, minster.getWidth(), minster.getHeight());
+        for (Alien alien : aliens){
+            sb.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(), alien.getHeight());
+        }
         timer.drawTime(sb);
         sb.end();
     }
@@ -180,6 +204,18 @@ public class PlayState extends State {
             }
         }
     }
+
+    public void produceAlien() {
+        Random rand = new Random();
+        if (spawnCoords.size() > 0) {
+            Vector2 coordinate = spawnCoords.get(rand.nextInt(spawnCoords.size()));
+            Alien alien = new Alien(coordinate, 100, 100, new Texture("alien.png"), 100, 5,
+                    null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                    new Vector2(coordinate.x + 10, coordinate.y)});
+            aliens.add(alien);
+            spawnCoords.remove(coordinate);
+        }
+        }
 
     @Override
     public void dispose() {

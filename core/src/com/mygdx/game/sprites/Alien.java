@@ -86,16 +86,16 @@ public class Alien extends Character {
         if (currentPos.x == destination.x){
             // if the destination is above the current position move up otherwise move down
             if (destination.y > currentPos.y){
-                nextPos.y += getSpeed();
+                nextPos.y += this.getSpeed();
             } else{
-                nextPos.y -= getSpeed();
+                nextPos.y -= this.getSpeed();
             }
         } else {
             // movement along the x axis
             if (destination.x > currentPos.x){
-                nextPos.x += getSpeed();
+                nextPos.x += this.getSpeed();
             } else{
-                nextPos.x -= getSpeed();
+                nextPos.x -= this.getSpeed();
             }
         }
         return nextPos;

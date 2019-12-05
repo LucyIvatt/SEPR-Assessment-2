@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.Test;
 import com.mygdx.game.Timer;
+import com.mygdx.game.Test;
 import com.mygdx.game.sprites.*;
 
 import java.util.ArrayList;
@@ -20,6 +20,8 @@ public class PlayState extends State {
     private Texture background;
     private Preferences settings;
     private Timer timer;
+
+    private boolean winCondition;
 
     private Entity obstacle;
     private Entity obstacle2;
@@ -41,6 +43,7 @@ public class PlayState extends State {
         background = new Texture("playbg.png");
         timer = new Timer();
 
+        winCondition = false;
         obstacle = new Entity(new Vector2(500, 400),100, 100, new Texture("blue.jpg"));
         obstacle2 = new Entity(new Vector2(200, 400),100, 100, new Texture("green.jpg"));
         obstacles.add(obstacle);
@@ -63,6 +66,7 @@ public class PlayState extends State {
         alien1 = new Alien(new Vector2(100, 100), 100, 100, new Texture("alien.png"), 100, 5,
                  null, 1, 10, 10,
                 vectors);
+        aliens.add(alien1);
 
         minster = new Fortress(new Vector2(800, 200), 100, 300, new Texture("grey.png"), 2);
     }
@@ -71,6 +75,10 @@ public class PlayState extends State {
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             gsm.push(new EndState(gsm));
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            endLevel();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.L)) {
@@ -98,6 +106,7 @@ public class PlayState extends State {
 
     @Override
     public void update(float dt) {
+        timer.update();
         alien1.update();
         handleInput();
     }
@@ -178,6 +187,18 @@ public class PlayState extends State {
             if (!obstacleCollision) {
                 truck.move("right");
             }
+        }
+    }
+
+    public void endLevel(){
+        timer.stop();
+        for (Firetruck truck : trucks){
+            truck.setSpeed(0);
+            truck.setDps(0);
+        }
+        for (Alien alien : aliens){
+            alien.setSpeed(0);
+            alien.setDps(0);
         }
     }
 

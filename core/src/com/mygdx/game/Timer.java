@@ -7,16 +7,31 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Timer {
     private BitmapFont font;
     private float deltaTime = 0;
-    String time;
+    private boolean stopped;
+    String time = "0";
 
     public Timer() {
         font = new BitmapFont();
+        stopped = false;
+    }
+
+    public void update(){
+        if (!this.stopped) {
+            deltaTime += (Gdx.graphics.getDeltaTime());
+            time = String.format("%.0f", deltaTime);
+        }
+    }
+
+    public void stop(){
+        this.stopped = true;
+    }
+
+    public void start(){
+        this.stopped = false;
     }
 
     public void drawTime(SpriteBatch batch) {
-        deltaTime += (Gdx.graphics.getDeltaTime());
-        time = String.format("%.0f", deltaTime);
-        font.draw(batch, time, 100, 100);
-
+        font.draw(batch, time, 50, 30);
     }
+
 }

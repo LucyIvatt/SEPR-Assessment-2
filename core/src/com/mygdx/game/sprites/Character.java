@@ -32,6 +32,14 @@ public abstract class Character extends Unit {
         return dps;
     }
 
+    public void setSpeed(int speed){
+        this.speed = speed;
+    }
+
+    public void setDps(int dps){
+        this.dps = dps;
+    }
+
     //Maybe don't need it in the future...?
     public void setTarget(Unit target) {
         this.target = target;

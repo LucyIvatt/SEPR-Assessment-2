@@ -36,16 +36,21 @@ public class PlayState extends State {
 
     private Alien alien1;
     private ArrayList<Vector2> spawnCoords = new ArrayList<Vector2>();
+
     private int alienSpawnCountdown = 300;
+    private int alienShootCountdown = 300;
 
     public ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
     public ArrayList<Alien> aliens = new ArrayList<Alien>();
+    private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+    private BitmapFont font;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("playbg.png");
         timer = new Timer();
+        font = new BitmapFont();
 
         winCondition = false;
         obstacle = new Entity(new Vector2(500, 400),100, 100, new Texture("blue.jpg"));
@@ -55,10 +60,10 @@ public class PlayState extends State {
 
         settings = Gdx.app.getPreferences("My Preferences");
 
-        truck1 = new Firetruck(new Vector2(50, 550), 90, 100, new Texture("truckthin.png"), 5, 2,
+        truck1 = new Firetruck(new Vector2(50, 550), 90, 100, new Texture("truckthin.png"), 100, 2,
                  null, 10, 10, 10, 10,
                 true);
-        truck2 = new Firetruck(new Vector2(50, 100), 90, 100, new Texture("truckthin.png"), 5, 2,
+        truck2 = new Firetruck(new Vector2(300, 550), 90, 100, new Texture("truckthin.png"), 100, 2,
                  null, 10, 10, 10, 10,
                 false);
 
@@ -67,7 +72,7 @@ public class PlayState extends State {
 
         Vector2[] vectors = new Vector2[]{new Vector2(100,100), new Vector2(100, 150)};
 
-        alien1 = new Alien(new Vector2(100, 100), 100, 100, new Texture("alien.png"), 100, 5,
+        alien1 = new Alien(new Vector2(100, 100), 100, 100, new Texture("alien.png"), 100, 500,
                  null, 1, 10, 10,
                 vectors);
         aliens.add(alien1);
@@ -121,17 +126,37 @@ public class PlayState extends State {
     @Override
     public void update(float dt) {
         timer.update();
-        alien1.update();
         for (Alien alien : aliens) {
             alien.update();
-        }
-        alienSpawnCountdown -= dt;
+            alien.truckInAttackRange(trucks);
+            if (alienShootCountdown <= 0) {
+                if (alien.hasTarget()) {
+                    Bullet bullet = new Bullet(alien.getPosition(), 5, 5,
+                            new Texture("blue.jpg"), (new Vector2(alien.getTarget().getPosition().x + 45, alien.getTarget().getPosition().y + 50)), 2);
+                    bullets.add(bullet);
+                }
+                alienShootCountdown = 300;
+            }
+            alienSpawnCountdown -= dt;
+            alienShootCountdown -= dt;
 
-        if (alienSpawnCountdown <= 0 ) {
-            produceAlien();
-            alienSpawnCountdown = 300;
+//        if (alienSpawnCountdown <= 0 ) {
+//            produceAlien();
+//            alienSpawnCountdown = 300;
+//        }
+            handleInput();
         }
-        handleInput();
+
+        for (Bullet bullet : new ArrayList<Bullet>(bullets)) {
+            bullet.update();
+            for(Firetruck truck : trucks) {
+                System.out.println(bullet.hitTruck(truck));
+                if (bullet.hitTruck(truck)) {
+                    truck.takeDamage(10);
+                    bullets.remove(bullet);
+                }
+            }
+        }
     }
 
     @Override
@@ -149,7 +174,12 @@ public class PlayState extends State {
         for (Alien alien : aliens){
             sb.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(), alien.getHeight());
         }
+        for(Bullet bullet : bullets) {
+            sb.draw(bullet.getTexture(), bullet.getPosition().x, bullet.getPosition().y, bullet.getWidth(), bullet.getHeight());
+        }
         timer.drawTime(sb);
+        font.draw(sb, "Truck 1 Health: " + Integer.toString(truck1.getCurrentHealth()), 200, 30);
+        font.draw(sb, "Truck 2 Health: " + Integer.toString(truck2.getCurrentHealth()), 400, 30);
         sb.end();
     }
     //https://stackoverflow.com/questions/33283867/how-to-make-a-sprite-move-with-keyboard-in-javalibgdx?rq=1 source
@@ -233,7 +263,7 @@ public class PlayState extends State {
         Random rand = new Random();
         if (spawnCoords.size() > 0) {
             Vector2 coordinate = spawnCoords.get(rand.nextInt(spawnCoords.size()));
-            Alien alien = new Alien(coordinate, 100, 100, new Texture("alien.png"), 100, 5,
+            Alien alien = new Alien(coordinate, 100, 100, new Texture("alien.png"), 100, 50,
                     null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                     new Vector2(coordinate.x + 10, coordinate.y)});
             aliens.add(alien);

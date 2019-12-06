@@ -1,6 +1,7 @@
 package com.mygdx.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.states.PlayState;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class Alien extends Character {
     // is called each frame
     public void update(){
        moveTo();
-       attackIfHasTarget();
+//       attackIfHasTarget();
     }
 
     // Moves the alien between the wayPoints
@@ -140,8 +141,8 @@ public class Alien extends Character {
     public void truckInAttackRange(ArrayList<Firetruck> firetrucks) {
         //float bottomLeftRange = new Vector2(getPosition().x - getRange(), getPosition().y - getRange());
         for(Firetruck firetruck : firetrucks) {
-            if (this.getTopRight().y < firetruck.getPosition().y || getPosition().y > firetruck.getTopRight().y ||
-                    getTopRight().x < firetruck.getPosition().x || getPosition().x > firetruck.getTopRight().x) {
+            if (this.getTopRight().y + getRange() / 2 < firetruck.getPosition().y || getPosition().y - getRange() / 2 > firetruck.getTopRight().y ||
+                    getTopRight().x + getRange() / 2 < firetruck.getPosition().x || getPosition().x - getRange() / 2 > firetruck.getTopRight().x) {
 
                 if (getTarget() == firetruck) {
                     setTarget(null);
@@ -152,7 +153,15 @@ public class Alien extends Character {
                     setTarget(firetruck);
                 }
                 }
-
             }
+    }
+
+    public boolean hasTarget() {
+        if(getTarget() == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }

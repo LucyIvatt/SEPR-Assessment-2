@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Timer;
 import com.mygdx.game.Test;
 import com.mygdx.game.sprites.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -38,10 +38,11 @@ public class PlayState extends State {
     private ArrayList<Vector2> spawnCoords = new ArrayList<Vector2>();
 
     private int alienSpawnCountdown = 300;
-    private int alienShootCountdown = 300;
+    private int alienShootCountdown = 150;
 
     public ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
+    public ArrayList<Firetruck> destroyedTrucks = new ArrayList<Firetruck>();
     public ArrayList<Alien> aliens = new ArrayList<Alien>();
     private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
     private BitmapFont font;
@@ -132,10 +133,10 @@ public class PlayState extends State {
             if (alienShootCountdown <= 0) {
                 if (alien.hasTarget()) {
                     Bullet bullet = new Bullet(alien.getPosition(), 5, 5,
-                            new Texture("blue.jpg"), (new Vector2(alien.getTarget().getPosition().x + 45, alien.getTarget().getPosition().y + 50)), 2);
+                            new Texture("blue.jpg"), (new Vector2(alien.getTarget().getPosition().x + 45, alien.getTarget().getPosition().y + 50)), 15);
                     bullets.add(bullet);
                 }
-                alienShootCountdown = 300;
+                alienShootCountdown = 150;
             }
             alienSpawnCountdown -= dt;
             alienShootCountdown -= dt;
@@ -149,11 +150,16 @@ public class PlayState extends State {
 
         for (Bullet bullet : new ArrayList<Bullet>(bullets)) {
             bullet.update();
-            for(Firetruck truck : trucks) {
+            for(Firetruck truck : new ArrayList<Firetruck>(trucks)) {
                 System.out.println(bullet.hitTruck(truck));
                 if (bullet.hitTruck(truck)) {
                     truck.takeDamage(10);
                     bullets.remove(bullet);
+                    if(truck.getCurrentHealth() == 0) {
+                        trucks.remove(truck);
+                        destroyedTrucks.add(truck);
+
+                    }
                 }
             }
         }

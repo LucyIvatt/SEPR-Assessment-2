@@ -9,10 +9,10 @@ public class Alien extends Character {
 
     private Vector2[] wayPoints; // change to array list
     private int currentWP = 0; //The current index of
-    private float timeWhenLastAttacked; // The time since the Alien last attacked
-    private boolean forwards = true; // determines if the alien is moving forwards...
-    // ... through the way points list or backwards
+    private float timeSinceAttack; // The time since the Alien last attacked
+    private boolean forwards = true; // determines if the alien is moving forwards, through the way points list or backwards
     private boolean nextWayPointVersion1 = true; // Used for TESTING ONLY, there are currently two versions..
+    private final float attackCooldown = 5;
     // ..for what happens when the alien reaches the final way point in the list, this boolean decides which..
     // .. version is followed
 
@@ -20,7 +20,7 @@ public class Alien extends Character {
                  int speed, int dps, int bearing, Vector2[] wayPoints) {
         super(position, width, height, texture, maxHealth, range, target, speed, dps);
         this.wayPoints = wayPoints;
-        this.timeWhenLastAttacked = 0;
+        this.timeSinceAttack = 0;
     }
 
     // is called each frame
@@ -124,19 +124,19 @@ public class Alien extends Character {
     }
 
     // Attacks target if a target is set
-    private void attackIfHasTarget() {
-        // if the target is not null: meaning that there is a target present
-        if (getTarget() != null) {
-            // Attacks every second instead of every update: checks if the system clock is greater than the time when
-            // the alien last attacks plus one second, presuming 1000 represent a second
-            if (System.currentTimeMillis() > timeWhenLastAttacked + 1000) {
-                // sets the timeWhenLast attacked to the current time to restart timer
-                timeWhenLastAttacked = System.currentTimeMillis();
-                // gets the target and calls the take damage function on that unit with an damage value of dps
-                getTarget().takeDamage(getDps());
-            }
-        }
-    }
+//    private void attackIfHasTarget() {
+//        // if the target is not null: meaning that there is a target present
+//        if (getTarget() != null) {
+//            // Attacks every second instead of every update: checks if the system clock is greater than the time when
+//            // the alien last attacks plus one second, presuming 1000 represent a second
+//            if (System.currentTimeMillis() > timeWhenLastAttacked + 1000) {
+//                // sets the timeWhenLast attacked to the current time to restart timer
+//                timeWhenLastAttacked = System.currentTimeMillis();
+//                // gets the target and calls the take damage function on that unit with an damage value of dps
+//                getTarget().takeDamage(getDps());
+//            }
+//        }
+//    }
 
     public void truckInAttackRange(ArrayList<Firetruck> firetrucks) {
         if (this.hasTarget() && getTarget().getCurrentHealth() == 0) {
@@ -162,6 +162,18 @@ public class Alien extends Character {
         } else {
             return true;
         }
+    }
+
+    public float getTimeSinceAttack() {
+        return timeSinceAttack;
+    }
+
+    public void resetTimeSinceAttack() {
+        this.timeSinceAttack = 0;
+    }
+
+    public void updateTimeSinceAttack(float dt) {
+        this.timeSinceAttack += dt;
     }
 }
 

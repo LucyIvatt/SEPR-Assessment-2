@@ -73,7 +73,7 @@ public class PlayState extends State {
 
         Vector2[] vectors = new Vector2[]{new Vector2(100,100), new Vector2(100, 150)};
 
-        alien1 = new Alien(new Vector2(100, 100), 100, 100, new Texture("alien.png"), 100, 500,
+        alien1 = new Alien(new Vector2(100, 100), 100, 100, new Texture("alien.png"), 100, 200,
                  null, 1, 10, 10,
                 vectors);
         aliens.add(alien1);
@@ -130,28 +130,27 @@ public class PlayState extends State {
         for (Alien alien : aliens) {
             alien.update();
             alien.truckInAttackRange(trucks);
-            if (alienShootCountdown <= 0) {
+            System.out.println(alien.getTimeSinceAttack());
+            if (alien.getTimeSinceAttack() >= 5) {
                 if (alien.hasTarget()) {
-                    Bullet bullet = new Bullet(alien.getPosition(), 5, 5,
+                    Bullet bullet = new Bullet(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
                             new Texture("blue.jpg"), (new Vector2(alien.getTarget().getPosition().x + 45, alien.getTarget().getPosition().y + 50)), 15);
                     bullets.add(bullet);
+                    alien.resetTimeSinceAttack();
                 }
-                alienShootCountdown = 150;
             }
             alienSpawnCountdown -= dt;
-            alienShootCountdown -= dt;
+            alien.updateTimeSinceAttack(dt);
 
-//        if (alienSpawnCountdown <= 0 ) {
-//            produceAlien();
-//            alienSpawnCountdown = 300;
-//        }
-            handleInput();
         }
-
+        if (alienSpawnCountdown <= 0 ) {
+            produceAlien();
+            alienSpawnCountdown = 300;
+        }
+        handleInput();
         for (Bullet bullet : new ArrayList<Bullet>(bullets)) {
             bullet.update();
             for(Firetruck truck : new ArrayList<Firetruck>(trucks)) {
-                System.out.println(bullet.hitTruck(truck));
                 if (bullet.hitTruck(truck)) {
                     truck.takeDamage(10);
                     bullets.remove(bullet);
@@ -269,7 +268,7 @@ public class PlayState extends State {
         Random rand = new Random();
         if (spawnCoords.size() > 0) {
             Vector2 coordinate = spawnCoords.get(rand.nextInt(spawnCoords.size()));
-            Alien alien = new Alien(coordinate, 100, 100, new Texture("alien.png"), 100, 50,
+            Alien alien = new Alien(coordinate, 100, 100, new Texture("alien.png"), 100, 200,
                     null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                     new Vector2(coordinate.x + 10, coordinate.y)});
             aliens.add(alien);

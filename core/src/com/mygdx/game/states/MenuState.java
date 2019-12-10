@@ -41,7 +41,7 @@ public class MenuState extends State {
         if (play.mouseInRegion()){
             play.setActive(true);
             if (Gdx.input.isTouched()) {
-                gameStateManager.set(new PlayState(gameStateManager));
+                gameStateManager.push(new PlayState(gameStateManager));
             }
         }
         else {

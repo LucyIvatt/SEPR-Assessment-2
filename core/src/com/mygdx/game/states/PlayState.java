@@ -3,16 +3,15 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.misc.Timer;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.sprites.*;
+import sun.util.locale.StringTokenIterator;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,47 +27,47 @@ public class PlayState extends State {
 
     private boolean winCondition;
 
-    private Entity obstacle;
-    private Entity obstacle2;
+    private Entity refillSquare;
 
     private Firetruck truck1;
     private Firetruck truck2;
 
     private Fortress minster;
 
-    private Alien alien1;
-    private ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
-
-    private int alienSpawnCountdown = 100;
+    private int alienSpawnCountdown;
 
     public ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
     public ArrayList<Firetruck> destroyedTrucks = new ArrayList<Firetruck>();
     public ArrayList<Alien> aliens = new ArrayList<Alien>();
-    private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-    private BitmapFont font;
+    private ArrayList<Projectile> bullets = new ArrayList<Projectile>();
+    private ArrayList<Projectile> water = new ArrayList<Projectile>();
+    private BitmapFont ui;
+    private BitmapFont healthBars;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("LevelProportions.png");
         settings = Gdx.app.getPreferences("My Preferences");
         timer = new Timer();
-        font = new BitmapFont(Gdx.files.internal("font.fnt"));
+        ui = new BitmapFont(Gdx.files.internal("font.fnt"));
+        healthBars = new BitmapFont();
         winCondition = false;
 
         // Level Obstacles
-
+        refillSquare = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
         // Firetrucks
         truck1 = new Firetruck(new Vector2(50, 550), 64, 64, new Texture("truckthin.png"), 100, 2,
-                 null, 200, 10, 10, 10,
-                true);
+                 null, 250, 10, 10, 100,
+                true, 5);
         truck2 = new Firetruck(new Vector2(300, 550), 64, 64, new Texture("truckthin.png"), 100, 2,
-                 null, 200, 10, 10, 10,
-                false);
+                 null, 250, 10, 10, 100,
+                false, 5);
         trucks.add(truck1);
         trucks.add(truck2);
 
         // Aliens
+        ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
         spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (gameHeight / 2) - 64 / 2));
         spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 64));
         spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 160));
@@ -79,14 +78,21 @@ public class PlayState extends State {
 
         // Fortress
         minster = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
-                10);
-        font.getData().setScale(1);
-        font.setColor(Color.DARK_GRAY);
+                10000, spawnCoordinates);
+        alienSpawnCountdown = minster.getSpawnRate();
+        ui.setColor(Color.DARK_GRAY);
     }
 
     public void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            gameStateManager.push(new EndState(gameStateManager));
+
+        for(Firetruck firetruck : trucks) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && firetruck.isSelected() && firetruck.getCurrentWater() > 0) {
+                Projectile drop = new Projectile(new Vector2(firetruck.getPosition().x + firetruck.getWidth() / 2, firetruck.getPosition().y + firetruck.getHeight() / 2), 5, 5,
+                        new Texture("lightblue.jpg"), (new Vector2(Gdx.input.getX(), Kroy.HEIGHT - Gdx.input.getY())), 5);
+                water.add(drop);
+                firetruck.updateCurrentWater(1);
+                firetruck.resetTimeSinceAttack();
+            }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
@@ -122,11 +128,10 @@ public class PlayState extends State {
         for (Alien alien : aliens) {
             alien.update();
             alien.truckInAttackRange(trucks);
-            System.out.println(alien.getTimeSinceAttack());
-            if (alien.getTimeSinceAttack() >= 5) {
+            if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
                 if (alien.hasTarget()) {
-                    Bullet bullet = new Bullet(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
-                            new Texture("blue.jpg"), (new Vector2(alien.getTarget().getPosition().x + 45, alien.getTarget().getPosition().y + 50)), 5);
+                    Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
+                            new Texture("black.jpg"), (new Vector2(alien.getTarget().getPosition().x + 45, alien.getTarget().getPosition().y + 50)), 5);
                     bullets.add(bullet);
                     alien.resetTimeSinceAttack();
                 }
@@ -137,62 +142,105 @@ public class PlayState extends State {
 
         if (alienSpawnCountdown <= 0 ) {
             produceAlien();
-            alienSpawnCountdown = 100;
+            alienSpawnCountdown = minster.getSpawnRate();
         }
         handleInput();
-        for (Bullet bullet : new ArrayList<Bullet>(bullets)) {
+        for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
             for(Firetruck truck : new ArrayList<Firetruck>(trucks)) {
-                if (bullet.hitTruck(truck)) {
+                if (bullet.hitUnit(truck)) {
                     truck.takeDamage(10);
                     bullets.remove(bullet);
                     if(truck.getCurrentHealth() == 0) {
                         trucks.remove(truck);
                         destroyedTrucks.add(truck);
-
                     }
                 }
             }
         }
 
-        if (trucks.size() == 0) {
-            gameStateManager.push(new EndState(gameStateManager));
+        for (Firetruck truck : trucks) {
+            if (!(truck.getTopRight().y < refillSquare.getPosition().y || truck.getPosition().y > refillSquare.getTopRight().y ||
+                    truck.getTopRight().x < refillSquare.getPosition().x || truck.getPosition().x > refillSquare.getTopRight().x)) {
+                // Would call minigame here
+                truck.setCurrentWater(truck.getMaxWater());
+            }
         }
+
+        for (Projectile drop : new ArrayList<Projectile>(water)) {
+            drop.update();
+            for(Alien alien : new ArrayList<Alien>(aliens)) {
+                if (drop.hitUnit(alien)) {
+                    alien.takeDamage(2);
+                    water.remove(drop);
+                    if(alien.getCurrentHealth() == 0) {
+                        minster.getAlienPositions().add(alien.getPosition());
+                        aliens.remove(alien);
+                    }
+                }
+            }
+
+            if (drop.hitUnit(minster)) {
+                minster.takeDamage(2);
+                if(minster.getCurrentHealth() == 0) {
+                    settings.putBoolean("level1", true);
+                    gameStateManager.set(new EndState(gameStateManager, true));
+                }
+            }
+        }
+        if (trucks.size() == 0 || timer.getDeltaTime() > 60) {
+            gameStateManager.push(new EndState(gameStateManager, false));
+        }
+
+        minster.addHealth(1);
     }
 
     @Override
-    public void render(SpriteBatch sb) {
-        sb.begin();
-        sb.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
-        sb.draw(truck1.getTexture(), truck1.getPosition().x, truck1.getPosition().y, truck1.getWidth(),
-                truck1.getHeight());
-        sb.draw(truck2.getTexture(), truck2.getPosition().x, truck2.getPosition().y, truck2.getWidth(),
-                truck2.getHeight());
-        sb.draw(minster.getTexture(), minster.getPosition().x, minster.getPosition().y, minster.getWidth(),
+    public void render(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
+        spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
+        spriteBatch.draw(refillSquare.getTexture(), refillSquare.getPosition().x, refillSquare.getPosition().y, refillSquare.getWidth(),
+                refillSquare.getHeight());
+
+        for (Firetruck truck : trucks) {
+            spriteBatch.draw(truck.getTexture(), truck.getPosition().x, truck.getPosition().y, truck.getWidth(),
+                    truck.getHeight());
+            healthBars.draw(spriteBatch, "Water: " + truck.getCurrentWater(), truck.getPosition().x, truck.getPosition().y + truck.getHeight() + 10);
+        }
+
+        spriteBatch.draw(minster.getTexture(), minster.getPosition().x, minster.getPosition().y, minster.getWidth(),
                 minster.getHeight());
+        healthBars.draw(spriteBatch, "HP: " + minster.getCurrentHealth(), minster.getPosition().x, minster.getPosition().y + minster.getHeight() + 10);
 
         for (Alien alien : aliens){
-            sb.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(),
+            spriteBatch.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(),
                     alien.getHeight());
+            healthBars.draw(spriteBatch, "HP: " + alien.getCurrentHealth(), alien.getPosition().x, alien.getPosition().y + alien.getHeight() + 10);
+
         }
-        for(Bullet bullet : bullets) {
-            sb.draw(bullet.getTexture(), bullet.getPosition().x, bullet.getPosition().y, bullet.getWidth(),
+        for(Projectile bullet : bullets) {
+            spriteBatch.draw(bullet.getTexture(), bullet.getPosition().x, bullet.getPosition().y, bullet.getWidth(),
                     bullet.getHeight());
         }
+
+        for(Projectile drop : water) {
+            spriteBatch.draw(drop.getTexture(), drop.getPosition().x, drop.getPosition().y, drop.getWidth(),
+                    drop.getHeight());
+        }
         for(Entity obstacle : obstacles) {
-            sb.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y, obstacle.getWidth(),
+            spriteBatch.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y, obstacle.getWidth(),
                     obstacle.getHeight());
         }
 
-        timer.drawTime(sb, font);
-        font.draw(sb, "Truck 1 Health: " + Integer.toString(truck1.getCurrentHealth()), 70,
+        timer.drawTime(spriteBatch, ui);
+        ui.draw(spriteBatch, "Truck 1 Health: " + Integer.toString(truck1.getCurrentHealth()), 70,
                 Kroy.HEIGHT - 920);
-        font.draw(sb, "Truck 2 Health: " + Integer.toString(truck2.getCurrentHealth()), 546,
+        ui.draw(spriteBatch, "Truck 2 Health: " + Integer.toString(truck2.getCurrentHealth()), 546,
                 Kroy.HEIGHT - 920);
-        font.draw(sb, "Truck 3 Health: N/A", 1023, Kroy.HEIGHT - 920);
-        font.draw(sb, "Truck 4 Health: N/A", 1499, Kroy.HEIGHT - 920);
+        ui.draw(spriteBatch, "Truck 3 Health: N/A", 1023, Kroy.HEIGHT - 920);
+        ui.draw(spriteBatch, "Truck 4 Health: N/A", 1499, Kroy.HEIGHT - 920);
 
-        sb.end();
+        spriteBatch.end();
     }
 
     public void truckMovement(Firetruck truck) {
@@ -271,13 +319,13 @@ public class PlayState extends State {
 
     public void produceAlien() {
         Random rand = new Random();
-        if (spawnCoordinates.size() > 0) {
-            Vector2 coordinate = spawnCoordinates.get(rand.nextInt(spawnCoordinates.size()));
-            Alien alien = new Alien(coordinate, 64, 64, new Texture("alien.png"), 100, 200,
+        if (minster.getAlienPositions().size() > 0) {
+            Vector2 coordinate = minster.getAlienPositions().get(rand.nextInt(minster.getAlienPositions().size()));
+            Alien alien = new Alien(coordinate, 64, 64, new Texture("alien.png"), 100, 500,
                     null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                    new Vector2(coordinate.x + 10, coordinate.y)});
+                    new Vector2(coordinate.x, coordinate.y + 30)}, 5);
             aliens.add(alien);
-            spawnCoordinates.remove(coordinate);
+            minster.getAlienPositions().remove(coordinate);
         }
         }
 

@@ -7,16 +7,21 @@ public abstract class Character extends Unit {
     private Unit target;
     private int speed;
     private int dps;
+    private float attackCooldown;
+    private float timeSinceAttack;
+    private int range;
 
     //Thinking the standard constructor should not force a target since the firetruck will
     //spawn with no enemies in target.
     // Constructor
     public Character(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
-                     int speed, int dps) {
+                     int speed, int dps, float attackCooldown) {
         super(position, width, height, texture, maxHealth, range);
         this.target = target;
         this.speed = speed;
         this.dps = dps;
+        this.attackCooldown = attackCooldown;
+        this.timeSinceAttack = 0;
     }
 
     // Getters and Setters
@@ -45,4 +50,23 @@ public abstract class Character extends Unit {
         this.target = target;
     }
 
+    public float getTimeSinceAttack() {
+        return timeSinceAttack;
+    }
+
+    public void resetTimeSinceAttack() {
+        this.timeSinceAttack = 0;
+    }
+
+    public void updateTimeSinceAttack(float dt) {
+        this.timeSinceAttack += dt;
+    }
+
+    public float getAttackCooldown() {
+        return attackCooldown;
+    }
+
+    public int getRange() {
+        return range;
+    }
 }

@@ -11,6 +11,15 @@ public class Firetruck extends Character {
     private int currentWater;
     private boolean selected;
 
+    // Constructor
+    public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
+                     int speed, int dps, int bearing, int maxWater, boolean selected, float attackCooldown) {
+        super(position, width, height, texture, maxHealth, range, target, speed, dps, attackCooldown);
+        this.maxWater = maxWater;
+        this.currentWater = maxWater;
+        this.selected = selected;
+    }
+
     // Getters and Setters
     public int getMaxWater() {
         return maxWater;
@@ -28,16 +37,11 @@ public class Firetruck extends Character {
         this.currentWater = currentWater;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void updateCurrentWater(int waterUsed) {
+        this.currentWater -=  waterUsed;
     }
 
-    // Constructor
-    public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
-                     int speed, int dps, int bearing, int maxWater, boolean selected) {
-        super(position, width, height,  texture, maxHealth, range, target, speed, dps);
-        this.maxWater = maxWater;
-        this.currentWater = maxWater;
+    public void setSelected(boolean selected) {
         this.selected = selected;
     }
 

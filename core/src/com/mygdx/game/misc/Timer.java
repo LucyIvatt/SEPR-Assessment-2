@@ -33,4 +33,8 @@ public class Timer {
     public void drawTime(SpriteBatch batch, BitmapFont font) {
         font.draw(batch, "Time Elapsed: " + timeString, 810, Kroy.HEIGHT - 1005);
     }
+
+    public float getDeltaTime() {
+        return deltaTime;
+    }
 }

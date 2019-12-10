@@ -9,19 +9,17 @@ public class Alien extends Character {
 
     private Vector2[] wayPoints; // change to array list
     private int currentWP = 0; //The current index of
-    private float timeSinceAttack; // The time since the Alien last attacked
     private boolean forwards = true; // determines if the alien is moving forwards, through the way points list or backwards
     private boolean nextWayPointVersion1 = true; // Used for TESTING ONLY, there are currently two versions..
-    private final float attackCooldown = 5;
     // ..for what happens when the alien reaches the final way point in the list, this boolean decides which..
     // .. version is followed
 
     public Alien(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
-                 int speed, int dps, int bearing, Vector2[] wayPoints) {
-        super(position, width, height, texture, maxHealth, range, target, speed, dps);
+                 int speed, int dps, int bearing, Vector2[] wayPoints, float attackCooldown) {
+        super(position, width, height, texture, maxHealth, range, target, speed, dps, attackCooldown);
         this.wayPoints = wayPoints;
-        this.timeSinceAttack = 0;
     }
+
 
     // is called each frame
     public void update() {
@@ -163,18 +161,6 @@ public class Alien extends Character {
         } else {
             return true;
         }
-    }
-
-    public float getTimeSinceAttack() {
-        return timeSinceAttack;
-    }
-
-    public void resetTimeSinceAttack() {
-        this.timeSinceAttack = 0;
-    }
-
-    public void updateTimeSinceAttack(float dt) {
-        this.timeSinceAttack += dt;
     }
 }
 

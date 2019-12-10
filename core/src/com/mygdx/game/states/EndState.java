@@ -8,9 +8,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class EndState extends State{
     private Texture background;
 
-    public EndState(GameStateManager gsm) {
+    public EndState(GameStateManager gsm, boolean status) {
         super(gsm);
-        background = new Texture("EndScreen.png");
+        if (status) {
+            background = new Texture("levelcomplete.png");
+        }
+        else {
+            background = new Texture("levelFail.png");
+        }
     }
 
     public void handleInput() {

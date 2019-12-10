@@ -13,10 +13,9 @@ public class EndState extends State{
         background = new Texture("EndScreen.png");
     }
 
-    @Override
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            gsm.pop();
+            gameStateManager.pop();
         }
     }
 
@@ -31,7 +30,6 @@ public class EndState extends State{
         sb.begin();
         sb.draw(background, 0, 0);
         sb.end();
-
     }
 
     @Override

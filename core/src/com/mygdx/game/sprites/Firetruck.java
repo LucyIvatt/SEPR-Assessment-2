@@ -57,14 +57,15 @@ public class Firetruck extends Character {
     }
 
     public void move(String direction) { //change from string to 1, 2, 3, 4
+        float deltaTime = Gdx.graphics.getDeltaTime();
         if (direction == "right") {
-            setPosition(getPosition().x + getSpeed(), getPosition().y);
+            setPosition(getPosition().x + getSpeed() * deltaTime, getPosition().y);
         } else if (direction == "left") {
-            setPosition(getPosition().x - getSpeed(), getPosition().y);
+            setPosition(getPosition().x - getSpeed() * deltaTime, getPosition().y);
         } else if (direction == "up") {
-            setPosition(getPosition().x, getPosition().y + getSpeed());
+            setPosition(getPosition().x, getPosition().y + getSpeed() * deltaTime);
         } else if (direction == "down") {
-            setPosition(getPosition().x, getPosition().y - getSpeed());
+            setPosition(getPosition().x, getPosition().y - getSpeed() * deltaTime);
         }
     }
 

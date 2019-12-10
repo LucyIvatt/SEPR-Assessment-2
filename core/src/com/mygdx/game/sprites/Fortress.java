@@ -1,16 +1,8 @@
 package com.mygdx.game.sprites;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import java.util.Timer;
-import java.util.TimerTask;
-import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.Test;
-import com.mygdx.game.states.State;
-
-import java.util.Random;
 
 public class Fortress extends Unit {
 

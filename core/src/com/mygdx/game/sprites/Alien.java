@@ -1,7 +1,7 @@
 package com.mygdx.game.sprites;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.states.PlayState;
 
 import java.util.ArrayList;
 
@@ -81,7 +81,7 @@ public class Alien extends Character {
     }
 
     // Movement at only 90 degree angles
-    private Vector2 translateInGridMovement(Vector2 currentPos, Vector2 destination) {
+    private Vector2 translateInGridMovement(Vector2 currentPos, Vector2 destination) { ;
         Vector2 nextPos = currentPos;
         // if the x movement is complete: move along the y axis
         if (currentPos.x == destination.x) {
@@ -105,6 +105,7 @@ public class Alien extends Character {
     // currently unused function, would move the enemy between points at angles rather than just 90 degree movement
     // Would prefer if you did not delete this in case we need it in the future!!!!
     private Vector2 translate(Vector2 destination, Vector2 currentPos) {
+        float deltaTime = Gdx.graphics.getDeltaTime();
         Vector2 nextPos = currentPos;
         // nX and nY (nextY, nextX )represent the increase needed for the current pos to translate towards the destination
         float nX = destination.x - currentPos.x;

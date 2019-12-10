@@ -1,17 +1,16 @@
-package com.mygdx.game;
+package com.mygdx.game.misc;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Kroy;
 
 public class Timer {
-    private BitmapFont font;
     private float deltaTime = 0;
     private boolean stopped;
     private String timeString = "0";
 
     public Timer() {
-        font = new BitmapFont();
         stopped = false;
     }
 
@@ -31,7 +30,7 @@ public class Timer {
         this.stopped = false;
     }
 
-    public void drawTime(SpriteBatch batch) {
-        font.draw(batch, "Time: " + timeString, 50, 30);
+    public void drawTime(SpriteBatch batch, BitmapFont font) {
+        font.draw(batch, "Time Elapsed: " + timeString, 810, Kroy.HEIGHT - 1005);
     }
 }

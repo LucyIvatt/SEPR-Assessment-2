@@ -88,8 +88,4 @@ public class unitTest {
         assertTrue(testUnit.isDead(), "Test Unit took 101 damage (-1 in health) so should be dead");
     }
 
-
-
-
-
 }

@@ -8,9 +8,18 @@ import com.mygdx.game.sprites.Firetruck;
 //Instance of the Unit class to test on (is abstract)
 class unitForFireTruck extends Unit {
 
-    public unitForFireTruck( Vector2 position, int width, int height, Texture texture) {
-        super(position, width, height, texture);
+    private int maxWater;
+    private int currentWater;
+    private boolean selected;
+
+    public unitForFireTruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
+                            int speed, int dps, int bearing, int maxWater, boolean selected, float attackCooldown) {
+        super(position, width, height, texture, maxHealth, range);
+        this.maxWater = maxWater;
+        this.currentWater = maxWater;
+        this.selected = selected;
     }
+
 }
 
 
@@ -20,8 +29,9 @@ public class testFireTruck {
     Unit testUnit = new unitTestClass(new Vector2(0, 0),100, 100, null);
 
     //Instance of the FireTruck class to test on
-    Firetruck testFireTruck = new Firetruck(new Vector2(100, 100), 10, 10, null,
-            100, 10, null, 10, 10, 10, 100, true);
+    Firetruck testFireTruck = new Firetruck(new Vector2(100, 100 ), 100, 100, null,
+            100, 10, null, 10, 10, 10, 100, true,
+            10);
 
     //Test that FireTruck will damage a unit (covers both alien and fortress since both children of Unit)
     //And that the currentWater

@@ -51,6 +51,14 @@ public class Button {
         return position;
     }
 
+    public void setOnTexture(Texture onTexture) {
+        this.onTexture = onTexture;
+    }
+
+    public void setOffTexture(Texture offTexture) {
+        this.offTexture = offTexture;
+    }
+
     /**
      * @return Texture of the button which needs to be rendered. This changes depending on whether or not the button is active.
      */

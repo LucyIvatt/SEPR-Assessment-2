@@ -9,6 +9,14 @@ import com.mygdx.game.misc.Button;
 
 import java.util.ArrayList;
 
+/**
+ * An implementation of the abstract class State which controls the
+ * menu screen rendering and input handling.
+ *
+ * @author Lucy Ivatt
+ * @since 11/1/2020
+ */
+
 public class LevelSelectState extends State{
 
     private Texture background;

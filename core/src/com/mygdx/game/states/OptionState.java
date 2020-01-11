@@ -26,11 +26,11 @@ public class OptionState extends State implements InputProcessor {
         super(gameStateManager);
         settings = Gdx.app.getPreferences("My Preferences");
         background = new Texture("optionsMenu.png");
-        back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"), 100, 100, new Vector2(30, 960), false);
+        back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"), 100, 100, new Vector2(30, 960), false, false);
         tick = new Texture("tick.png");
         cross = new Texture("cross.png");
-        musicToggle = new Button(tick, cross, 100, 100, new Vector2(1091, 389), settings.getBoolean("music"));
-        effectsToggle = new Button(tick, cross, 100, 100, new Vector2(1274, 174), settings.getBoolean("effects"));
+        musicToggle = new Button(tick, cross, 100, 100, new Vector2(1091, 389), settings.getBoolean("music"), false);
+        effectsToggle = new Button(tick, cross, 100, 100, new Vector2(1274, 174), settings.getBoolean("effects"), false);
         Gdx.input.setInputProcessor(this);
     }
     public void update(float deltaTime) {

@@ -26,9 +26,9 @@ public class Kroy extends ApplicationAdapter {
 		settings = Gdx.app.getPreferences("My Preferences");
 		settings.putBoolean("music", true);
 		settings.putBoolean("effects", true);
-		settings.putBoolean("level1", true);
-		settings.putBoolean("level2", true);
-		settings.putBoolean("level3", true);
+		settings.putBoolean("level1", false;
+		settings.putBoolean("level2", false);
+		settings.putBoolean("level3", false);
 		settings.putBoolean("level4", false);
 		settings.putBoolean("level5", false);
 		settings.putBoolean("level6", false);

@@ -32,10 +32,10 @@ public class MenuState extends State {
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
         background = new Texture("Menu.jpg");
-        options = new Button(new Texture("optionspressed.png"), new Texture("options.png"), 350,100, new Vector2((Kroy.WIDTH / 2) - 350 - (SPACING / 2), 300), false);
-        play = new Button(new Texture("playpressed.png"), new Texture("play.png"),350, 100, new Vector2((Kroy.WIDTH / 2) - 350 * 2 - SPACING - SPACING / 2, 300), false);
-        credits = new Button(new Texture("creditspressed.png"), new Texture("credits.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false);
-        quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300), false);
+        options = new Button(new Texture("optionspressed.png"), new Texture("options.png"), 350,100, new Vector2((Kroy.WIDTH / 2) - 350 - (SPACING / 2), 300), false, false);
+        play = new Button(new Texture("playpressed.png"), new Texture("play.png"),350, 100, new Vector2((Kroy.WIDTH / 2) - 350 * 2 - SPACING - SPACING / 2, 300), false, false);
+        credits = new Button(new Texture("creditspressed.png"), new Texture("credits.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false, false);
+        quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300), false, false);
         intro.play();
     }
 

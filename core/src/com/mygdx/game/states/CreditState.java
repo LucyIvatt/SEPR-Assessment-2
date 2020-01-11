@@ -17,7 +17,7 @@ public class CreditState extends State {
         background = new Texture("CreditsBackground.png");
         back = new com.mygdx.game.misc.Button(new Texture("backbutton2.png"),
                 new Texture("backbutton1.png"), 100, 100,
-                new Vector2(30, 960), false);
+                new Vector2(30, 960), false, false);
 
     }
 

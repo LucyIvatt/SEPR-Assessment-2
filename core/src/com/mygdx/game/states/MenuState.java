@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
+import com.badlogic.gdx.audio.*;
 
 /**
  * An implementation of the abstract class State which controls the
@@ -25,6 +26,7 @@ public class MenuState extends State {
     private Button options;
     private Button credits;
     private Button quit;
+    private Sound click = Gdx.audio.newSound(Gdx.files.internal("core/assets/click.wav"));
 
 
     public MenuState(GameStateManager gameStateManager) {
@@ -41,6 +43,7 @@ public class MenuState extends State {
         if (play.mouseInRegion()){
             play.setActive(true);
             if (Gdx.input.isTouched()) {
+                click.play();
                 gameStateManager.push(new PlayState(gameStateManager));
             }
         }
@@ -50,6 +53,7 @@ public class MenuState extends State {
         if (options.mouseInRegion()){
             options.setActive(true);
             if (Gdx.input.isTouched()) {
+                click.play();
                 gameStateManager.push(new OptionState(gameStateManager));
             }
         }
@@ -60,6 +64,7 @@ public class MenuState extends State {
         if (credits.mouseInRegion()){
             credits.setActive(true);
             if (Gdx.input.isTouched()) {
+                click.play();
                 gameStateManager.push(new CreditState(gameStateManager));
             }
         }
@@ -70,6 +75,7 @@ public class MenuState extends State {
         if (quit.mouseInRegion()){
             quit.setActive(true);
             if (Gdx.input.isTouched()) {
+                click.play();
                 Gdx.app.exit();
                 System.exit(0);
             }

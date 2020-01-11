@@ -14,6 +14,7 @@ import com.badlogic.gdx.audio.*;
 public class OptionState extends State implements InputProcessor {
 
     private Texture background;
+    private Button quit;
     private Button back;
     private Button musicToggle;
     private Button effectsToggle;
@@ -26,13 +27,19 @@ public class OptionState extends State implements InputProcessor {
         super(gameStateManager);
         settings = Gdx.app.getPreferences("My Preferences");
         background = new Texture("optionsMenu.png");
-        back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"), 100, 100, new Vector2(30, 960), false, false);
+        back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
+                100, 100, new Vector2(30, 960), false, false);
+        quit = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
+                100, 100, new Vector2(1920 - 130, 960), false, false);
         tick = new Texture("tick.png");
         cross = new Texture("cross.png");
-        musicToggle = new Button(tick, cross, 100, 100, new Vector2(1091, 389), settings.getBoolean("music"), false);
-        effectsToggle = new Button(tick, cross, 100, 100, new Vector2(1274, 174), settings.getBoolean("effects"), false);
+        musicToggle = new Button(tick, cross, 100, 100, new Vector2(1091, 389),
+                settings.getBoolean("music"), false);
+        effectsToggle = new Button(tick, cross, 100, 100, new Vector2(1274, 174),
+                settings.getBoolean("effects"), false);
         Gdx.input.setInputProcessor(this);
     }
+
     public void update(float deltaTime) {
     }
 
@@ -40,6 +47,7 @@ public class OptionState extends State implements InputProcessor {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
         spriteBatch.draw(back.getTexture(), back.getPosition().x, back.getPosition().y, back.getWidth(), back.getHeight());
+        spriteBatch.draw(quit.getTexture(), quit.getPosition().x, quit.getPosition().y, quit.getWidth(), quit.getHeight());
         spriteBatch.draw(musicToggle.getTexture(), musicToggle.getPosition().x, musicToggle.getPosition().y, musicToggle.getWidth(), musicToggle.getHeight());
         spriteBatch.draw(effectsToggle.getTexture(), effectsToggle.getPosition().x, effectsToggle.getPosition().y, effectsToggle.getWidth(), effectsToggle.getHeight());
         spriteBatch.end();
@@ -47,13 +55,9 @@ public class OptionState extends State implements InputProcessor {
 
     public void dispose() {
         background.dispose();
-
     }
 
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.SPACE){
-            gameStateManager.pop();
-        }
         return false;
     }
 
@@ -71,8 +75,7 @@ public class OptionState extends State implements InputProcessor {
                 settings.putBoolean("music", false);
                 honk.play();
                 musicToggle.setActive(false);
-            }
-            else {
+            } else {
                 settings.putBoolean("music", true);
                 musicToggle.setActive(true);
             }
@@ -83,8 +86,7 @@ public class OptionState extends State implements InputProcessor {
             if (settings.getBoolean("effects") == true) {
                 settings.putBoolean("effects", false);
                 effectsToggle.setActive(false);
-            }
-            else {
+            } else {
                 settings.putBoolean("effects", true);
                 effectsToggle.setActive(true);
             }
@@ -95,9 +97,13 @@ public class OptionState extends State implements InputProcessor {
             gameStateManager.pop();
         }
 
+        else if (quit.clickInRegion(screenX, screenY)) {
+            Gdx.app.exit();
+            System.exit(0);
+        }
         return false;
-
     }
+
 
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         return false;
@@ -111,9 +117,15 @@ public class OptionState extends State implements InputProcessor {
         if (back.clickInRegion(screenX, screenY)) {
             back.setActive(true);
         }
-
         else {
             back.setActive(false);
+        }
+
+        if (quit.clickInRegion(screenX, screenY)) {
+            quit.setActive(true);
+        }
+        else {
+            quit.setActive(false);
         }
         return false;
     }

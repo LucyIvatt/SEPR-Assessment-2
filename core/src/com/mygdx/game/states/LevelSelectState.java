@@ -40,7 +40,7 @@ public class LevelSelectState extends State{
         back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
                 100, 100, new Vector2(30, 960), false, false);
 
-        level1 = new Button(new Texture("NotPressedBlue1.png"), new Texture("PressedBlue1.png"),
+        level1 = new Button(new Texture("PressedBlue1.png"), new Texture("NotPressedBlue1.png"),
                 350, 100, new Vector2(Kroy.WIDTH / 2 - 350 / 2 - 100 - 350, 400), false, false);
 
         level2 = new Button(new Texture("PressedGrey2.png"), new Texture("PressedGrey2.png"),

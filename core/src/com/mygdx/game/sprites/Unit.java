@@ -1,8 +1,8 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 public abstract class Unit extends Entity {
     private int maxHealth;
@@ -55,11 +55,13 @@ public abstract class Unit extends Entity {
     }
 
     public void addHealth(int heal){
-        int newHealth = getCurrentHealth() + Math.abs(heal);
-        if (newHealth > maxHealth) {
-            newHealth = maxHealth;
+        if (heal > 0) {
+            int newHealth = getCurrentHealth();
+            if (newHealth > maxHealth) {
+                newHealth = maxHealth;
+            }
+            setCurrentHealth(newHealth);
         }
-        setCurrentHealth(newHealth);
     }
 
 

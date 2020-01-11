@@ -23,7 +23,7 @@ public class OptionState extends State implements InputProcessor {
     public OptionState(GameStateManager gameStateManager) {
         super(gameStateManager);
         settings = Gdx.app.getPreferences("My Preferences");
-        background = new Texture("OptionsMenu.png");
+        background = new Texture("optionsMenu.png");
         back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"), 100, 100, new Vector2(30, 960), false);
         tick = new Texture("tick.png");
         cross = new Texture("cross.png");
@@ -31,11 +31,9 @@ public class OptionState extends State implements InputProcessor {
         effectsToggle = new Button(tick, cross, 100, 100, new Vector2(1274, 174), settings.getBoolean("effects"));
         Gdx.input.setInputProcessor(this);
     }
-    @Override
     public void update(float deltaTime) {
     }
 
-    @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
@@ -45,13 +43,11 @@ public class OptionState extends State implements InputProcessor {
         spriteBatch.end();
     }
 
-    @Override
     public void dispose() {
         background.dispose();
 
     }
 
-    @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.SPACE){
             gameStateManager.pop();
@@ -59,17 +55,14 @@ public class OptionState extends State implements InputProcessor {
         return false;
     }
 
-    @Override
     public boolean keyUp(int keycode) {
         return false;
     }
 
-    @Override
     public boolean keyTyped(char character) {
         return false;
     }
 
-    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (musicToggle.clickInRegion(screenX, screenY)) {
             if (settings.getBoolean("music") == true) {
@@ -103,17 +96,14 @@ public class OptionState extends State implements InputProcessor {
 
     }
 
-    @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         return false;
     }
 
-    @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
     }
 
-    @Override
     public boolean mouseMoved(int screenX, int screenY) {
         if (back.clickInRegion(screenX, screenY)) {
             back.setActive(true);
@@ -125,7 +115,6 @@ public class OptionState extends State implements InputProcessor {
         return false;
     }
 
-    @Override
     public boolean scrolled(int amount) {
         return false;
     }

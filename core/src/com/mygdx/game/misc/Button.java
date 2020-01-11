@@ -21,6 +21,7 @@ public class Button {
     private int width;
     private int height;
     private Vector2 position;
+    private boolean locked;
 
     /**
      * A constructor to create a Button object
@@ -30,13 +31,14 @@ public class Button {
      * @param position Vector2 representing the x and y co-ordinates used for positioning and drawing the button
      *                 to the screen
      */
-    public Button(Texture onTexture, Texture offTexture, int width, int height, Vector2 position, boolean active) {
+    public Button(Texture onTexture, Texture offTexture, int width, int height, Vector2 position, boolean active, boolean locked) {
         this.onTexture = onTexture;
         this.offTexture = offTexture;
         this.width = width;
         this.height = height;
         this.position = position;
         this.active = active;
+        this.locked = locked;
     }
 
     public int getWidth() {
@@ -49,6 +51,23 @@ public class Button {
 
     public Vector2 getPosition() {
         return position;
+    }
+
+    public void setOnTexture(Texture onTexture) {
+        this.onTexture = onTexture;
+    }
+
+
+    public void setOffTexture(Texture offTexture) {
+        this.offTexture = offTexture;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     /**

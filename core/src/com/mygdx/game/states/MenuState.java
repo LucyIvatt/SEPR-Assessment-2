@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
+import com.badlogic.gdx.audio.*;
 
 /**
  * An implementation of the abstract class State which controls the
@@ -25,23 +26,25 @@ public class MenuState extends State {
     private Button options;
     private Button credits;
     private Button quit;
-
+    private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
+    private Music intro = Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
 
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
         background = new Texture("Menu.jpg");
-        options = new Button(new Texture("optionspressed.png"), new Texture("options.png"), 350,100, new Vector2((Kroy.WIDTH / 2) - 350 - (SPACING / 2), 300), false);
-        play = new Button(new Texture("playpressed.png"), new Texture("play.png"),350, 100, new Vector2((Kroy.WIDTH / 2) - 350 * 2 - SPACING - SPACING / 2, 300), false);
-        credits = new Button(new Texture("creditspressed.png"), new Texture("credits.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false);
-        quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300), false);
-
+        options = new Button(new Texture("optionspressed.png"), new Texture("options.png"), 350,100, new Vector2((Kroy.WIDTH / 2) - 350 - (SPACING / 2), 300), false, false);
+        play = new Button(new Texture("playpressed.png"), new Texture("play.png"),350, 100, new Vector2((Kroy.WIDTH / 2) - 350 * 2 - SPACING - SPACING / 2, 300), false, false);
+        credits = new Button(new Texture("creditspressed.png"), new Texture("credits.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false, false);
+        quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300), false, false);
+        intro.play();
     }
 
     public void handleInput() {
         if (play.mouseInRegion()){
             play.setActive(true);
             if (Gdx.input.isTouched()) {
-                gameStateManager.push(new PlayState(gameStateManager));
+                click.play();
+                gameStateManager.push(new LevelSelectState(gameStateManager));
             }
         }
         else {
@@ -50,6 +53,7 @@ public class MenuState extends State {
         if (options.mouseInRegion()){
             options.setActive(true);
             if (Gdx.input.isTouched()) {
+                click.play();
                 gameStateManager.push(new OptionState(gameStateManager));
             }
         }
@@ -60,6 +64,7 @@ public class MenuState extends State {
         if (credits.mouseInRegion()){
             credits.setActive(true);
             if (Gdx.input.isTouched()) {
+                click.play();
                 gameStateManager.push(new CreditState(gameStateManager));
             }
         }
@@ -70,6 +75,7 @@ public class MenuState extends State {
         if (quit.mouseInRegion()){
             quit.setActive(true);
             if (Gdx.input.isTouched()) {
+                click.play();
                 Gdx.app.exit();
                 System.exit(0);
             }

@@ -45,7 +45,7 @@ public class PlayState extends State {
     private BitmapFont ui;
     private BitmapFont healthBars;
 
-    public PlayState(GameStateManager gsm) {
+    public PlayState(GameStateManager gsm, int level) {
         super(gsm);
         background = new Texture("LevelProportions.png");
         settings = Gdx.app.getPreferences("My Preferences");
@@ -99,6 +99,10 @@ public class PlayState extends State {
             endLevel();
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            gameStateManager.push(new OptionState(gameStateManager));
+        }
+
         if (Gdx.input.isKeyPressed(Input.Keys.L)) {
             gameStateManager.push(new MenuState(gameStateManager));
         }
@@ -124,7 +128,10 @@ public class PlayState extends State {
 
     @Override
     public void update(float dt) {
+        
+        handleInput();
         timer.update();
+
         for (Alien alien : aliens) {
             alien.update();
             alien.truckInAttackRange(trucks);
@@ -144,7 +151,6 @@ public class PlayState extends State {
             produceAlien();
             alienSpawnCountdown = minster.getSpawnRate();
         }
-        handleInput();
         for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
             for(Firetruck truck : new ArrayList<Firetruck>(trucks)) {

@@ -45,7 +45,7 @@ public class PlayState extends State {
     private BitmapFont ui;
     private BitmapFont healthBars;
 
-    public PlayState(GameStateManager gsm) {
+    public PlayState(GameStateManager gsm, int level) {
         super(gsm);
         background = new Texture("LevelProportions.png");
         settings = Gdx.app.getPreferences("My Preferences");

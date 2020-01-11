@@ -27,7 +27,7 @@ public class MenuState extends State {
     private Button credits;
     private Button quit;
     private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
-
+    private Music intro = Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
 
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -36,7 +36,7 @@ public class MenuState extends State {
         play = new Button(new Texture("playpressed.png"), new Texture("play.png"),350, 100, new Vector2((Kroy.WIDTH / 2) - 350 * 2 - SPACING - SPACING / 2, 300), false);
         credits = new Button(new Texture("creditspressed.png"), new Texture("credits.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false);
         quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300), false);
-
+        intro.play();
     }
 
     public void handleInput() {

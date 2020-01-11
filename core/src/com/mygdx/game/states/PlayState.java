@@ -22,6 +22,8 @@ public class PlayState extends State {
     private final float gameHeight = 832;
 
     private Texture background;
+    private boolean levelFailed;
+    private boolean levelWon;
     private Preferences settings;
     private Timer timer;
 
@@ -34,7 +36,8 @@ public class PlayState extends State {
 
     private Fortress minster;
 
-    private int alienSpawnCountdown;
+    private float alienSpawnCountdown;
+    private float timeSinceKill;
 
     public ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
@@ -48,6 +51,8 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm, int level) {
         super(gsm);
         background = new Texture("LevelProportions.png");
+        levelFailed = false;
+        levelWon = false;
         settings = Gdx.app.getPreferences("My Preferences");
         timer = new Timer();
         ui = new BitmapFont(Gdx.files.internal("font.fnt"));
@@ -78,13 +83,15 @@ public class PlayState extends State {
 
         // Fortress
         minster = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
-                10000, spawnCoordinates);
+                10000, spawnCoordinates, 2);
         alienSpawnCountdown = minster.getSpawnRate();
         ui.setColor(Color.DARK_GRAY);
+        timeSinceKill = -1;
     }
 
     public void handleInput() {
 
+        // Handles input for firetruck attacks
         for(Firetruck firetruck : trucks) {
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && firetruck.isSelected() && firetruck.getCurrentWater() > 0) {
                 Projectile drop = new Projectile(new Vector2(firetruck.getPosition().x + firetruck.getWidth() / 2, firetruck.getPosition().y + firetruck.getHeight() / 2), 5, 5,
@@ -95,17 +102,21 @@ public class PlayState extends State {
             }
         }
 
+        // Test hotkeys
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            endLevel();
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            gameStateManager.push(new OptionState(gameStateManager));
+            freezeLevel();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.L)) {
             gameStateManager.push(new MenuState(gameStateManager));
         }
+
+        // Opens pause menu
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            gameStateManager.push(new OptionState(gameStateManager));
+        }
+
+        // Switches active firetruck
         Vector2 mousePos = new Vector2(Gdx.input.getX(), Kroy.HEIGHT - Gdx.input.getY());
         if (Gdx.input.isTouched()) {
             for (Firetruck truck : trucks) {
@@ -119,19 +130,24 @@ public class PlayState extends State {
                 }
             }
         }
+
+        // Handles Truck Movement
         if (truck1.isSelected()) {
             truckMovement(truck1);
-        } else if (truck2.isSelected()){
+        }
+        else if (truck2.isSelected()){
             truckMovement(truck2);
         }
     }
 
     @Override
     public void update(float dt) {
-        
+
+        // Calls input handler and updates timer each tick
         handleInput();
         timer.update();
 
+        // Updates aliens and handles automatic attacks
         for (Alien alien : aliens) {
             alien.update();
             alien.truckInAttackRange(trucks);
@@ -146,11 +162,18 @@ public class PlayState extends State {
             alien.updateTimeSinceAttack(dt);
         }
         alienSpawnCountdown -= dt;
+        timeSinceKill -= dt;
 
-        if (alienSpawnCountdown <= 0 ) {
+
+
+        // Respawns aliens
+        if (alienSpawnCountdown <= 0 && timeSinceKill <= 0) {
             produceAlien();
             alienSpawnCountdown = minster.getSpawnRate();
+            timeSinceKill = 0;
         }
+
+        // Handles alien projectile movement and collision
         for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
             for(Firetruck truck : new ArrayList<Firetruck>(trucks)) {
@@ -165,6 +188,7 @@ public class PlayState extends State {
             }
         }
 
+        // Refills tank if truck overlaps the  refill location.
         for (Firetruck truck : trucks) {
             if (!(truck.getTopRight().y < refillSquare.getPosition().y || truck.getPosition().y > refillSquare.getTopRight().y ||
                     truck.getTopRight().x < refillSquare.getPosition().x || truck.getPosition().x > refillSquare.getTopRight().x)) {
@@ -173,6 +197,7 @@ public class PlayState extends State {
             }
         }
 
+        // Handles movement and collision for firetruck projectiles
         for (Projectile drop : new ArrayList<Projectile>(water)) {
             drop.update();
             for(Alien alien : new ArrayList<Alien>(aliens)) {
@@ -182,10 +207,10 @@ public class PlayState extends State {
                     if(alien.getCurrentHealth() == 0) {
                         minster.getAlienPositions().add(alien.getPosition());
                         aliens.remove(alien);
+                        timeSinceKill = minster.getSpawnRate();
                     }
                 }
             }
-
             if (drop.hitUnit(minster)) {
                 minster.takeDamage(2);
                 if(minster.getCurrentHealth() == 0) {
@@ -194,8 +219,11 @@ public class PlayState extends State {
                 }
             }
         }
+
+        // Handles game end states
         if (trucks.size() == 0 || timer.getDeltaTime() > 60) {
-            gameStateManager.push(new EndState(gameStateManager, false));
+            freezeLevel();
+            levelFailed = true;
         }
 
         minster.addHealth(1);
@@ -246,6 +274,9 @@ public class PlayState extends State {
         ui.draw(spriteBatch, "Truck 3 Health: N/A", 1023, Kroy.HEIGHT - 920);
         ui.draw(spriteBatch, "Truck 4 Health: N/A", 1499, Kroy.HEIGHT - 920);
 
+        if(levelFailed) {
+            spriteBatch.draw(new Texture("levelFail.png"), 480, 270);
+        }
         spriteBatch.end();
     }
 
@@ -311,7 +342,7 @@ public class PlayState extends State {
     }
 
 
-    public void endLevel(){
+    public void freezeLevel(){
         timer.stop();
         for (Firetruck truck : trucks){
             truck.setSpeed(0);
@@ -327,7 +358,7 @@ public class PlayState extends State {
         Random rand = new Random();
         if (minster.getAlienPositions().size() > 0) {
             Vector2 coordinate = minster.getAlienPositions().get(rand.nextInt(minster.getAlienPositions().size()));
-            Alien alien = new Alien(coordinate, 64, 64, new Texture("alien.png"), 100, 500,
+            Alien alien = new Alien(coordinate, 64, 64, new Texture("alien.png"), 100, 1000,
                     null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                     new Vector2(coordinate.x, coordinate.y + 30)}, 5);
             aliens.add(alien);

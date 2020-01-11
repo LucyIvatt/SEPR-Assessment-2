@@ -10,9 +10,10 @@ public class Fortress extends Unit {
 
     private ArrayList<Vector2> alienPositions;
 
-    public Fortress(Vector2 position, int width, int height, Texture texture, int maxHealth, ArrayList<Vector2> alienPositions) {
+    public Fortress(Vector2 position, int width, int height, Texture texture, int maxHealth, ArrayList<Vector2> alienPositions, int spawnRate) {
         super(position, width, height, texture, maxHealth);
         this.alienPositions = alienPositions;
+        this.spawnRate = spawnRate;
     }
 
     public int getSpawnRate() {

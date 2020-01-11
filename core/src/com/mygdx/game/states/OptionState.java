@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
+import com.badlogic.gdx.audio.*;
 
 public class OptionState extends State implements InputProcessor {
 
@@ -19,6 +20,7 @@ public class OptionState extends State implements InputProcessor {
     private Preferences settings;
     private Texture tick;
     private Texture cross;
+    private Sound honk = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
 
     public OptionState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -67,6 +69,7 @@ public class OptionState extends State implements InputProcessor {
         if (musicToggle.clickInRegion(screenX, screenY)) {
             if (settings.getBoolean("music") == true) {
                 settings.putBoolean("music", false);
+                honk.play();
                 musicToggle.setActive(false);
             }
             else {

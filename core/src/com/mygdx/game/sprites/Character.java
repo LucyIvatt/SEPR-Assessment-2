@@ -22,6 +22,7 @@ public abstract class Character extends Unit {
         this.dps = dps;
         this.attackCooldown = attackCooldown;
         this.timeSinceAttack = 0;
+        this.range = range;
     }
 
     // Getters and Setters

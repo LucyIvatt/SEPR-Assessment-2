@@ -26,6 +26,7 @@ public class PlayState extends State {
     private boolean levelWon;
     private Preferences settings;
     private Timer timer;
+    private String level;
 
     private boolean winCondition;
 
@@ -51,6 +52,7 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm, int level) {
         super(gsm);
         background = new Texture("LevelProportions.png");
+        this.level = Integer.toString(level);
         levelFailed = false;
         levelWon = false;
         settings = Gdx.app.getPreferences("My Preferences");
@@ -83,7 +85,7 @@ public class PlayState extends State {
 
         // Fortress
         minster = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
-                10000, spawnCoordinates, 2);
+                1000, spawnCoordinates, 2);
         alienSpawnCountdown = minster.getSpawnRate();
         ui.setColor(Color.DARK_GRAY);
         timeSinceKill = -1;
@@ -148,7 +150,9 @@ public class PlayState extends State {
         timer.update();
 
         // Updates aliens and handles automatic attacks
+        String states = "";
         for (Alien alien : aliens) {
+            states += alien.hasTarget() + " ";
             alien.update();
             alien.truckInAttackRange(trucks);
             if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
@@ -161,6 +165,8 @@ public class PlayState extends State {
             }
             alien.updateTimeSinceAttack(dt);
         }
+
+        System.out.println(states);
         alienSpawnCountdown -= dt;
         timeSinceKill -= dt;
 
@@ -214,8 +220,8 @@ public class PlayState extends State {
             if (drop.hitUnit(minster)) {
                 minster.takeDamage(2);
                 if(minster.getCurrentHealth() == 0) {
-                    settings.putBoolean("level1", true);
-                    gameStateManager.set(new EndState(gameStateManager, true));
+                    settings.putBoolean(level, true);
+                    gameStateManager.pop();
                 }
             }
         }
@@ -358,7 +364,7 @@ public class PlayState extends State {
         Random rand = new Random();
         if (minster.getAlienPositions().size() > 0) {
             Vector2 coordinate = minster.getAlienPositions().get(rand.nextInt(minster.getAlienPositions().size()));
-            Alien alien = new Alien(coordinate, 64, 64, new Texture("alien.png"), 100, 1000,
+            Alien alien = new Alien(coordinate, 64, 64, new Texture("alien.png"), 100, 600,
                     null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                     new Vector2(coordinate.x, coordinate.y + 30)}, 5);
             aliens.add(alien);

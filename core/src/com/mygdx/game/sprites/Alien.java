@@ -142,12 +142,14 @@ public class Alien extends Character {
             setTarget(null);
         }
         for (Firetruck firetruck : firetrucks) {
-            if (this.getTopRight().y + getRange() / 2 < firetruck.getPosition().y || getPosition().y - getRange() / 2 > firetruck.getTopRight().y ||
-                    getTopRight().x + getRange() / 2 < firetruck.getPosition().x || getPosition().x - getRange() / 2 > firetruck.getTopRight().x) {
+            if (getTopRight().y + getRange() < firetruck.getPosition().y || getPosition().y - getRange() > firetruck.getTopRight().y ||
+                    getTopRight().x + getRange() < firetruck.getPosition().x || getPosition().x - getRange() > firetruck.getTopRight().x) {
                 if (getTarget() == firetruck) {
                     setTarget(null);
                 }
-            } else {
+            }
+
+            else {
                 if (getTarget() == null || firetruck.getCurrentHealth() < getTarget().getCurrentHealth()) {
                     setTarget(firetruck);
                 }

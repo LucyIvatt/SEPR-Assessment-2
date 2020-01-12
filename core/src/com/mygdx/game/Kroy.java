@@ -23,17 +23,10 @@ public class Kroy extends ApplicationAdapter {
 		gameStateManager = new GameStateManager();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gameStateManager.push(new MenuState(gameStateManager));
-		settings = Gdx.app.getPreferences("My Preferences");
+		settings = Gdx.app.getPreferences("Kroy");
+
 		settings.putBoolean("music", true);
 		settings.putBoolean("effects", true);
-		settings.putBoolean("level1", false);
-		settings.putBoolean("level2", false);
-		settings.putBoolean("level3", false);
-		settings.putBoolean("level4", false);
-		settings.putBoolean("level5", false);
-		settings.putBoolean("level6", false);
-
-
 	}
 
 	@Override

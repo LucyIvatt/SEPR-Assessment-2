@@ -55,14 +55,12 @@ public abstract class Unit extends Entity {
     }
 
     public void addHealth(int heal){
-        if (heal > 0) {
-            int newHealth = getCurrentHealth();
+            int newHealth = getCurrentHealth() + Math.abs(heal);
             if (newHealth > maxHealth) {
                 newHealth = maxHealth;
             }
             setCurrentHealth(newHealth);
         }
-    }
 
 
     public void takeDamage(int damage) {

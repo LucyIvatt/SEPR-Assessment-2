@@ -142,30 +142,6 @@ public class Alien extends Character {
             setTarget(null);
         }
         for (Firetruck firetruck : firetrucks) {
-            System.out.println("-------------------------");
-            System.out.println(getTopRight().y + getRange()); //(1632, 963)
-            System.out.println(firetruck.getPosition().y);
-            System.out.println(getPosition().y + getRange());
-            System.out.println(firetruck.getTopRight().y);
-            System.out.println(getTopRight().x + getRange());
-            System.out.println(firetruck.getPosition().x);
-            System.out.println(getPosition().x - getRange());
-            System.out.println(firetruck.getTopRight().x); 
-            System.out.println("-------------------------");
-
-            //-------------------------
-            //-------------------------
-            //963.0
-            //737.9535
-            //899.0
-            //801.9535
-            //1632.0
-            //1375.2462
-            //1568.0
-            //1439.2462
-            //-------------------------
-            //-------------------------
-
             if (getTopRight().y + getRange() < firetruck.getPosition().y || getPosition().y - getRange() > firetruck.getTopRight().y ||
                     getTopRight().x + getRange() < firetruck.getPosition().x || getPosition().x - getRange() > firetruck.getTopRight().x) {
                 if (getTarget() == firetruck) {

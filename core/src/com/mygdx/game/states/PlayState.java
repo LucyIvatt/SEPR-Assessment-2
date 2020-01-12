@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.misc.Timer;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.sprites.*;
-import sun.util.locale.StringTokenIterator;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,7 +34,7 @@ public class PlayState extends State {
     private Firetruck truck1;
     private Firetruck truck2;
 
-    private Fortress minster;
+    private Fortress fortress;
 
     private float alienSpawnCountdown;
     private float timeSinceKill;
@@ -84,9 +83,9 @@ public class PlayState extends State {
         spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) +  256));
 
         // Fortress
-        minster = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
+        fortress = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
                 1000, spawnCoordinates, 2);
-        alienSpawnCountdown = minster.getSpawnRate();
+        alienSpawnCountdown = fortress.getSpawnRate();
         ui.setColor(Color.DARK_GRAY);
         timeSinceKill = -1;
     }
@@ -140,6 +139,10 @@ public class PlayState extends State {
         else if (truck2.isSelected()){
             truckMovement(truck2);
         }
+
+        if((levelFailed || levelWon) && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+            gameStateManager.set(new LevelSelectState(gameStateManager));
+        }
     }
 
     @Override
@@ -175,7 +178,7 @@ public class PlayState extends State {
         // Respawns aliens
         if (alienSpawnCountdown <= 0 && timeSinceKill <= 0) {
             produceAlien();
-            alienSpawnCountdown = minster.getSpawnRate();
+            alienSpawnCountdown = fortress.getSpawnRate();
             timeSinceKill = 0;
         }
 
@@ -211,18 +214,18 @@ public class PlayState extends State {
                     alien.takeDamage(2);
                     water.remove(drop);
                     if(alien.getCurrentHealth() == 0) {
-                        minster.getAlienPositions().add(alien.getPosition());
+                        fortress.getAlienPositions().add(alien.getPosition());
                         aliens.remove(alien);
-                        timeSinceKill = minster.getSpawnRate();
+                        timeSinceKill = fortress.getSpawnRate();
                     }
                 }
             }
-            if (drop.hitUnit(minster)) {
-                minster.takeDamage(2);
-                if(minster.getCurrentHealth() == 0) {
+            if (drop.hitUnit(fortress)) {
+                fortress.takeDamage(2);
+                if(fortress.getCurrentHealth() == 0) {
+                    levelWon = true;
                     settings.putBoolean(level, true);
                     settings.flush();
-                    gameStateManager.set(new LevelSelectState(gameStateManager));
                 }
             }
         }
@@ -233,7 +236,7 @@ public class PlayState extends State {
             levelFailed = true;
         }
 
-        minster.addHealth(1);
+        fortress.addHealth(1);
     }
 
     @Override
@@ -249,9 +252,9 @@ public class PlayState extends State {
             healthBars.draw(spriteBatch, "Water: " + truck.getCurrentWater(), truck.getPosition().x, truck.getPosition().y + truck.getHeight() + 10);
         }
 
-        spriteBatch.draw(minster.getTexture(), minster.getPosition().x, minster.getPosition().y, minster.getWidth(),
-                minster.getHeight());
-        healthBars.draw(spriteBatch, "HP: " + minster.getCurrentHealth(), minster.getPosition().x, minster.getPosition().y + minster.getHeight() + 10);
+        spriteBatch.draw(fortress.getTexture(), fortress.getPosition().x, fortress.getPosition().y, fortress.getWidth(),
+                fortress.getHeight());
+        healthBars.draw(spriteBatch, "HP: " + fortress.getCurrentHealth(), fortress.getPosition().x, fortress.getPosition().y + fortress.getHeight() + 10);
 
         for (Alien alien : aliens){
             spriteBatch.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(),
@@ -284,6 +287,11 @@ public class PlayState extends State {
         if(levelFailed) {
             spriteBatch.draw(new Texture("levelFail.png"), 480, 270);
         }
+
+        if(levelWon) {
+            spriteBatch.draw(new Texture("LevelWon.png"), 480, 270);
+        }
+
         spriteBatch.end();
     }
 
@@ -359,17 +367,18 @@ public class PlayState extends State {
             alien.setSpeed(0);
             alien.setDps(0);
         }
+
     }
 
     public void produceAlien() {
         Random rand = new Random();
-        if (minster.getAlienPositions().size() > 0) {
-            Vector2 coordinate = minster.getAlienPositions().get(rand.nextInt(minster.getAlienPositions().size()));
+        if (fortress.getAlienPositions().size() > 0) {
+            Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
             Alien alien = new Alien(coordinate, 64, 64, new Texture("alien.png"), 100, 600,
                     null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                     new Vector2(coordinate.x, coordinate.y + 30)}, 5);
             aliens.add(alien);
-            minster.getAlienPositions().remove(coordinate);
+            fortress.getAlienPositions().remove(coordinate);
         }
         }
 

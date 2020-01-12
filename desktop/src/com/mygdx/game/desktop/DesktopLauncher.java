@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.width = Kroy.WIDTH;
 		config.height = Kroy.HEIGHT;
 		config.title= Kroy.TITLE;
-//		config.fullscreen = true;
+		config.fullscreen = true;
 		new LwjglApplication(new Kroy(), config);
 	}
 }

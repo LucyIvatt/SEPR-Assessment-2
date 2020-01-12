@@ -221,7 +221,8 @@ public class PlayState extends State {
                 minster.takeDamage(2);
                 if(minster.getCurrentHealth() == 0) {
                     settings.putBoolean(level, true);
-                    gameStateManager.pop();
+                    settings.flush();
+                    gameStateManager.set(new LevelSelectState(gameStateManager));
                 }
             }
         }

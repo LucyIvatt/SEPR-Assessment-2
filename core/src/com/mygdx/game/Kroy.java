@@ -23,7 +23,7 @@ public class Kroy extends ApplicationAdapter {
 		gameStateManager = new GameStateManager();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gameStateManager.push(new MenuState(gameStateManager));
-		settings = Gdx.app.getPreferences("My Preferences");
+		settings = Gdx.app.getPreferences("Kroy");
 
 		settings.putBoolean("music", true);
 		settings.putBoolean("effects", true);

@@ -130,9 +130,9 @@ public class PlayState extends State {
         }
 
         // Test hotkeys
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            freezeLevel();
-        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+//            freezeLevel();
+//        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.L)) {
             gameStateManager.push(new MenuState(gameStateManager));

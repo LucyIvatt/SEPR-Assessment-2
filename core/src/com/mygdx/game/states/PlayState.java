@@ -99,14 +99,15 @@ public class PlayState extends State {
         // Level 2 Fortress
         fortress = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
                 1000, spawnCoordinates, 2);
-
     }
+
+
     alienSpawnCountdown = fortress.getSpawnRate();
     ui.setColor(Color.DARK_GRAY);
     timeSinceKill = -1;
 
-    truck1 = new Firetruck(new Vector2(50, 550), 32, 32, new Texture("truck.png"), 100, 2,
-            null, 250, 10, 10, 100,
+    truck1 = new Firetruck(new Vector2(50, 550), 32, 32, new Texture("truck.png"), 50, 2,
+            null, 250, 10, 10, 150,
             true, 5);
     truck2 = new Firetruck(new Vector2(300, 550), 32, 32, new Texture("truck.png"), 100, 2,
             null, 250, 10, 10, 100,
@@ -189,7 +190,7 @@ public class PlayState extends State {
             if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
                 if (alien.hasTarget()) {
                     Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
-                            new Texture("black.jpg"), (new Vector2(alien.getTarget().getPosition().x + 45, alien.getTarget().getPosition().y + 50)), 5);
+                            new Texture("black.jpg"), (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5);
                     bullets.add(bullet);
                     alien.resetTimeSinceAttack();
                 }
@@ -262,7 +263,6 @@ public class PlayState extends State {
 
         // Handles game end states
         if (trucks.size() == 0 || timer.getDeltaTime() > 60) {
-            freezeLevel();
             levelFailed = true;
         }
 

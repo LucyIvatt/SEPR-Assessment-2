@@ -345,12 +345,12 @@ public class PlayState extends State {
                 obstacleCollision = true;
             }
             for (Entity obstacle : obstacles) {
-                if (truck.willCollide(obstacle, "up")) {
+                if (truck.willCollide(obstacle, 3)) {
                     obstacleCollision = true;
                 }
             }
             if (!obstacleCollision) {
-                truck.move("up");
+                truck.move(3);
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
@@ -360,12 +360,12 @@ public class PlayState extends State {
                 obstacleCollision = true;
             }
             for (Entity obstacle : obstacles) {
-                if (truck.willCollide(obstacle, "down")) {
+                if (truck.willCollide(obstacle, 4)) {
                     obstacleCollision = true;
                 }
             }
             if (!obstacleCollision) {
-                truck.move("down");
+                truck.move(4);
             }
         }
 
@@ -376,12 +376,12 @@ public class PlayState extends State {
                 obstacleCollision = true;
             }
             for (Entity obstacle : obstacles) {
-                if (truck.willCollide(obstacle, "left")) {
+                if (truck.willCollide(obstacle, 1)) {
                     obstacleCollision = true;
                 }
             }
             if (!obstacleCollision) {
-                truck.move("left");
+                truck.move(1);
             }
         }
 
@@ -392,12 +392,12 @@ public class PlayState extends State {
                 obstacleCollision = true;
             }
             for (Entity obstacle : obstacles) {
-                if (truck.willCollide(obstacle, "right")) {
+                if (truck.willCollide(obstacle, 2)) {
                     obstacleCollision = true;
                 }
             }
             if (!obstacleCollision) {
-                truck.move("right");
+                truck.move(2);
             }
         }
     }

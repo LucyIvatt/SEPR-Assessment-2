@@ -7,9 +7,9 @@ public abstract class Character extends Unit {
     private Unit target;
     private int speed;
     private int damage;
+    private int range;
     private float attackCooldown;
     private float timeSinceAttack;
-    private int range;
 
 
     public Character(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
@@ -48,8 +48,8 @@ public abstract class Character extends Unit {
         this.timeSinceAttack = 0;
     }
 
-    public void updateTimeSinceAttack(float dt) {
-        this.timeSinceAttack += dt;
+    public void updateTimeSinceAttack(float deltaTime) {
+        this.timeSinceAttack += deltaTime;
     }
 
     public float getAttackCooldown() {

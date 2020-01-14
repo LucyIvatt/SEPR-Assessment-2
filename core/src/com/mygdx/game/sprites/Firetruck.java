@@ -46,52 +46,37 @@ public class Firetruck extends Character {
         this.selected = selected;
     }
 
-    // User attacks alien/fortress and firetruck water level decreases
-    //DEPENDENCY ON TAKEDAMAGE - MOCk
-    public void firetruckAttack(Unit target) {
-        if (this.currentWater == 0) {
-            //show message telling the user they have ran out of water and to go refill to continue
-        } else {
-            setCurrentWater(this.currentWater - 10);
-            target.takeDamage(10);
-        }
-    }
 
-    // Refill water level of firetruck
-    public void refillWater() {
-        this.currentWater = maxWater;
-    }
-
-    public void move(String direction) { //change from string to 1, 2, 3, 4
+    public void move(int direction) { //change from string to 1, 2, 3, 4
         float deltaTime = Gdx.graphics.getDeltaTime();
-        if (direction == "right") {
+        if (direction == 2) {
             setPosition(getPosition().x + getSpeed() * deltaTime, getPosition().y);
-        } else if (direction == "left") {
+        } else if (direction == 1) {
             setPosition(getPosition().x - getSpeed() * deltaTime, getPosition().y);
-        } else if (direction == "up") {
+        } else if (direction == 3) {
             setPosition(getPosition().x, getPosition().y + getSpeed() * deltaTime);
-        } else if (direction == "down") {
+        } else if (direction == 4) {
             setPosition(getPosition().x, getPosition().y - getSpeed() * deltaTime);
         }
-    }
+    } // 1, 2, 3, 4 --> Left, Right, Up, Down
 
-    public boolean willCollide(Entity other, String direction) {
-        if (direction == "up") {
+    public boolean willCollide(Entity other, int direction) {
+        if (direction == 3) {
             if (getPosition().y >= other.getTopRight().y || getTopRight().y + getSpeed() <= other.getPosition().y ||
                     getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
                 return false;
             }
-        } else if (direction == "down") {
+        } else if (direction == 4) {
             if (getPosition().y - getSpeed() >= other.getTopRight().y || getTopRight().y <= other.getPosition().y ||
                     getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
                 return false;
             }
-        } else if (direction == "right") {
+        } else if (direction == 2) {
             if (getTopRight().x + getSpeed() <= other.getPosition().x || getPosition().x >= other.getTopRight().x ||
                     getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
                 return false;
             }
-        } else if (direction == "left") {
+        } else if (direction == 1) {
             if (getPosition().x - getSpeed() >= other.getTopRight().x || getTopRight().x <= other.getPosition().x ||
                     getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
                 return false;

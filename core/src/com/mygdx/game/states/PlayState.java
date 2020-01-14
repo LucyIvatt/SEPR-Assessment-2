@@ -21,6 +21,7 @@ public class PlayState extends State {
     private final float gameHeight = 832;
 
     private Texture background;
+    private Texture levelbackground;
     private boolean levelFailed;
     private boolean levelWon;
     private Preferences settings;
@@ -51,6 +52,7 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm, int level) {
         super(gsm);
         background = new Texture("LevelProportions.png");
+        levelbackground = new Texture("level1background.png");
         this.level = Integer.toString(level);
         levelFailed = false;
         levelWon = false;
@@ -59,21 +61,13 @@ public class PlayState extends State {
         ui = new BitmapFont(Gdx.files.internal("font.fnt"));
         healthBars = new BitmapFont();
         winCondition = false;
-
-        // Level Obstacles
-        refillSquare = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
-        // Firetrucks
-        truck1 = new Firetruck(new Vector2(50, 550), 64, 64, new Texture("truckthin.png"), 100, 2,
-                 null, 250, 10, 10, 100,
-                true, 5);
-        truck2 = new Firetruck(new Vector2(300, 550), 64, 64, new Texture("truckthin.png"), 100, 2,
-                 null, 250, 10, 10, 100,
-                false, 5);
-        trucks.add(truck1);
-        trucks.add(truck2);
-
-        // Aliens
         ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
+
+        if (level == 1) {
+        // Level 1 Obstacles
+        refillSquare = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
+
+        // Level 1 Alien Spawn Coordinates
         spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (gameHeight / 2) - 64 / 2));
         spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 64));
         spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 160));
@@ -82,12 +76,43 @@ public class PlayState extends State {
         spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) - 320));
         spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) +  256));
 
-        // Fortress
+        // Level 1 Fortress
         fortress = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
                 1000, spawnCoordinates, 2);
-        alienSpawnCountdown = fortress.getSpawnRate();
-        ui.setColor(Color.DARK_GRAY);
-        timeSinceKill = -1;
+    }
+
+    else if (level == 2) {
+
+    levelbackground = new Texture("level2background.png");
+        // Level 2 Obstacles
+        refillSquare = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
+
+        // Level 2 Alien Spawn Coordinates
+        spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (gameHeight / 2) - 64 / 2));
+        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 64));
+        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 160));
+        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) - 128 ));
+        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) - 224));
+        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) - 320));
+        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) +  256));
+
+        // Level 2 Fortress
+        fortress = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
+                1000, spawnCoordinates, 2);
+
+    }
+    alienSpawnCountdown = fortress.getSpawnRate();
+    ui.setColor(Color.DARK_GRAY);
+    timeSinceKill = -1;
+
+    truck1 = new Firetruck(new Vector2(50, 550), 32, 32, new Texture("truck.png"), 100, 2,
+            null, 250, 10, 10, 100,
+            true, 5);
+    truck2 = new Firetruck(new Vector2(300, 550), 32, 32, new Texture("truck.png"), 100, 2,
+            null, 250, 10, 10, 100,
+            false, 5);
+    trucks.add(truck1);
+    trucks.add(truck2);
     }
 
     public void handleInput() {
@@ -211,6 +236,9 @@ public class PlayState extends State {
         // Handles movement and collision for firetruck projectiles
         for (Projectile drop : new ArrayList<Projectile>(water)) {
             drop.update();
+            if (drop.getLength() > 250) {
+                water.remove(drop);
+            }
             for(Alien alien : new ArrayList<Alien>(aliens)) {
                 if (drop.hitUnit(alien)) {
                     alien.takeDamage(2);
@@ -245,6 +273,7 @@ public class PlayState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
+        spriteBatch.draw(levelbackground, 33, 1080 -   868);
         spriteBatch.draw(refillSquare.getTexture(), refillSquare.getPosition().x, refillSquare.getPosition().y, refillSquare.getWidth(),
                 refillSquare.getHeight());
 
@@ -299,6 +328,7 @@ public class PlayState extends State {
 
     public void truckMovement(Firetruck truck) {
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            truck.setTexture(new Texture("truck.png"));
             boolean obstacleCollision = false;
             if(truck.getPosition().y >= 1043 - truck.getHeight()) {
                 obstacleCollision = true;
@@ -313,6 +343,7 @@ public class PlayState extends State {
             }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+            truck.setTexture(new Texture("truckdown.png"));
             boolean obstacleCollision = false;
             if(truck.getPosition().y <= 212) {
                 obstacleCollision = true;
@@ -328,6 +359,7 @@ public class PlayState extends State {
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            truck.setTexture(new Texture("truckleft.png"));
             boolean obstacleCollision = false;
             if(truck.getPosition().x <= 33) {
                 obstacleCollision = true;
@@ -343,6 +375,7 @@ public class PlayState extends State {
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            truck.setTexture(new Texture("truckright.png"));
             boolean obstacleCollision = false;
             if(truck.getPosition().x >= 1888 - truck.getWidth()) {
                 obstacleCollision = true;
@@ -376,8 +409,8 @@ public class PlayState extends State {
         Random rand = new Random();
         if (fortress.getAlienPositions().size() > 0) {
             Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
-            Alien alien = new Alien(coordinate, 64, 64, new Texture("alien.png"), 100, 600,
-                    null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+            Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 100,
+                    250, null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                     new Vector2(coordinate.x, coordinate.y + 30)}, 5);
             aliens.add(alien);
             fortress.getAlienPositions().remove(coordinate);

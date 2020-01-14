@@ -11,7 +11,6 @@ public class Firetruck extends Character {
     private int maxWater;
     private int currentWater;
     private boolean selected;
-    private Sound waterShoot;
 
     // Constructor
     public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,

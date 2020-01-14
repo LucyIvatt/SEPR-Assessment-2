@@ -3,6 +3,7 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -27,6 +28,7 @@ public class PlayState extends State {
     private Preferences settings;
     private Timer timer;
     private String level;
+    private Sound waterShoot = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
 
     private boolean winCondition;
 
@@ -61,6 +63,7 @@ public class PlayState extends State {
         ui = new BitmapFont(Gdx.files.internal("font.fnt"));
         healthBars = new BitmapFont();
         winCondition = false;
+        //waterShoot
         ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
 
         if (level == 1) {
@@ -124,6 +127,7 @@ public class PlayState extends State {
                 Projectile drop = new Projectile(new Vector2(firetruck.getPosition().x + firetruck.getWidth() / 2, firetruck.getPosition().y + firetruck.getHeight() / 2), 5, 5,
                         new Texture("lightblue.jpg"), (new Vector2(Gdx.input.getX(), Kroy.HEIGHT - Gdx.input.getY())), 5);
                 water.add(drop);
+                waterShoot.play();
                 firetruck.updateCurrentWater(1);
                 firetruck.resetTimeSinceAttack();
             }

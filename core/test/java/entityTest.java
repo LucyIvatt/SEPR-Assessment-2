@@ -3,6 +3,8 @@ import com.mygdx.game.sprites.Entity;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+//70% line coverage (not testing getter and setters)
+
 //Class to test methods in the Entity Class.
 public class entityTest {
 

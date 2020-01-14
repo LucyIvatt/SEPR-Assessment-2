@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import com.mygdx.game.sprites.Unit;
 
+//
+//NEED TO CHECK IF CREATING AN INSTANCE IS GOOD OR I SHOULD MOCK INSTEAD (no dependencies)
+
 //Instance of the Unit class to test on (is abstract)
 class unitTestClass extends Unit {
 
@@ -18,6 +21,12 @@ public class unitTest {
 
     //Instance of the Unit class to test on
     Unit testUnit = new unitTestClass(new Vector2(0, 0),100, 100, null);
+
+    //Test for constructor that takes maxHealth
+    @Test
+    public void testShouldChangeMaxHealthToGivenParameter(){
+    }
+
 
     //Test if isDead() works when health is above 0
     @Test

@@ -20,12 +20,7 @@ public abstract class Unit extends Entity {
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
     }
-    
-    public Unit(Vector2 position, int width, int height,  Texture texture, int maxHealth, int range) {
-        super(position, width, height, texture);
-        this.maxHealth = maxHealth;
-        this.currentHealth = maxHealth;
-    }
+
 
     public int getMaxHealth() {
         return maxHealth;

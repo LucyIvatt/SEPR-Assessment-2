@@ -39,6 +39,7 @@ public class PlayState extends State {
 
     private float alienSpawnCountdown;
     private float timeSinceKill;
+    private float timelimit;
 
     public ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> trucks = new ArrayList<Firetruck>();
@@ -64,21 +65,24 @@ public class PlayState extends State {
         ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
 
         if (level == 1) {
-        // Level 1 Obstacles
-        refillSquare = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 
-        // Level 1 Alien Spawn Coordinates
-        spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (gameHeight / 2) - 64 / 2));
-        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 64));
-        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 160));
-        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) - 128 ));
-        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) - 224));
-        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) - 320));
-        spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) +  256));
+            timelimit = 60;
 
-        // Level 1 Fortress
-        fortress = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
-                1000, spawnCoordinates, 2);
+            // Level 1 Obstacles
+            refillSquare = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
+
+            // Level 1 Alien Spawn Coordinates
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (gameHeight / 2) - 64 / 2));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 64));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) + 160));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) - 128 ));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (gameHeight / 2) - 224));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) - 320));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (gameHeight / 2) +  256));
+
+            // Level 1 Fortress
+            fortress = new Fortress(new Vector2(1696, 212 + (gameHeight / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
+                    1000, spawnCoordinates, 2);
     }
 
     else if (level == 2) {
@@ -134,9 +138,9 @@ public class PlayState extends State {
 //            freezeLevel();
 //        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-            gameStateManager.push(new MenuState(gameStateManager));
-        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+//            gameStateManager.push(new MenuState(gameStateManager));
+//        }
 
         // Opens pause menu
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -262,7 +266,7 @@ public class PlayState extends State {
         }
 
         // Handles game end states
-        if (trucks.size() == 0 || timer.getDeltaTime() > 60) {
+        if (trucks.size() == 0 || timer.getDeltaTime() > timelimit) {
             levelFailed = true;
         }
 
@@ -285,7 +289,8 @@ public class PlayState extends State {
 
         spriteBatch.draw(fortress.getTexture(), fortress.getPosition().x, fortress.getPosition().y, fortress.getWidth(),
                 fortress.getHeight());
-        healthBars.draw(spriteBatch, "HP: " + fortress.getCurrentHealth(), fortress.getPosition().x, fortress.getPosition().y + fortress.getHeight() + 10);
+        healthBars.draw(spriteBatch, "HP: " + fortress.getCurrentHealth(), fortress.getPosition().x,
+                fortress.getPosition().y + fortress.getHeight() + 10);
 
         for (Alien alien : aliens){
             spriteBatch.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(),
@@ -308,6 +313,11 @@ public class PlayState extends State {
         }
 
         timer.drawTime(spriteBatch, ui);
+        ui.setColor(Color.WHITE);
+        if ((timelimit - 15) < timer.getDeltaTime() && timer.getDeltaTime() < (timelimit - 10)) {
+            ui.draw(spriteBatch, "15 seconds remaining!", 150, 1000);
+        }
+        ui.setColor(Color.DARK_GRAY);
         ui.draw(spriteBatch, "Truck 1 Health: " + Integer.toString(truck1.getCurrentHealth()), 70,
                 Kroy.HEIGHT - 920);
         ui.draw(spriteBatch, "Truck 2 Health: " + Integer.toString(truck2.getCurrentHealth()), 546,

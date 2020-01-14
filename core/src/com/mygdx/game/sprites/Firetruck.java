@@ -46,6 +46,7 @@ public class Firetruck extends Character {
     }
 
     // User attacks alien/fortress and firetruck water level decreases
+    //DEPENDENCY ON TAKEDAMAGE - MOCk
     public void firetruckAttack(Unit target) {
         if (this.currentWater == 0) {
             //show message telling the user they have ran out of water and to go refill to continue

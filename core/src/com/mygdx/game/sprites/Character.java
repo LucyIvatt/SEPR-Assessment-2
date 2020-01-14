@@ -16,7 +16,7 @@ public abstract class Character extends Unit {
     // Constructor
     public Character(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                      int speed, int dps, float attackCooldown) {
-        super(position, width, height, texture, maxHealth, range);
+        super(position, width, height, texture, maxHealth);
         this.target = target;
         this.speed = speed;
         this.dps = dps;

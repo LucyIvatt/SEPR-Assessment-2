@@ -3,6 +3,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Unit;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import com.mygdx.game.sprites.Firetruck;
 
 //Instance of the Unit class to test on (is abstract)
@@ -14,7 +16,7 @@ class unitForFireTruck extends Unit {
 
     public unitForFireTruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                             int speed, int dps, int bearing, int maxWater, boolean selected, float attackCooldown) {
-        super(position, width, height, texture, maxHealth, range);
+        super(position, width, height, texture, maxHealth);
         this.maxWater = maxWater;
         this.currentWater = maxWater;
         this.selected = selected;
@@ -71,7 +73,6 @@ public class testFireTruck {
 
         //move(): it works in game
         //willCollide(): already works
-
 
 
 }

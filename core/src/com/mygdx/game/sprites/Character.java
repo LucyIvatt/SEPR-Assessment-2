@@ -6,20 +6,18 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Character extends Unit {
     private Unit target;
     private int speed;
-    private int dps;
+    private int damage;
     private float attackCooldown;
     private float timeSinceAttack;
     private int range;
 
-    //Thinking the standard constructor should not force a target since the firetruck will
-    //spawn with no enemies in target.
-    // Constructor
+
     public Character(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
-                     int speed, int dps, float attackCooldown) {
+                     int speed, int damage, float attackCooldown) {
         super(position, width, height, texture, maxHealth);
         this.target = target;
         this.speed = speed;
-        this.dps = dps;
+        this.damage = damage;
         this.attackCooldown = attackCooldown;
         this.timeSinceAttack = 0;
         this.range = range;
@@ -34,19 +32,10 @@ public abstract class Character extends Unit {
         return speed;
     }
 
-    public int getDps() {
-        return dps;
+    public int getDamage() {
+        return damage;
     }
 
-    public void setSpeed(int speed){
-        this.speed = speed;
-    }
-
-    public void setDps(int dps){
-        this.dps = dps;
-    }
-
-    //Maybe don't need it in the future...?
     public void setTarget(Unit target) {
         this.target = target;
     }

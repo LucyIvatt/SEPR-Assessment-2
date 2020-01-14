@@ -27,13 +27,13 @@ public class MenuState extends State {
     private Button options;
     private Button credits;
     private Button quit;
-    private Preferences settings;
+    private Preferences saveData ;
     private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
     private Music intro = Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
 
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
-        settings = Gdx.app.getPreferences("My Preferences");
+        saveData = Gdx.app.getPreferences("My Preferences");
         background = new Texture("Menu.jpg");
         options = new Button(new Texture("optionspressed.png"), new Texture("options.png"), 350,100, new Vector2((Kroy.WIDTH / 2) - 350 - (SPACING / 2), 300), false, false);
         play = new Button(new Texture("playpressed.png"), new Texture("play.png"),350, 100, new Vector2((Kroy.WIDTH / 2) - 350 * 2 - SPACING - SPACING / 2, 300), false, false);
@@ -46,7 +46,7 @@ public class MenuState extends State {
         if (play.mouseInRegion()){
             play.setActive(true);
             if (Gdx.input.isTouched()) {
-                if (settings.getBoolean("effects")){
+                if (saveData.getBoolean("effects")){
                     click.play();
                 }
                 gameStateManager.push(new LevelSelectState(gameStateManager));
@@ -58,7 +58,7 @@ public class MenuState extends State {
         if (options.mouseInRegion()){
             options.setActive(true);
             if (Gdx.input.isTouched()) {
-                if (settings.getBoolean("effects")){
+                if (saveData.getBoolean("effects")){
                     click.play();
                 }
                 gameStateManager.push(new OptionState(gameStateManager));
@@ -71,7 +71,7 @@ public class MenuState extends State {
         if (credits.mouseInRegion()){
             credits.setActive(true);
             if (Gdx.input.isTouched()) {
-                if (settings.getBoolean("effects")){
+                if (saveData.getBoolean("effects")){
                     click.play();
                 }
                 gameStateManager.push(new CreditState(gameStateManager));
@@ -84,7 +84,7 @@ public class MenuState extends State {
         if (quit.mouseInRegion()){
             quit.setActive(true);
             if (Gdx.input.isTouched()) {
-                if (settings.getBoolean("effects")){
+                if (saveData.getBoolean("effects")){
                     click.play();
                 }
                 Gdx.app.exit();
@@ -99,10 +99,10 @@ public class MenuState extends State {
             System.exit(0);
         }
 
-        if ((intro.isPlaying()== true) && (settings.getBoolean("music") == false)){
+        if ((intro.isPlaying()== true) && (saveData.getBoolean("music") == false)){
             intro.pause();
         }
-        if ((intro.isPlaying()== false) && (settings.getBoolean("music") == true)){
+        if ((intro.isPlaying()== false) && (saveData.getBoolean("music") == true)){
             intro.play();
         }
     }

@@ -9,10 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
-import com.mygdx.game.sprites.Alien;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * An implementation of the abstract class State which controls the
@@ -33,13 +31,13 @@ public class LevelSelectState extends State{
     private Button level6;
     private Button back;
     private ArrayList<Button> buttons = new ArrayList<Button>();
-    private Preferences settings;
+    private Preferences saveData;
     private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
     private Sound honk = Gdx.audio.newSound((Gdx.files.internal("honk.wav")));
 
     protected LevelSelectState(GameStateManager gameStateManager) {
         super(gameStateManager);
-        settings = Gdx.app.getPreferences("My Preferences");
+        saveData = Gdx.app.getPreferences("My Preferences");
         back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
                 100, 100, new Vector2(30, 960), false, false);
 
@@ -158,7 +156,7 @@ public class LevelSelectState extends State{
     @Override
     public void update(float deltaTime) {
         handleInput();
-        if(settings.getBoolean("1") == true) {
+        if(saveData.getBoolean("1") == true) {
             level1.setOnTexture(new Texture("PressedGreen1.png"));
             level1.setOffTexture(new Texture("NotPressedGreen1.png"));
             level2.setLocked(false);
@@ -167,7 +165,7 @@ public class LevelSelectState extends State{
             level2.setOffTexture(new Texture("NotPressedBlue2.png"));
         }
 
-        if(settings.getBoolean("2") == true) {
+        if(saveData.getBoolean("2") == true) {
             level2.setOnTexture(new Texture("PressedGreen2.png"));
             level2.setOffTexture(new Texture("NotPressedGreen2.png"));
             level3.setLocked(false);
@@ -176,7 +174,7 @@ public class LevelSelectState extends State{
             level3.setOffTexture(new Texture("NotPressedBlue3.png"));
         }
 
-        if(settings.getBoolean("3") == true) {
+        if(saveData.getBoolean("3") == true) {
             level3.setOnTexture(new Texture("PressedGreen3.png"));
             level3.setOffTexture(new Texture("NotPressedGreen3.png"));
             level4.setLocked(false);
@@ -185,7 +183,7 @@ public class LevelSelectState extends State{
             level4.setOffTexture(new Texture("NotPressedBlue4.png"));
         }
 
-        if(settings.getBoolean("4") == true) {
+        if(saveData.getBoolean("4") == true) {
             level4.setOnTexture(new Texture("PressedGreen4.png"));
             level4.setOffTexture(new Texture("NotPressedGreen4.png"));
             level5.setLocked(false);
@@ -194,7 +192,7 @@ public class LevelSelectState extends State{
             level5.setOffTexture(new Texture("NotPressedBlue5.png"));
         }
 
-        if(settings.getBoolean("5") == true) {
+        if(saveData.getBoolean("5") == true) {
             level5.setOnTexture(new Texture("PressedGreen5.png"));
             level5.setOffTexture(new Texture("NotPressedGreen5.png"));
             level6.setLocked(false);
@@ -203,7 +201,7 @@ public class LevelSelectState extends State{
             level6.setOffTexture(new Texture("NotPressedBlue6.png"));
         }
 
-        if(settings.getBoolean("6") == true) {
+        if(saveData.getBoolean("6") == true) {
             level6.setOnTexture(new Texture("PressedGreen5.png"));
             level6.setOffTexture(new Texture("NotPressedGreen5.png"));
         }

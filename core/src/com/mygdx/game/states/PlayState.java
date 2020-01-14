@@ -21,6 +21,7 @@ public class PlayState extends State {
     private final float gameHeight = 832;
 
     private Texture background;
+    private Texture map;
     private boolean levelFailed;
     private boolean levelWon;
     private Preferences settings;
@@ -51,6 +52,7 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm, int level) {
         super(gsm);
         background = new Texture("LevelProportions.png");
+        map = new Texture("level1background.png");
         this.level = Integer.toString(level);
         levelFailed = false;
         levelWon = false;
@@ -243,6 +245,7 @@ public class PlayState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
+        spriteBatch.draw(map, 33, 212, 1856, 832);
         spriteBatch.draw(refillSquare.getTexture(), refillSquare.getPosition().x, refillSquare.getPosition().y, refillSquare.getWidth(),
                 refillSquare.getHeight());
 

@@ -128,8 +128,13 @@ public class PlayState extends State {
                         clearTruck.setSelected(false);
                     }
                     truck.setSelected(true);
+
                 }
             }
+        }
+
+        for (Firetruck truck : trucks) {
+            System.out.println(truck.isSelected());
         }
 
         // Handles Truck Movement
@@ -153,9 +158,7 @@ public class PlayState extends State {
         timer.update();
 
         // Updates aliens and handles automatic attacks
-        String states = "";
         for (Alien alien : aliens) {
-            states += alien.hasTarget() + " ";
             alien.update();
             alien.truckInAttackRange(trucks);
             if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
@@ -168,8 +171,6 @@ public class PlayState extends State {
             }
             alien.updateTimeSinceAttack(dt);
         }
-
-        System.out.println(states);
         alienSpawnCountdown -= dt;
         timeSinceKill -= dt;
 
@@ -190,6 +191,7 @@ public class PlayState extends State {
                     truck.takeDamage(10);
                     bullets.remove(bullet);
                     if(truck.getCurrentHealth() == 0) {
+                        truck.setSelected(false);
                         trucks.remove(truck);
                         destroyedTrucks.add(truck);
                     }

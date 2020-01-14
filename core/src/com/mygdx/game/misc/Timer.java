@@ -6,28 +6,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Kroy;
 
 public class Timer {
-    private float deltaTime = 0;
-    private boolean stopped;
-    private String timeString = "0";
+    private float deltaTime;
+    private String timeString;
 
     public Timer() {
-        stopped = false;
+        deltaTime = 0;
+        timeString = "0";
     }
 
     public void update(){
-        if (!this.stopped) {
-            deltaTime += (Gdx.graphics.getDeltaTime());
-            timeString = String.format("%.0f", deltaTime);
-        }
-    }
-
-    public void stop(){
-        this.stopped = true;
-    }
-
-
-    public void start(){
-        this.stopped = false;
+        deltaTime += (Gdx.graphics.getDeltaTime());
+        timeString = String.format("%.0f", deltaTime);
     }
 
     public void drawTime(SpriteBatch batch, BitmapFont font) {

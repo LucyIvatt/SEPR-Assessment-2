@@ -37,10 +37,10 @@ public class PlayState extends State {
     private Fortress fortress;
     private Firetruck firetruck1;
     private Firetruck firetruck2;
-    public ArrayList<Entity> obstacles = new ArrayList<Entity>();
+    private ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> firetrucks = new ArrayList<Firetruck>();
-    public ArrayList<Firetruck> destroyedFiretrucks = new ArrayList<Firetruck>();
-    public ArrayList<Alien> aliens = new ArrayList<Alien>();
+    private ArrayList<Firetruck> destroyedFiretrucks = new ArrayList<Firetruck>();
+    private ArrayList<Alien> aliens = new ArrayList<Alien>();
     private ArrayList<Projectile> bullets = new ArrayList<Projectile>();
     private ArrayList<Projectile> water = new ArrayList<Projectile>();
 
@@ -187,7 +187,7 @@ public class PlayState extends State {
         // Updates aliens and handles automatic attacks
         for (Alien alien : aliens) {
             alien.update();
-            alien.truckInAttackRange(firetrucks);
+            alien.truckInRange(firetrucks);
             if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
                 if (alien.hasTarget()) {
                     Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,

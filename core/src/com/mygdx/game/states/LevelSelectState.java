@@ -3,6 +3,7 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -33,6 +34,8 @@ public class LevelSelectState extends State{
     private Button back;
     private ArrayList<Button> buttons = new ArrayList<Button>();
     private Preferences settings;
+    private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
+    private Sound honk = Gdx.audio.newSound((Gdx.files.internal("honk.wav")));
 
     protected LevelSelectState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -71,6 +74,7 @@ public class LevelSelectState extends State{
         if (back.mouseInRegion()) {
             back.setActive(true);
             if (Gdx.input.isTouched()) {
+                click.play();
                 gameStateManager.pop();
             }
         } else {
@@ -80,6 +84,7 @@ public class LevelSelectState extends State{
         if (level1.mouseInRegion() && level1.isLocked() == false){
             level1.setActive(true);
             if (Gdx.input.isTouched()) {
+                honk.play();
                 gameStateManager.push(new PlayState(gameStateManager, 1));
             }
         }
@@ -90,6 +95,7 @@ public class LevelSelectState extends State{
         if (level2.mouseInRegion() && level2.isLocked() == false){
             level2.setActive(true);
             if (Gdx.input.isTouched()) {
+                honk.play();
                 gameStateManager.push(new PlayState(gameStateManager, 2));
             }
         }
@@ -100,6 +106,7 @@ public class LevelSelectState extends State{
         if (level3.mouseInRegion() && level3.isLocked() == false){
             level3.setActive(true);
             if (Gdx.input.isTouched()) {
+                honk.play();
                 gameStateManager.push(new PlayState(gameStateManager, 3));
             }
         }
@@ -110,6 +117,7 @@ public class LevelSelectState extends State{
         if (level4.mouseInRegion() && level4.isLocked() == false){
             level4.setActive(true);
             if (Gdx.input.isTouched()) {
+                honk.play();
                 gameStateManager.push(new PlayState(gameStateManager, 4));
             }
         }
@@ -120,6 +128,7 @@ public class LevelSelectState extends State{
         if (level5.mouseInRegion() && level5.isLocked() == false){
             level5.setActive(true);
             if (Gdx.input.isTouched()) {
+                honk.play();
                 gameStateManager.push(new PlayState(gameStateManager, 5));
             }
         }
@@ -130,6 +139,7 @@ public class LevelSelectState extends State{
         if (level6.mouseInRegion() && level6.isLocked() == false){
             level6.setActive(true);
             if (Gdx.input.isTouched()) {
+                honk.play();
                 gameStateManager.push(new PlayState(gameStateManager, 6));
             }
         }
@@ -139,6 +149,7 @@ public class LevelSelectState extends State{
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            click.play();
             Gdx.app.exit();
             System.exit(0);
         }

@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.audio.Sound;
 
 public class Firetruck extends Character {
 
     private int maxWater;
     private int currentWater;
     private boolean selected;
+    private Sound waterShoot;
 
     // Constructor
     public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,

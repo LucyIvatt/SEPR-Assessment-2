@@ -21,7 +21,7 @@ public class OptionState extends State implements InputProcessor {
     private Preferences settings;
     private Texture tick;
     private Texture cross;
-    private Sound honk = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
+    private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
 
     public OptionState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -73,10 +73,15 @@ public class OptionState extends State implements InputProcessor {
         if (musicToggle.clickInRegion(screenX, screenY)) {
             if (settings.getBoolean("music") == true) {
                 settings.putBoolean("music", false);
-                honk.play();
+                if (settings.getBoolean("effects")){
+                    click.play();
+                }
                 musicToggle.setActive(false);
             } else {
                 settings.putBoolean("music", true);
+                if (settings.getBoolean("effects")){
+                    click.play();
+                }
                 musicToggle.setActive(true);
             }
             return false;
@@ -88,16 +93,25 @@ public class OptionState extends State implements InputProcessor {
                 effectsToggle.setActive(false);
             } else {
                 settings.putBoolean("effects", true);
+                click.play();
                 effectsToggle.setActive(true);
             }
             return false;
         }
 
         else if (back.clickInRegion(screenX, screenY)) {
+            if (settings.getBoolean("effects")){
+                if (settings.getBoolean("effects")){
+                    click.play();
+                }
+            }
             gameStateManager.pop();
         }
 
         else if (quit.clickInRegion(screenX, screenY)) {
+            if (settings.getBoolean("effects")){
+                click.play();
+            }
             Gdx.app.exit();
             System.exit(0);
         }

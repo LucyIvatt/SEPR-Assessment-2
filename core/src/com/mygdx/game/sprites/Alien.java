@@ -1,8 +1,14 @@
 package com.mygdx.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-
 import java.util.ArrayList;
+
+/**
+ * The Button class is used to create button objects for use on the MenuScreen
+ * which can be used to change the current game State
+ *
+ * @author Alasdair Pilmore-Bedford & Lucy Ivatt
+ */
 
 public class Alien extends Character {
 
@@ -10,49 +16,47 @@ public class Alien extends Character {
     private int currentIndex;
 
     public Alien(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
-                 int speed, int dps, int bearing, Vector2[] wayPoints, float attackCooldown) {
+                 int speed, int dps, Vector2[] wayPoints, float attackCooldown) {
         super(position, width, height, texture, maxHealth, range, target, speed, dps, attackCooldown);
         this.waypoints = wayPoints;
         currentIndex = 0;
     }
 
+    /**
+     * A method which is ran each tick and updates the aliens attributes accordingly.
+     */
     public void update() {
         nextWayPoint();
         Vector2 newPos = moveAlongGrid(waypoints[currentIndex]);
-        // Sets the position to the next position between way points
         setPosition(newPos.x, newPos.y);
-
     }
 
-    // checks whether the alien is already at the next wayPoint if so sets the target wayPoint to the next in line
-    // if the alien is at the end of the list of way points it will return to the starting way point
+    /**
+     * A method which checks if the alien is as its next waypoint, if so it will set the target waypoint to the next
+     * in the array. If the alien is at the end of the array, it will return to the starting waypoint.
+     */
     private void nextWayPoint() {
         if (getPosition().y == waypoints[currentIndex].y && getPosition().x == waypoints[currentIndex].x) {
-            // if alien has completed list of way points
             currentIndex++;
             if (currentIndex >= (waypoints.length)) {
-                // set current way point to the first way point
                 currentIndex = 0;
             }
         }
     }
 
-    // Same as the above, but if the alien reaches the end of the list of way points it will move back through all
-    // previous way points before going back to the starting way point
-
-    // Movement at only 90 degree angles
+    /**
+     * The method which moves the alien towards its destination vector
+     * @param destination the Vector2 object specifying the aliens direction
+     */
     private Vector2 moveAlongGrid(Vector2 destination) { ;
         Vector2 nextPos = getPosition();
-        // if the x movement is complete: move along the y axis
         if (getPosition().x == destination.x) {
-            // if the destination is above the current position move up otherwise move down
             if (destination.y > getPosition().y) {
                 nextPos.y += this.getSpeed();
             } else {
                 nextPos.y -= this.getSpeed();
             }
         } else {
-            // movement along the x axis
             if (destination.x > getPosition().x) {
                 nextPos.x += this.getSpeed();
             } else {
@@ -62,6 +66,10 @@ public class Alien extends Character {
         return nextPos;
     }
 
+    /**
+     * The method which checks if a firetruck is in range and sets the aliens target accordingly
+     * @param firetrucks the ArrayList containing the active firetrucks in the level
+     */
     public void truckInRange(ArrayList<Firetruck> firetrucks) {
         if (this.hasTarget() && getTarget().getCurrentHealth() == 0) {
             setTarget(null);

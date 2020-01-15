@@ -10,6 +10,13 @@ import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 import com.badlogic.gdx.audio.*;
 
+/**
+ * An implementation of the abstract class which controls the option menu. Uses InputProcessor due to having
+ * toggle buttons which need the input event handling rather than polling for input.
+ *
+ * @author Lucy Ivatt
+ */
+
 public class OptionState extends State implements InputProcessor {
 
     private Texture background;
@@ -41,9 +48,17 @@ public class OptionState extends State implements InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
+    /**
+     * Updates the game logic before the next render() is called
+     * @param deltaTime the amount of time which has passed since the last render() call
+     */
     public void update(float deltaTime) {
     }
 
+    /**
+     * Used to draw elements onto the screen.
+     * @param spriteBatch a container for all elements which need rendering to the screen.
+     */
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
@@ -54,10 +69,20 @@ public class OptionState extends State implements InputProcessor {
         spriteBatch.end();
     }
 
+    /**
+     * Used to dispose of all textures, music etc. when no longer required to avoid memory leaks
+     */
     public void dispose() {
         background.dispose();
     }
 
+    /**
+     * Used to handle the event when a user clicks
+     * @param screenX x coordinate of click event
+     * @param screenY y coordinate of click event
+     * @param pointer pointer used in event
+     * @param button mouse button clicked during the event
+     */
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (musicToggle.clickInRegion(screenX, screenY)) {
             if (saveData.getBoolean("music") == true) {
@@ -101,6 +126,11 @@ public class OptionState extends State implements InputProcessor {
         return false;
     }
 
+    /**
+     * Used to handle the event when a moves their mouse on the game screen.
+     * @param screenX x coordinate of mouse on event
+     * @param screenY y coordinate of mouse on event
+     */
     public boolean mouseMoved(int screenX, int screenY) {
         if (back.clickInRegion(screenX, screenY)) {
             back.setActive(true);
@@ -115,6 +145,10 @@ public class OptionState extends State implements InputProcessor {
         }
         return false;
     }
+
+    // ---------------------------------------------------------
+    // Unused methods implemented from the Input Processor class
+    // ---------------------------------------------------------
 
     public boolean scrolled(int amount) {
         return false;

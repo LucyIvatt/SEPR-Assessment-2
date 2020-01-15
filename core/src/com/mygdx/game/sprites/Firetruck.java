@@ -61,23 +61,36 @@ public class Firetruck extends Character {
     } // 1, 2, 3, 4 --> Left, Right, Up, Down
 
     public boolean willCollide(Entity other, int direction) {
-        if (direction == 3) {
-            if (getPosition().y >= other.getTopRight().y || getTopRight().y + getSpeed() <= other.getPosition().y ||
+        if (direction == 3) { // up
+            if (getPosition().y >= other.getTopRight().y || getTopRight().y + getSpeed() * Gdx.graphics.getDeltaTime()<= other.getPosition().y ||
                     getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
                 return false;
             }
-        } else if (direction == 4) {
-            if (getPosition().y - getSpeed() >= other.getTopRight().y || getTopRight().y <= other.getPosition().y ||
+        } else if (direction == 4) { // down
+            if (getPosition().y - getSpeed() * Gdx.graphics.getDeltaTime() >= other.getTopRight().y || getTopRight().y <= other.getPosition().y ||
                     getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
                 return false;
             }
-        } else if (direction == 2) {
-            if (getTopRight().x + getSpeed() <= other.getPosition().x || getPosition().x >= other.getTopRight().x ||
-                    getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
+        } else if (direction == 2) { // right
+//            System.out.println("-------------");
+//            System.out.println(getTopRight().x + getSpeed());
+//            System.out.println(other.getPosition().x);
+//            System.out.println("------");
+//            System.out.println(getPosition().x);
+//            System.out.println(other.getTopRight().x);
+//            System.out.println("------");
+//            System.out.println(getPosition().y);
+//            System.out.println(other.getTopRight().y);
+//            System.out.println("------");
+//            System.out.println(getTopRight().y);
+//            System.out.println(other.getPosition().y);
+//            System.out.println("-------------");
+            if ((getTopRight().x + getSpeed() * Gdx.graphics.getDeltaTime() <= other.getPosition().x || getPosition().x >= other.getTopRight().x ||
+                    getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y)) {
                 return false;
             }
-        } else if (direction == 1) {
-            if (getPosition().x - getSpeed() >= other.getTopRight().x || getTopRight().x <= other.getPosition().x ||
+        } else if (direction == 1) { // left
+            if (getPosition().x - getSpeed() * Gdx.graphics.getDeltaTime() >= other.getTopRight().x || getTopRight().x <= other.getPosition().x ||
                     getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
                 return false;
             }

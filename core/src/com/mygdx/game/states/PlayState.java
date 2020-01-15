@@ -188,10 +188,10 @@ public class PlayState extends State {
         ui.setColor(Color.DARK_GRAY);
         timeSinceAlienKilled = -1;
 
-        firetruck1 = new Firetruck(new Vector2(50, 550), 32, 32, new Texture("truck.png"), 50, 200,
+        firetruck1 = new Firetruck(new Vector2(50, 550), 25, 25, new Texture("truck.png"), 50, 200,
                 null, 250, 10, 10, 150,
                 true, 5);
-        firetruck2 = new Firetruck(new Vector2(300, 550), 32, 32, new Texture("truck.png"), 100, 200,
+        firetruck2 = new Firetruck(new Vector2(300, 550), 25, 25, new Texture("truck.png"), 100, 200,
                 null, 250, 10, 10, 100,
                 false, 5);
         firetrucks.add(firetruck1);

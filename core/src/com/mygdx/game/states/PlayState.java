@@ -42,6 +42,7 @@ public class PlayState extends State {
     private Timer timer;
     private float alienSpawnCountdown;
     private float timeSinceAlienKilled;
+    private float timeSinceLastFortressRegeneration;
     private float timeLimit;
 
     private Entity fireStation;
@@ -60,26 +61,26 @@ public class PlayState extends State {
     private String level;
     private Sound waterShoot = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
 
-    public PlayState(GameStateManager gsm, int level) {
+    public PlayState(GameStateManager gsm, int levelNumber) {
         super(gsm);
         background = new Texture("LevelProportions.png");
-        map = new Texture("level1background.png");
         quitLevel = new Button(new Texture("PressedQuitLevel.png"), new Texture("NotPressedQuitLevel.png"),
                 350 / 2, 100 / 2, new Vector2(30, 30), false, false);
         quitGame = new Button(new Texture("PressedQuitGame.png"), new Texture("NotPressedQuitGame.png"),
                 350 / 2, 100 / 2, new Vector2(1920 - 30 - 350 / 2, 30), false, false);
-        this.level = Integer.toString(level);
+        level = Integer.toString(levelNumber);
         levelLost = false;
         levelWon = false;
         saveData = Gdx.app.getPreferences("My Preferences");
         timer = new Timer();
         ui = new BitmapFont(Gdx.files.internal("font.fnt"));
         healthBars = new BitmapFont();
-        //waterShoot
         ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
 
-        if (level == 1) { // Bottom left coord --> (33, 212)
+        if (levelNumber == 1) { // Bottom left coord --> (33, 212)
+
             timeLimit = 120;
+            map = new Texture("level1background.png");
 
             // Level 1 Obstacles
             obstacles.add(new Entity(new Vector2(257, 628), 64, 64, new Texture("teal.jpg")));
@@ -120,23 +121,23 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1345, 692), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));
 
-            fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
+            fireStation = new Entity(new Vector2(33 + 8 * 32, 212 + 4 * 32), 128, 128, new Texture("teal.jpg"));
 
             // Level 1 Alien Spawn Coordinates
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (GAME_HEIGHT / 2) - 64 / 2));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 64));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 160));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 128));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 224));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 320));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 256));
+            spawnCoordinates.add(new Vector2(22 * 32, 1044 - 3 * 32));
+            spawnCoordinates.add(new Vector2(33 * 32, 1044 - 3 * 32));
+
+            spawnCoordinates.add(new Vector2(24 * 32, 1044 - 6 * 32));
+            spawnCoordinates.add(new Vector2(31 * 32, 1044 - 6 * 32));
+
+            spawnCoordinates.add(new Vector2(28 * 32 - 16, 1044 - 8 * 32));
 
             // Level 1 Fortress
-            fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
-                    1000, spawnCoordinates, 2);
+            fortress = new Fortress(new Vector2(33 + 24 * 32, 212 + 21 * 32), 6 * 32, 4 * 32, new Texture("grey.png"),
+                    5000, spawnCoordinates, 2);
         }
 
-        else if (level == 2) {
+        else if (levelNumber == 2) {
 
             timeLimit = 120;
 
@@ -157,7 +158,7 @@ public class PlayState extends State {
             fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
                     1000, spawnCoordinates, 2);
         }
-        else if (level == 3) {
+        else if (levelNumber == 3) {
 
             timeLimit = 120;
 
@@ -180,15 +181,16 @@ public class PlayState extends State {
         }
 
 
-        alienSpawnCountdown = fortress.getSpawnRate();
+        alienSpawnCountdown = 0;
+        timeSinceLastFortressRegeneration = 0;
         ui.setColor(Color.DARK_GRAY);
         timeSinceAlienKilled = -1;
 
-        firetruck1 = new Firetruck(new Vector2(50, 550), 25, 25, new Texture("truck.png"), 50, 200,
-                null, 250, 10, 10, 150,
+        firetruck1 = new Firetruck(new Vector2(33 + 10 * 32, 212 + 6 * 32), 25, 25, new Texture("truck.png"), 50, 200,
+                null, 200, 2, 10, 150,
                 true, 5);
-        firetruck2 = new Firetruck(new Vector2(300, 550), 25, 25, new Texture("truck.png"), 100, 200,
-                null, 250, 10, 10, 100,
+        firetruck2 = new Firetruck(new Vector2(33 + 11 * 32, 212 + 6 * 32), 25, 25, new Texture("truck.png"), 100, 200,
+                null, 200, 2, 10, 100,
                 false, 5);
         firetrucks.add(firetruck1);
         firetrucks.add(firetruck2);
@@ -347,7 +349,7 @@ public class PlayState extends State {
                 }
             }
             if (drop.hitUnit(fortress)) {
-                fortress.takeDamage(2);
+                fortress.takeDamage(drop.getDamage());
                 if (fortress.getCurrentHealth() == 0) {
                     levelWon = true;
                     saveData.putBoolean(level, true);
@@ -360,8 +362,11 @@ public class PlayState extends State {
         if (firetrucks.size() == 0 || timer.getTime() > timeLimit) {
             levelLost = true;
         }
-
-        fortress.addHealth(1);
+        if(timeSinceLastFortressRegeneration <= 0) {
+            fortress.addHealth(10);
+            timeSinceLastFortressRegeneration = 1;
+        }
+        timeSinceLastFortressRegeneration -= deltaTime;
     }
 
     /**
@@ -378,8 +383,8 @@ public class PlayState extends State {
         spriteBatch.draw(quitGame.getTexture(), quitGame.getPosition().x, quitGame.getPosition().y,
                 quitGame.getWidth(), quitGame.getHeight());
 
-        spriteBatch.draw(fireStation.getTexture(), fireStation.getPosition().x, fireStation.getPosition().y, fireStation.getWidth(),
-                fireStation.getHeight());
+//        spriteBatch.draw(fireStation.getTexture(), fireStation.getPosition().x, fireStation.getPosition().y, fireStation.getWidth(),
+//                fireStation.getHeight());
 
         for (Firetruck truck : firetrucks) {
             spriteBatch.draw(truck.getTexture(), truck.getPosition().x, truck.getPosition().y, truck.getWidth(),
@@ -387,10 +392,8 @@ public class PlayState extends State {
             healthBars.draw(spriteBatch, "Water: " + truck.getCurrentWater(), truck.getPosition().x, truck.getPosition().y + truck.getHeight() + 10);
         }
 
-        spriteBatch.draw(fortress.getTexture(), fortress.getPosition().x, fortress.getPosition().y, fortress.getWidth(),
-                fortress.getHeight());
-        healthBars.draw(spriteBatch, "HP: " + fortress.getCurrentHealth(), fortress.getPosition().x,
-                fortress.getPosition().y + fortress.getHeight() + 10);
+        healthBars.draw(spriteBatch, "HP: " + fortress.getCurrentHealth(), fortress.getPosition().x + 70,
+                fortress.getPosition().y + fortress.getHeight() + 20);
 
         for (Alien alien : aliens) {
             spriteBatch.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(),
@@ -407,10 +410,11 @@ public class PlayState extends State {
             spriteBatch.draw(drop.getTexture(), drop.getPosition().x, drop.getPosition().y, drop.getWidth(),
                     drop.getHeight());
         }
-        for (Entity obstacle : obstacles) {
-            spriteBatch.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y, obstacle.getWidth(),
-                    obstacle.getHeight());
-        }
+
+//        for (Entity obstacle : obstacles) {
+//            spriteBatch.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y, obstacle.getWidth(),
+//                    obstacle.getHeight());
+//        }
 
         timer.drawTime(spriteBatch, ui);
         ui.setColor(Color.WHITE);
@@ -426,11 +430,11 @@ public class PlayState extends State {
         ui.draw(spriteBatch, "Truck 4 Health: N/A", 1499, Kroy.HEIGHT - 920);
 
         if (levelLost) {
-            spriteBatch.draw(new Texture("levelFail.png"), 480, 270);
+            spriteBatch.draw(new Texture("levelFail.png"), 0, 0);
         }
 
         if (levelWon) {
-            spriteBatch.draw(new Texture("LevelWon.png"), 480, 270);
+            spriteBatch.draw(new Texture("LevelWon.png"), 0, 0);
         }
 
         spriteBatch.end();

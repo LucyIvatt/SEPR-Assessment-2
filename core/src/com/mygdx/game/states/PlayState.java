@@ -172,6 +172,7 @@ public class PlayState extends State {
             truckMovement(firetruck2);
         }
 
+
         if ((levelLost || levelWon) && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
             gameStateManager.set(new LevelSelectState(gameStateManager));
         }

@@ -161,10 +161,6 @@ public class PlayState extends State {
             }
         }
 
-        for (Firetruck truck : firetrucks) {
-            System.out.println(truck.isSelected());
-        }
-
         // Handles Truck Movement
         if (firetruck1.isSelected()) {
             truckMovement(firetruck1);
@@ -173,7 +169,7 @@ public class PlayState extends State {
         }
 
 
-        if ((levelLost || levelWon) && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+        if ((levelLost || levelWon) && Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gameStateManager.set(new LevelSelectState(gameStateManager));
         }
     }

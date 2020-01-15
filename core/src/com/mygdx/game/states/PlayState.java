@@ -68,6 +68,8 @@ public class PlayState extends State {
             timelimit = 60;
 
             // Level 1 Obstacles
+            obstacles.add(new Entity(new Vector2(257, 628), 64, 64, new Texture("teal.jpg")));
+
             fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 
             // Level 1 Alien Spawn Coordinates

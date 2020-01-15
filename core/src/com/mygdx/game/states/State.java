@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * each game state of the game.
  *
  * @author Lucy Ivatt
- * @since 20/11/2019
  */
 public abstract class State {
 
@@ -28,9 +27,8 @@ public abstract class State {
     public abstract void update(float deltaTime);
 
     /**
-     * Used to draw things on the screen.
+     * Used to draw elements onto the screen.
      * @param spriteBatch a container for all elements which need rendering to the screen
-     *
      */
     public abstract void render(SpriteBatch spriteBatch);
 

@@ -1,8 +1,13 @@
 package com.mygdx.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+
+/**
+ * The class containing the 5 primary attributes and their relevant getters and/or setters which are inherited by
+ * multiple classes and is itself implemented to create obstacle object.
+ *
+ * @author Matthew Gilmore
+ */
 
 public class Entity {
 
@@ -10,15 +15,22 @@ public class Entity {
     private Vector2 position;
     private int width;
     private int height;
-    private Vector2 topRight; // Not needed as an argument for the constructor as it is calculated using position,
-    // width and height
+    private Vector2 topRight;
 
+    /**
+     * A constructor which includes the new attributes which will be super called by the Projectile and Unit classes.
+     * Will also be used to initialize objects which are impassable by the Firetruck during gameplay.
+     */
     public Entity(Vector2 position, int width, int height, Texture texture) {
         this.position = position;
         this.width = width;
         this.height = height;
         this.texture = texture;
         this.topRight = new Vector2(position.x + width, position.y + height);
+    }
+
+    public void dispose() {
+        texture.dispose();
     }
 
     public void setPosition(float x, float y) {

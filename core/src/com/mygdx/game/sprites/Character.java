@@ -3,14 +3,20 @@ package com.mygdx.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * The abstract class containing the shared methods and attributes used by the Firetruck and Alien class.
+ *
+ * @author Cassie Lillystone
+ */
+
 public abstract class Character extends Unit {
+
     private Unit target;
     private int speed;
     private int damage;
     private int range;
     private float attackCooldown;
     private float timeSinceAttack;
-
 
     public Character(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                      int speed, int damage, float attackCooldown) {
@@ -23,7 +29,6 @@ public abstract class Character extends Unit {
         this.range = range;
     }
 
-    // Getters and Setters
     public Unit getTarget() {
         return target;
     }

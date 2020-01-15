@@ -13,8 +13,7 @@ import com.mygdx.game.misc.Button;
 import java.util.ArrayList;
 
 /**
- * An implementation of the abstract class State which controls the
- * menu screen rendering and input handling.
+ * An implementation of the abstract class State which controls the Level Select Screen.
  *
  * @author Lucy Ivatt
  * @since 11/1/2020
@@ -68,6 +67,9 @@ public class LevelSelectState extends State{
         background = new Texture("Menu.jpg");
     }
 
+    /**
+     * The game logic which is executed due to specific user inputs. Is called in the update method.
+     */
     public void handleInput() {
         if (back.mouseInRegion()) {
             back.setActive(true);
@@ -153,6 +155,10 @@ public class LevelSelectState extends State{
         }
     }
 
+    /**
+     * Updates the game logic before the next render() is called
+     * @param deltaTime the amount of time which has passed since the last render() call
+     */
     @Override
     public void update(float deltaTime) {
         handleInput();
@@ -174,41 +180,45 @@ public class LevelSelectState extends State{
             level3.setOffTexture(new Texture("NotPressedBlue3.png"));
         }
 
-        if(saveData.getBoolean("3") == true) {
-            level3.setOnTexture(new Texture("PressedGreen3.png"));
-            level3.setOffTexture(new Texture("NotPressedGreen3.png"));
-            level4.setLocked(false);
-
-            level4.setOnTexture(new Texture("PressedBlue4.png"));
-            level4.setOffTexture(new Texture("NotPressedBlue4.png"));
-        }
-
-        if(saveData.getBoolean("4") == true) {
-            level4.setOnTexture(new Texture("PressedGreen4.png"));
-            level4.setOffTexture(new Texture("NotPressedGreen4.png"));
-            level5.setLocked(false);
-
-            level5.setOnTexture(new Texture("PressedBlue5.png"));
-            level5.setOffTexture(new Texture("NotPressedBlue5.png"));
-        }
-
-        if(saveData.getBoolean("5") == true) {
-            level5.setOnTexture(new Texture("PressedGreen5.png"));
-            level5.setOffTexture(new Texture("NotPressedGreen5.png"));
-            level6.setLocked(false);
-
-            level6.setOnTexture(new Texture("PressedBlue6.png"));
-            level6.setOffTexture(new Texture("NotPressedBlue6.png"));
-        }
-
-        if(saveData.getBoolean("6") == true) {
-            level6.setOnTexture(new Texture("PressedGreen5.png"));
-            level6.setOffTexture(new Texture("NotPressedGreen5.png"));
-        }
+//        if(saveData.getBoolean("3") == true) {
+//            level3.setOnTexture(new Texture("PressedGreen3.png"));
+//            level3.setOffTexture(new Texture("NotPressedGreen3.png"));
+//            level4.setLocked(false);
+//
+//            level4.setOnTexture(new Texture("PressedBlue4.png"));
+//            level4.setOffTexture(new Texture("NotPressedBlue4.png"));
+//        }
+//
+//        if(saveData.getBoolean("4") == true) {
+//            level4.setOnTexture(new Texture("PressedGreen4.png"));
+//            level4.setOffTexture(new Texture("NotPressedGreen4.png"));
+//            level5.setLocked(false);
+//
+//            level5.setOnTexture(new Texture("PressedBlue5.png"));
+//            level5.setOffTexture(new Texture("NotPressedBlue5.png"));
+//        }
+//
+//        if(saveData.getBoolean("5") == true) {
+//            level5.setOnTexture(new Texture("PressedGreen5.png"));
+//            level5.setOffTexture(new Texture("NotPressedGreen5.png"));
+//            level6.setLocked(false);
+//
+//            level6.setOnTexture(new Texture("PressedBlue6.png"));
+//            level6.setOffTexture(new Texture("NotPressedBlue6.png"));
+//        }
+//
+//        if(saveData.getBoolean("6") == true) {
+//            level6.setOnTexture(new Texture("PressedGreen5.png"));
+//            level6.setOffTexture(new Texture("NotPressedGreen5.png"));
+//        }
 
 
     }
 
+    /**
+     * Used to draw elements onto the screen.
+     * @param spriteBatch a container for all elements which need rendering to the screen
+     */
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
@@ -220,6 +230,9 @@ public class LevelSelectState extends State{
         spriteBatch.end();
     }
 
+    /**
+     * Used to dispose of all textures, music etc. when no longer required to avoid memory leaks
+     */
     @Override
     public void dispose() {
 

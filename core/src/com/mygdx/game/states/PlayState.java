@@ -16,6 +16,13 @@ import com.mygdx.game.sprites.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Implementation of the abstract class State which contains the methods and attributes required to control the
+ * gameplay logic for each level as well as rendering to the screen.
+ *
+ * @author Lucy Ivatt
+ */
+
 public class PlayState extends State {
 
     private final float GAME_WIDTH = 1856;
@@ -31,7 +38,7 @@ public class PlayState extends State {
     private Timer timer;
     private float alienSpawnCountdown;
     private float timeSinceAlienKilled;
-    private float timelimit;
+    private float timeLimit;
 
     private Entity fireStation;
     private Fortress fortress;
@@ -65,7 +72,7 @@ public class PlayState extends State {
 
         if (level == 1) { // Bottom left coord --> (33, 212) 
 
-            timelimit = 60;
+            timeLimit = 120;
 
             // Level 1 Obstacles
             obstacles.add(new Entity(new Vector2(257, 628), 64, 64, new Texture("teal.jpg")));
@@ -84,9 +91,34 @@ public class PlayState extends State {
             // Level 1 Fortress
             fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
                     1000, spawnCoordinates, 2);
-        } else if (level == 2) {
+        }
+
+        else if (level == 2) {
+
+            timeLimit = 120;
 
             map = new Texture("level2background.png");
+            // Level 2 Obstacles
+            fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
+
+            // Level 2 Alien Spawn Coordinates
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (GAME_HEIGHT / 2) - 64 / 2));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 64));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 160));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 128));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 224));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 320));
+            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 256));
+
+            // Level 2 Fortress
+            fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
+                    1000, spawnCoordinates, 2);
+        }
+        else if (level == 3) {
+
+            timeLimit = 120;
+
+            map = new Texture("level3background.png");
             // Level 2 Obstacles
             fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 
@@ -119,6 +151,9 @@ public class PlayState extends State {
         firetrucks.add(firetruck2);
     }
 
+    /**
+     * The game logic which is executed due to specific user inputs. Is called in the update method.
+     */
     public void handleInput() {
 
         // Handles input for firetruck attacks
@@ -132,15 +167,6 @@ public class PlayState extends State {
                 firetruck.resetTimeSinceAttack();
             }
         }
-
-        // Test hotkeys
-//        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-//            freezeLevel();
-//        }
-
-//        if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-//            gameStateManager.push(new MenuState(gameStateManager));
-//        }
 
         // Opens pause menu
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
@@ -176,6 +202,10 @@ public class PlayState extends State {
         }
     }
 
+    /**
+     * Updates the game logic before the next render() is called
+     * @param deltaTime the amount of time which has passed since the last render() call
+     */
     @Override
     public void update(float deltaTime) {
 
@@ -190,7 +220,7 @@ public class PlayState extends State {
             if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
                 if (alien.hasTarget()) {
                     Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
-                            new Texture("black.jpg"), (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5, alien.getDamage());
+                            new Texture("red.png"), (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5, alien.getDamage());
                     bullets.add(bullet);
                     alien.resetTimeSinceAttack();
                 }
@@ -261,13 +291,17 @@ public class PlayState extends State {
         }
 
         // Handles game end states
-        if (firetrucks.size() == 0 || timer.getDeltaTime() > timelimit) {
+        if (firetrucks.size() == 0 || timer.getTime() > timeLimit) {
             levelLost = true;
         }
 
         fortress.addHealth(1);
     }
 
+    /**
+     * Used to draw elements onto the screen.
+     * @param spriteBatch a container for all elements which need rendering to the screen.
+     */
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
@@ -309,7 +343,7 @@ public class PlayState extends State {
 
         timer.drawTime(spriteBatch, ui);
         ui.setColor(Color.WHITE);
-        if ((timelimit - 15) < timer.getDeltaTime() && timer.getDeltaTime() < (timelimit - 10)) {
+        if ((timeLimit - 15) < timer.getTime() && timer.getTime() < (timeLimit - 10)) {
             ui.draw(spriteBatch, "15 seconds remaining!", 150, 1000);
         }
         ui.setColor(Color.DARK_GRAY);
@@ -331,11 +365,19 @@ public class PlayState extends State {
         spriteBatch.end();
     }
 
+    /**
+     * Used to dispose of all textures, music etc. when no longer required to avoid memory leaks
+     */
     @Override
     public void dispose() {
 
     }
 
+    /**
+     * Used to call the correct methods to move the trucks position depending on obstacles and which truck is
+     * currently selected.
+     * @param truck the truck which is currently selected
+     */
     public void truckMovement(Firetruck truck) {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             truck.setTexture(new Texture("truck.png"));
@@ -402,6 +444,24 @@ public class PlayState extends State {
         }
     }
 
+    /**
+     * Used to spawn the Aliens around the fortress by accessing the spawnRate and alienPositions stored within
+     * the fortress object.
+     */
+    public void spawnAlien() {
+        Random rand = new Random();
+        if (fortress.getAlienPositions().size() > 0) {
+            Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
+            Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 100,
+                    250, null, 1, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                    new Vector2(coordinate.x, coordinate.y + 30)}, 5);
+            aliens.add(alien);
+            fortress.getAlienPositions().remove(coordinate);
+        }
+    }
+}
+
+// Used to freeze the game when the level is completed while the notifier pops up but currently hangs the game.
 //    public void freezeLevel() {
 //        timer.stop();
 //        for (Firetruck truck : firetrucks) {
@@ -414,16 +474,3 @@ public class PlayState extends State {
 //        }
 //
 //    }
-
-    public void spawnAlien() {
-        Random rand = new Random();
-        if (fortress.getAlienPositions().size() > 0) {
-            Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
-            Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 100,
-                    250, null, 1, 10, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                    new Vector2(coordinate.x, coordinate.y + 30)}, 5);
-            aliens.add(alien);
-            fortress.getAlienPositions().remove(coordinate);
-        }
-    }
-}

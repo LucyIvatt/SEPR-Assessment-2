@@ -23,14 +23,6 @@ public class Button {
     private Vector2 position;
     private boolean locked;
 
-    /**
-     * A constructor to create a Button object
-     *
-     * @param width int representing the width of the button for positioning
-     * @param height int representing the height of the button for positioning
-     * @param position Vector2 representing the x and y co-ordinates used for positioning and drawing the button
-     *                 to the screen
-     */
     public Button(Texture onTexture, Texture offTexture, int width, int height, Vector2 position, boolean active, boolean locked) {
         this.onTexture = onTexture;
         this.offTexture = offTexture;
@@ -39,51 +31,6 @@ public class Button {
         this.position = position;
         this.active = active;
         this.locked = locked;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setOnTexture(Texture onTexture) {
-        this.onTexture = onTexture;
-    }
-
-
-    public void setOffTexture(Texture offTexture) {
-        this.offTexture = offTexture;
-    }
-
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
-    /**
-     * @return Texture of the button which needs to be rendered. This changes depending on whether or not the button is active.
-     */
-    public Texture getTexture() {
-        if(active == false) {
-            return offTexture;
-        }
-        else {
-            return onTexture;
-        }
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     /**
@@ -104,9 +51,56 @@ public class Button {
 
     }
 
+    /**
+     * Used to dispose of all textures, music etc. when no longer required to avoid memory leaks
+     */
     public void dispose() {
         onTexture.dispose();
         offTexture.dispose();
     }
 
+    /**
+     * @return Texture of the button which needs to be rendered. This changes depending on whether or not the button is active.
+     */
+    public Texture getTexture() {
+        if(active == false) {
+            return offTexture;
+        }
+        else {
+            return onTexture;
+        }
+    }
+
+    public void setOnTexture(Texture onTexture) {
+        this.onTexture = onTexture;
+    }
+
+
+    public void setOffTexture(Texture offTexture) {
+        this.offTexture = offTexture;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

@@ -8,6 +8,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 
+/**
+ * Implementation of the abstract class State which contains the methods and attributes required to control the
+ * Credits screen.
+ *
+ * @author Lucy Ivatt
+ */
+
 public class CreditState extends State {
 
     private Texture background;
@@ -22,6 +29,9 @@ public class CreditState extends State {
 
     }
 
+    /**
+     * The game logic which is executed due to specific user inputs. Is called in the update method.
+     */
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             gameStateManager.pop();
@@ -38,12 +48,20 @@ public class CreditState extends State {
         }
     }
 
+    /**
+     * Updates the game logic before the next render() is called
+     * @param deltaTime the amount of time which has passed since the last render() call
+     */
     @Override
     public void update(float deltaTime) {
         handleInput();
 
     }
 
+    /**
+     * Used to draw elements onto the screen.
+     * @param spriteBatch a container for all elements which need rendering to the screen
+     */
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
@@ -54,9 +72,13 @@ public class CreditState extends State {
 
     }
 
+    /**
+     * Used to dispose of all textures, music etc. when no longer required to avoid memory leaks
+     */
     @Override
     public void dispose() {
         background.dispose();
     }
+
 }
 

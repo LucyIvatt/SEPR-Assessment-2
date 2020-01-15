@@ -15,7 +15,7 @@ public class GameStateManager {
 
     private Stack<State> states;
     /**
-     * Initializes the stack of game <code>States</code>
+     * Initializes the stack of game States
      */
     public GameStateManager() {
         states = new Stack<State>();

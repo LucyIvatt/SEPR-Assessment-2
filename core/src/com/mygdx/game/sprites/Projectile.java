@@ -3,6 +3,11 @@ package com.mygdx.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * The class which is used to create bullet and water projectiles and contains their properties.
+ *
+ * @author Lucy Ivatt
+ */
 public class Projectile extends Entity
 {
     private Vector2 startPosition;
@@ -29,10 +34,19 @@ public class Projectile extends Entity
         this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
     }
 
+    /**
+     * A method which updates the bullets properties each game tick
+     */
     public void update() {
        setPosition(getPosition().x + speed * direction.x, getPosition().y + speed * direction.y);
        setLength();
     }
+
+    /**
+     * A method which updates the bullets properties each game tick
+     * @param instance the Unit which the method will check the bullet collision for
+     * @return true if the bullet is in contact with the Unit object, otherwise false
+     */
     public boolean hitUnit(Unit instance) {
         if (getTopRight().y < instance.getPosition().y || getPosition().y > instance.getTopRight().y ||
                 getTopRight().x < instance.getPosition().x || getPosition().x > instance.getTopRight().x) {
@@ -41,6 +55,11 @@ public class Projectile extends Entity
             return true;
         }
     }
+
+    /**
+     * Calculates the distance between the current position and the startPosition of the vector to check its length.
+     * Used to ensure the firetruck can only shoot in a limited range.
+     */
 
     public void setLength() {
         this.length = getPosition().dst(startPosition);
@@ -56,9 +75,5 @@ public class Projectile extends Entity
 
     public int getDamage() {
         return damage;
-    }
-
-    public void dispose() {
-
     }
 }

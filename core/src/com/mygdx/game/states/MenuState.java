@@ -42,6 +42,9 @@ public class MenuState extends State {
         intro.play();
     }
 
+    /**
+     * The game logic which is executed due to specific user inputs. Is called in the update method
+     */
     public void handleInput() {
         if (play.mouseInRegion()){
             play.setActive(true);
@@ -107,11 +110,19 @@ public class MenuState extends State {
         }
     }
 
+    /**
+     * Updates the game logic before the next render() is called
+     * @param deltaTime the amount of time which has passed since the last render() call
+     */
     @Override
     public void update(float deltaTime) {
         handleInput();
     }
 
+    /**
+     * Used to draw elements onto the screen.
+     * @param spriteBatch a container for all elements which need rendering to the screen.
+     */
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
@@ -123,6 +134,9 @@ public class MenuState extends State {
         spriteBatch.end();
     }
 
+    /**
+     * Used to dispose of all textures, music etc. when no longer required to avoid memory leaks
+     */
     @Override
     public void dispose() {
         background.dispose();

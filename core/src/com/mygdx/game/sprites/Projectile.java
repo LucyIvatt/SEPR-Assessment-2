@@ -5,15 +5,27 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Projectile extends Entity
 {
-    private Vector2 STARTPOSITION;
+    private Vector2 startPosition;
     private float speed;
     private Vector2 direction;
     private float length;
+    private int damage;
+    private float maxLength;
 
-    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed) {
+    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed, int damage, float maxLength) {
         super(position, width, height, texture);
-        STARTPOSITION = position;
+        startPosition = position;
         this.speed = speed;
+        this.damage = damage;
+        this.maxLength = maxLength;
+        this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
+    }
+
+    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed, int damage) {
+        super(position, width, height, texture);
+        startPosition = position;
+        this.speed = speed;
+        this.damage = damage;
         this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
     }
 
@@ -31,11 +43,19 @@ public class Projectile extends Entity
     }
 
     public void setLength() {
-        this.length = getPosition().dst(STARTPOSITION);
+        this.length = getPosition().dst(startPosition);
     }
 
     public float getLength() {
         return length;
+    }
+
+    public float getMaxLength() {
+        return maxLength;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     public void dispose() {

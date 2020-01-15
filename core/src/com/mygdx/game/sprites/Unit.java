@@ -21,11 +21,6 @@ public abstract class Unit extends Entity {
         this.currentHealth = maxHealth;
     }
 
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
     public int getCurrentHealth() {
         return currentHealth;
     }
@@ -49,8 +44,8 @@ public abstract class Unit extends Entity {
         }
     }
 
-    public void addHealth(int heal){
-            int newHealth = getCurrentHealth() + Math.abs(heal);
+    public void addHealth(int amount){
+            int newHealth = getCurrentHealth() + Math.abs(amount);
             if (newHealth > maxHealth) {
                 newHealth = maxHealth;
             }

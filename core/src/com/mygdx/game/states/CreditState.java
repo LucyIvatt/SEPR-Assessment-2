@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
+import com.mygdx.game.misc.Button;
 
 public class CreditState extends State {
 
     private Texture background;
-    private com.mygdx.game.misc.Button back;
+    private Button back;
 
     public CreditState(GameStateManager gameStateManager) {
         super(gameStateManager);

@@ -1,8 +1,6 @@
 package com.mygdx.game.states;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 /**
  * An abstract class which contains the methods and fields required for
  * each game state of the game.
@@ -12,8 +10,6 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class State {
 
-    protected OrthographicCamera cam;
-    protected Vector2 mouse;
     protected GameStateManager gameStateManager;
 
     /**
@@ -27,7 +23,7 @@ public abstract class State {
 
     /**
      * Updates the game logic before the next render() is called
-     * @param deltaTime he amount of time which has passed since the last render() call
+     * @param deltaTime the amount of time which has passed since the last render() call
      */
     public abstract void update(float deltaTime);
 

@@ -1,8 +1,0 @@
-> Task :core:compileJava UP-TO-DATE
-> Task :desktop:compileJava UP-TO-DATE
-> Task :desktop:processResources UP-TO-DATE
-> Task :desktop:classes UP-TO-DATE
-> Task :desktop:dist UP-TO-DATE
-
-BUILD SUCCESSFUL in 0s
-4 actionable tasks: 4 up-to-date

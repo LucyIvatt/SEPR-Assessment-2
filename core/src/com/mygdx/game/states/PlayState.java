@@ -63,7 +63,7 @@ public class PlayState extends State {
         //waterShoot
         ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
 
-        if (level == 1) {
+        if (level == 1) { // Bottom left coord --> (33, 212) 
 
             timelimit = 60;
 

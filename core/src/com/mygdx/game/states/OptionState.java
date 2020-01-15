@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 import com.badlogic.gdx.audio.*;
-import com.sun.tools.javac.comp.Enter;
 
 /**
  * An implementation of the abstract class which controls the option menu. Uses InputProcessor due to having

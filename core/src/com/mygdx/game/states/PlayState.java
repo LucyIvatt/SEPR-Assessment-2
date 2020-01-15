@@ -76,6 +76,53 @@ public class PlayState extends State {
 
             // Level 1 Obstacles
             obstacles.add(new Entity(new Vector2(257, 628), 64, 64, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(257, 724), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(289, 756), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(257, 820), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(257, 564), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(289, 532), 32, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(513, 532), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(513, 564), 64, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(577, 692), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(577, 724), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(577, 436), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(609, 468), 64, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(737, 404), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(737, 692), 64, 64, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(833, 404), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(929, 404), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1025, 404), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1057, 436), 32, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(1121, 404), 64, 64, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1121, 500), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1121, 532), 64, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(1217, 404), 64, 64, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1217, 532), 64, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(1345, 436), 32, 96, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1377, 468), 32, 96, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(961, 692), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1249, 692), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1249, 628), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1345, 692), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));
+
+
+
+
+
+
+
+
+
+
+
 
             fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 

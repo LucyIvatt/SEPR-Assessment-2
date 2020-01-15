@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 public class Alien extends Character {
 
-    private Vector2[] wayPoints;
-    private int currentWP;
+    private Vector2[] waypoints;
+    private int currentIndex;
 
     public Alien(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                  int speed, int dps, int bearing, Vector2[] wayPoints, float attackCooldown) {
         super(position, width, height, texture, maxHealth, range, target, speed, dps, attackCooldown);
-        this.wayPoints = wayPoints;
-        currentWP = 0;
+        this.waypoints = wayPoints;
+        currentIndex = 0;
     }
 
     public void update() {
         nextWayPoint();
-        Vector2 newPos = moveAlongGrid(wayPoints[currentWP]);
+        Vector2 newPos = moveAlongGrid(waypoints[currentIndex]);
         // Sets the position to the next position between way points
         setPosition(newPos.x, newPos.y);
 
@@ -27,12 +27,12 @@ public class Alien extends Character {
     // checks whether the alien is already at the next wayPoint if so sets the target wayPoint to the next in line
     // if the alien is at the end of the list of way points it will return to the starting way point
     private void nextWayPoint() {
-        if (getPosition().y == wayPoints[currentWP].y && getPosition().x == wayPoints[currentWP].x) {
+        if (getPosition().y == waypoints[currentIndex].y && getPosition().x == waypoints[currentIndex].x) {
             // if alien has completed list of way points
-            currentWP++;
-            if (currentWP >= (wayPoints.length)) {
+            currentIndex++;
+            if (currentIndex >= (waypoints.length)) {
                 // set current way point to the first way point
-                currentWP = 0;
+                currentIndex = 0;
             }
         }
     }

@@ -42,7 +42,7 @@ public class PlayState extends State {
     private Timer timer;
     private float alienSpawnCountdown;
     private float timeSinceAlienKilled;
-    private float timeSinceLastFortressRegeneration;
+    private float timeSinceLastFortressRegen;
     private float timeLimit;
 
     private Entity fireStation;
@@ -64,20 +64,42 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm, int levelNumber) {
         super(gsm);
         background = new Texture("LevelProportions.png");
+
         quitLevel = new Button(new Texture("PressedQuitLevel.png"), new Texture("NotPressedQuitLevel.png"),
                 350 / 2, 100 / 2, new Vector2(30, 30), false, false);
         quitGame = new Button(new Texture("PressedQuitGame.png"), new Texture("NotPressedQuitGame.png"),
                 350 / 2, 100 / 2, new Vector2(1920 - 30 - 350 / 2, 30), false, false);
+
         level = Integer.toString(levelNumber);
         levelLost = false;
         levelWon = false;
         saveData = Gdx.app.getPreferences("My Preferences");
-        timer = new Timer();
+
         ui = new BitmapFont(Gdx.files.internal("font.fnt"));
+        ui.setColor(Color.DARK_GRAY);
         healthBars = new BitmapFont();
+
+        timer = new Timer();
+        alienSpawnCountdown = 0;
+        timeSinceLastFortressRegen = 0;
+        timeSinceAlienKilled = -1;
+
         ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
 
-        if (levelNumber == 1) { // Bottom left coord --> (33, 212)
+        firetruck1 = new Firetruck(new Vector2(33 + 10 * 32, 212 + 6 * 32), 25, 25,
+                new Texture("truck.png"), 50, 200,
+                null, 200, 2, 10, 150,
+                true, 5);
+
+        firetruck2 = new Firetruck(new Vector2(33 + 11 * 32, 212 + 6 * 32), 25, 25,
+                new Texture("truck.png"), 100, 200,
+                null, 200, 2, 10, 100,
+                false, 5);
+
+        firetrucks.add(firetruck1);
+        firetrucks.add(firetruck2);
+
+        if (levelNumber == 1) { // Bottom left coord of map --> (33, 212)
 
             timeLimit = 120;
             map = new Texture("level1background.png");
@@ -158,6 +180,7 @@ public class PlayState extends State {
             fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
                     1000, spawnCoordinates, 2);
         }
+
         else if (levelNumber == 3) {
 
             timeLimit = 120;
@@ -180,20 +203,6 @@ public class PlayState extends State {
                     1000, spawnCoordinates, 2);
         }
 
-
-        alienSpawnCountdown = 0;
-        timeSinceLastFortressRegeneration = 0;
-        ui.setColor(Color.DARK_GRAY);
-        timeSinceAlienKilled = -1;
-
-        firetruck1 = new Firetruck(new Vector2(33 + 10 * 32, 212 + 6 * 32), 25, 25, new Texture("truck.png"), 50, 200,
-                null, 200, 2, 10, 150,
-                true, 5);
-        firetruck2 = new Firetruck(new Vector2(33 + 11 * 32, 212 + 6 * 32), 25, 25, new Texture("truck.png"), 100, 200,
-                null, 200, 2, 10, 100,
-                false, 5);
-        firetrucks.add(firetruck1);
-        firetrucks.add(firetruck2);
     }
 
     /**
@@ -362,11 +371,11 @@ public class PlayState extends State {
         if (firetrucks.size() == 0 || timer.getTime() > timeLimit) {
             levelLost = true;
         }
-        if(timeSinceLastFortressRegeneration <= 0) {
+        if(timeSinceLastFortressRegen <= 0) {
             fortress.addHealth(10);
-            timeSinceLastFortressRegeneration = 1;
+            timeSinceLastFortressRegen = 1;
         }
-        timeSinceLastFortressRegeneration -= deltaTime;
+        timeSinceLastFortressRegen -= deltaTime;
     }
 
     /**
@@ -527,8 +536,8 @@ public class PlayState extends State {
         Random rand = new Random();
         if (fortress.getAlienPositions().size() > 0) {
             Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
-            Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 100,
-                    250, null, 1, 10, new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+            Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
+                    250, null, 1, 5 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                     new Vector2(coordinate.x, coordinate.y + 30)}, 5);
             aliens.add(alien);
             fortress.getAlienPositions().remove(coordinate);

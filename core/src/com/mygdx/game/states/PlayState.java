@@ -85,12 +85,32 @@ public class PlayState extends State {
 
             obstacles.add(new Entity(new Vector2(737, 404), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(737, 692), 64, 64, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(769, 852), 32, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(769, 884), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(833, 404), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(929, 404), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1025, 404), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1057, 436), 32, 32, new Texture("teal.jpg")));
 
-            obstacles.add(new Entity(new Vector2(1025, 852), 64, 64, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(1121, 884), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(1121, 852), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1121, 404), 64, 64, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1121, 500), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1121, 532), 64, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(1217, 404), 64, 64, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1217, 532), 64, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(1345, 436), 32, 96, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1377, 468), 32, 96, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(961, 692), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1249, 692), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1249, 628), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1345, 692), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));
+
+
+
+
+
+
 
 
 

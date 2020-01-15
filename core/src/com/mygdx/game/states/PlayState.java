@@ -132,9 +132,12 @@ public class PlayState extends State {
             fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
                     1000, spawnCoordinates, 2);
         } else if (level == 2) {
-
+            timelimit = 60;
             map = new Texture("level2background.png");
             // Level 2 Obstacles
+            obstacles.add(new Entity(new Vector2(257, 212), 128, 32))
+
+
             fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 
             // Level 2 Alien Spawn Coordinates

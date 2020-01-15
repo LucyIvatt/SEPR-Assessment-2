@@ -391,6 +391,7 @@ public class PlayState extends State {
                 obstacleCollision = true;
             }
             for (Entity obstacle : obstacles) {
+                System.out.println("truck will collide" + truck.willCollide(obstacle, 2));
                 if (truck.willCollide(obstacle, 2)) {
                     obstacleCollision = true;
                 }

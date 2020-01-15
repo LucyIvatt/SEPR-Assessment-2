@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Timer;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.sprites.*;
@@ -35,6 +36,9 @@ public class PlayState extends State {
     private boolean levelWon;
     private Preferences saveData;
 
+    private Button quitLevel;
+    private Button quitGame;
+
     private Timer timer;
     private float alienSpawnCountdown;
     private float timeSinceAlienKilled;
@@ -60,6 +64,10 @@ public class PlayState extends State {
         super(gsm);
         background = new Texture("LevelProportions.png");
         map = new Texture("level1background.png");
+        quitLevel = new Button(new Texture("PressedQuitLevel.png"), new Texture("NotPressedQuitLevel.png"),
+                350 / 2, 100 / 2, new Vector2(30, 30), false, false);
+        quitGame = new Button(new Texture("PressedQuitGame.png"), new Texture("NotPressedQuitGame.png"),
+                350 / 2, 100 / 2, new Vector2(1920 - 30 - 350 / 2, 30), false, false);
         this.level = Integer.toString(level);
         levelLost = false;
         levelWon = false;
@@ -70,8 +78,7 @@ public class PlayState extends State {
         //waterShoot
         ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
 
-        if (level == 1) { // Bottom left coord --> (33, 212) 
-
+        if (level == 1) { // Bottom left coord --> (33, 212)
             timeLimit = 120;
 
             // Level 1 Obstacles
@@ -112,17 +119,6 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1249, 628), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 692), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));
-
-
-
-
-
-
-
-
-
-
-
 
             fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 
@@ -202,6 +198,29 @@ public class PlayState extends State {
      * The game logic which is executed due to specific user inputs. Is called in the update method.
      */
     public void handleInput() {
+
+        if (quitGame.mouseInRegion()){
+            quitGame.setActive(true);
+            if (Gdx.input.isTouched()) {
+                Gdx.app.exit();
+                System.exit(0);
+                }
+            }
+
+        else {
+            quitGame.setActive(false);
+        }
+
+        if (quitLevel.mouseInRegion()){
+            quitLevel.setActive(true);
+            if (Gdx.input.isTouched()) {
+                gameStateManager.pop();
+            }
+        }
+
+        else {
+            quitLevel.setActive(false);
+        }
 
         // Handles input for firetruck attacks
         for (Firetruck firetruck : firetrucks) {
@@ -354,6 +373,11 @@ public class PlayState extends State {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
         spriteBatch.draw(map, 33, 212, 1856, 832);
+        spriteBatch.draw(quitLevel.getTexture(), quitLevel.getPosition().x, quitLevel.getPosition().y,
+                quitLevel.getWidth(), quitLevel.getHeight());
+        spriteBatch.draw(quitGame.getTexture(), quitGame.getPosition().x, quitGame.getPosition().y,
+                quitGame.getWidth(), quitGame.getHeight());
+
         spriteBatch.draw(fireStation.getTexture(), fireStation.getPosition().x, fireStation.getPosition().y, fireStation.getWidth(),
                 fireStation.getHeight());
 

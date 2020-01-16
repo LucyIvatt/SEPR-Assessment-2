@@ -172,7 +172,7 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(641, 308), 128, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(545, 468), 320, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(801, 436), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(801, 404), 128, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(801, 404), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(577, 500), 288, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(609, 532), 224, 160, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(609, 692), 192, 32, new Texture("teal.jpg")));
@@ -205,6 +205,13 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(353, 948), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(449, 756), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(481, 724), 32, 32, new Texture("teal.jpg")));
+
+            obstacles.add(new Entity(new Vector2(1121, 244), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1153, 276), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1665, 820), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1665, 788), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(897, 372), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(897, 340), 32, 32, new Texture("teal.jpg")));
 
 
 

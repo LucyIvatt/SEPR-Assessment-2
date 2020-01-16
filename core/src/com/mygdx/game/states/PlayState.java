@@ -282,7 +282,7 @@ public class PlayState extends State {
 
             obstacles.add(new Entity(new Vector2(33 + 40 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg")));
 
-            fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
+            fireStation = new Entity(new Vector2(33 + 27*32, 212), 96, 128, new Texture("teal.jpg"));
 
             // Level 3 Alien Spawn Coordinates
             spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (GAME_HEIGHT / 2) - 64 / 2));
@@ -294,7 +294,7 @@ public class PlayState extends State {
             spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 256));
 
             // Level 3 Fortress
-            fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
+            fortress = new Fortress(new Vector2(33 + 24*32, 212 + 32*21), 224, 96, new Texture("grey.png"),
                     1000, spawnCoordinates, 2);
         }
 

@@ -21,7 +21,7 @@ import java.util.Random;
  * Implementation of the abstract class State which contains the methods and attributes required to control the
  * gameplay logic for each level as well as rendering to the screen.
  *
- * @author Lucy Ivatt
+ * @author Lucy Ivatt & Matthew Gilmore
  */
 
 public class PlayState extends State {

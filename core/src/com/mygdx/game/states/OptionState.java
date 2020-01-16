@@ -1,7 +1,6 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,7 +21,6 @@ public class OptionState extends State implements InputProcessor {
 
     private Texture background;;
 
-    private Button quit;
     private Button back;
     private Button musicToggle;
     private Button effectsToggle;

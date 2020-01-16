@@ -253,25 +253,34 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(673, 724), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(705, 756), 32, 32, new Texture("teal.jpg")));
 
-            for (int i = 0; i<= 224; i += 32){
+
+            for (int i = 0; i<= 192; i += 32){
                 obstacles.add(new Entity(new Vector2(257 + i, 1012 - i), 64, 32, new Texture("teal.jpg")));
 
             }
-            for (int i = 0; i<= 224; i += 32){
+
+            obstacles.add(new Entity(new Vector2(33 + 14 * 32, 212 + 18 * 32), 32, 32, new Texture("teal.jpg")));
+
+
+            for (int i = 0; i<= 192; i += 32){
                 obstacles.add(new Entity(new Vector2(1601 - i, 1012 - i), 64, 32, new Texture("teal.jpg")));
 
             }
-
-            for (int i = 0; i<= 384; i += 32){
-                obstacles.add(new Entity(new Vector2(545 + i, 724 - i), 64, 32, new Texture("teal.jpg")));
-
-            }
+            obstacles.add(new Entity(new Vector2(33 + 43 * 32, 212 + 18 * 32), 32, 32, new Texture("teal.jpg")));
 
             for (int i = 0; i<= 352; i += 32){
-                obstacles.add(new Entity(new Vector2(1313 - i, 724 - i), 64, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(577 + i, 692 - i), 64, 32, new Texture("teal.jpg")));
 
             }
-            
+
+            obstacles.add(new Entity(new Vector2(33 + 17 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg")));
+
+            for (int i = 0; i<= 320; i += 32){
+                obstacles.add(new Entity(new Vector2(1281 - i, 692 - i), 64, 32, new Texture("teal.jpg")));
+            }
+
+            obstacles.add(new Entity(new Vector2(33 + 40 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg")));
+
             fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 
             // Level 3 Alien Spawn Coordinates

@@ -298,13 +298,13 @@ public class PlayState extends State {
         }
 
         firetruck1 = new Firetruck(firetruck1pos, 25, 25,
-                new Texture("truck.png"), 50, 200,
-                null, 200, 2, 10, 150,
+                new Texture("truck.png"), 100, 200,
+                null, 100, 2, 10, 100,
                 true, 5);
 
         firetruck2 = new Firetruck(firetruck2pos, 25, 25,
-                new Texture("truck.png"), 100, 200,
-                null, 200, 2, 10, 100,
+                new Texture("truck.png"), 50, 200,
+                null, 200, 2, 10, 150,
                 false, 5);
 
         firetrucks.add(firetruck1);

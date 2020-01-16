@@ -32,6 +32,7 @@ public class GameStateManager {
      * Removes a State from the top of the stack
      */
     public void pop() {
+        states.peek().dispose();
         states.pop();
     }
 
@@ -42,6 +43,7 @@ public class GameStateManager {
      * @param state Game State to add to the stack
      */
     public void set(State state) {
+        states.peek().dispose();
         states.pop();
         states.push(state);
     }

@@ -44,6 +44,7 @@ public class PlayState extends State {
     private float timeSinceAlienKilled;
     private float timeSinceLastFortressRegen;
     private float timeLimit;
+    private float timeTaken;
 
     private Entity fireStation;
     private Fortress fortress;
@@ -93,7 +94,7 @@ public class PlayState extends State {
             firetruck1pos = new Vector2(33 + 10 * 32, 212 + 6 * 32);
             firetruck2pos = new Vector2(33 + 11 * 32, 212 + 6 * 32);
 
-            timeLimit = 120;
+            timeLimit = 90;
             map = new Texture("level1background.png");
 
             // Level 1 Obstacles
@@ -302,7 +303,7 @@ public class PlayState extends State {
 
         firetruck1 = new Firetruck(firetruck1pos, 25, 25,
                 new Texture("truck.png"), 100, 200,
-                null, 100, 2, 10, 200,
+                null, 100, 2, 10, 175,
                 true, 5);
 
         firetruck2 = new Firetruck(firetruck2pos, 25, 25,
@@ -435,6 +436,10 @@ public class PlayState extends State {
                     if (truck.getCurrentHealth() == 0) {
                         truck.setSelected(false);
                         firetrucks.remove(truck);
+                        if(firetrucks.size() == 0) {
+                            levelLost = true;
+                            timeTaken = timer.getTime();
+                        }
                         destroyedFiretrucks.add(truck);
                     }
                 }
@@ -471,6 +476,7 @@ public class PlayState extends State {
                 fortress.takeDamage(drop.getDamage());
                 if (fortress.getCurrentHealth() == 0) {
                     levelWon = true;
+                    timeTaken = timer.getTime();
                     saveData.putBoolean(level, true);
                     saveData.flush();
                 }
@@ -478,9 +484,18 @@ public class PlayState extends State {
         }
 
         // Handles game end states
-        if (firetrucks.size() == 0 || timer.getTime() > timeLimit) {
+        if (timer.getTime() > timeLimit) {
             levelLost = true;
         }
+
+        if (timer.getTime() > timeLimit + 4) {
+            gameStateManager.set(new LevelSelectState(gameStateManager));
+        }
+
+        if (levelWon && timer.getTime() > timeTaken + 2) {
+            gameStateManager.set(new LevelSelectState(gameStateManager));
+        }
+
         if(timeSinceLastFortressRegen <= 0) {
             fortress.addHealth(10);
             timeSinceLastFortressRegen = 1;

@@ -34,7 +34,7 @@ public class MenuState extends State {
 
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
-        saveData = Gdx.app.getPreferences("My Preferences");
+        saveData = Gdx.app.getPreferences("Kroy");
         background = new Texture("Menu.jpg");
 
         options = new Button(new Texture("optionspressed.png"), new Texture("options.png"),
@@ -135,10 +135,10 @@ public class MenuState extends State {
             System.exit(0);
         }
 
-        if ((intro.isPlaying()== true) && (saveData.getBoolean("music") == false)){
+        if ((intro.isPlaying()== true) && (saveData.getBoolean("music", true) == false)){
             intro.pause();
         }
-        if ((intro.isPlaying()== false) && (saveData.getBoolean("music") == true)){
+        if ((intro.isPlaying()== false) && (saveData.getBoolean("music", true) == true)){
             intro.play();
         }
     }

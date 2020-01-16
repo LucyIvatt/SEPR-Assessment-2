@@ -15,7 +15,7 @@ public class Kroy extends ApplicationAdapter {
 
 	private GameStateManager gameStateManager;
 	private SpriteBatch batch;
-	private Preferences settings;
+	private Preferences saveData;
 	
 	@Override
 	public void create () {
@@ -23,10 +23,15 @@ public class Kroy extends ApplicationAdapter {
 		gameStateManager = new GameStateManager();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gameStateManager.push(new MenuState(gameStateManager));
-		settings = Gdx.app.getPreferences("Kroy");
+		saveData = Gdx.app.getPreferences("Kroy");
 
-		settings.putBoolean("music", true);
-		settings.putBoolean("effects", true);
+		if (saveData.getBoolean("music", true)) {
+			saveData.putBoolean("music", true);
+		}
+
+		if (saveData.getBoolean("effects", true)) {
+			saveData.putBoolean("effects", true);
+		}
 	}
 
 	@Override

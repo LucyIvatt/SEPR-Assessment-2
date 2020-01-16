@@ -74,7 +74,7 @@ public class PlayState extends State {
         level = Integer.toString(levelNumber);
         levelLost = false;
         levelWon = false;
-        saveData = Gdx.app.getPreferences("My Preferences");
+        saveData = Gdx.app.getPreferences("Kroy");
 
         ui = new BitmapFont(Gdx.files.internal("font.fnt"));
         ui.setColor(Color.DARK_GRAY);

@@ -32,7 +32,7 @@ public class OptionState extends State implements InputProcessor {
 
     public OptionState(GameStateManager gameStateManager) {
         super(gameStateManager);
-        saveData = Gdx.app.getPreferences("My Preferences");
+        saveData = Gdx.app.getPreferences("Kroy");
         background = new Texture("optionsMenu.png");
         back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
                 100, 100, new Vector2(30, 960), false, false);
@@ -50,6 +50,21 @@ public class OptionState extends State implements InputProcessor {
      * @param deltaTime the amount of time which has passed since the last render() call
      */
     public void update(float deltaTime) {
+        if (saveData.getBoolean("music", true)) {
+            saveData.putBoolean("music", true);
+            musicToggle.setActive(true);
+        }
+        else {
+            musicToggle.setActive(false);
+        }
+
+        if (saveData.getBoolean("effects", true)) {
+            saveData.putBoolean("effects", true);
+            effectsToggle.setActive(true);
+        }
+        else {
+            effectsToggle.setActive(false);
+        }
     }
 
     /**
@@ -94,7 +109,8 @@ public class OptionState extends State implements InputProcessor {
                     click.play();
                 }
                 musicToggle.setActive(false);
-            } else {
+            }
+            else {
                 saveData.putBoolean("music", true);
                 if (saveData.getBoolean("effects")) {
                     click.play();
@@ -108,7 +124,9 @@ public class OptionState extends State implements InputProcessor {
             if (saveData.getBoolean("effects") == true) {
                 saveData.putBoolean("effects", false);
                 effectsToggle.setActive(false);
-            } else {
+            }
+
+            else {
                 saveData.putBoolean("effects", true);
                 click.play();
                 effectsToggle.setActive(true);
@@ -124,7 +142,7 @@ public class OptionState extends State implements InputProcessor {
             }
             gameStateManager.pop();
         }
-
+        saveData.flush();
         return false;
     }
 

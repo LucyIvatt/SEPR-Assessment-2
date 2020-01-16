@@ -36,6 +36,7 @@ public class LevelSelectState extends State{
 
     protected LevelSelectState(GameStateManager gameStateManager) {
         super(gameStateManager);
+        background = new Texture("LevelSelectBackground.png");
         saveData = Gdx.app.getPreferences("My Preferences");
         back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
                 100, 100, new Vector2(30, 960), false, false);
@@ -64,7 +65,6 @@ public class LevelSelectState extends State{
         buttons.add(level4);
         buttons.add(level5);
         buttons.add(level6);
-        background = new Texture("Menu.jpg");
     }
 
     /**
@@ -180,14 +180,14 @@ public class LevelSelectState extends State{
             level3.setOffTexture(new Texture("NotPressedBlue3.png"));
         }
 
-//        if(saveData.getBoolean("3") == true) {
-//            level3.setOnTexture(new Texture("PressedGreen3.png"));
-//            level3.setOffTexture(new Texture("NotPressedGreen3.png"));
+        if(saveData.getBoolean("3") == true) {
+            level3.setOnTexture(new Texture("PressedGreen3.png"));
+            level3.setOffTexture(new Texture("NotPressedGreen3.png"));
 //            level4.setLocked(false);
 //
 //            level4.setOnTexture(new Texture("PressedBlue4.png"));
 //            level4.setOffTexture(new Texture("NotPressedBlue4.png"));
-//        }
+        }
 //
 //        if(saveData.getBoolean("4") == true) {
 //            level4.setOnTexture(new Texture("PressedGreen4.png"));

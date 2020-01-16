@@ -579,6 +579,40 @@ public class PlayState extends State {
      */
     @Override
     public void dispose() {
+        background.dispose();
+        map.dispose();
+        quitLevel.dispose();
+        quitGame.dispose();
+        waterShoot.dispose();
+
+        for (Firetruck firetruck : firetrucks) {
+            firetruck.dispose();
+        }
+
+        for (Alien alien : aliens) {
+            alien.dispose();
+        }
+
+        for (Firetruck firetruck : destroyedFiretrucks) {
+            firetruck.dispose();
+        }
+
+        for (Projectile bullet : bullets) {
+            bullet.dispose();
+        }
+
+        for (Projectile drop : water) {
+            drop.dispose();
+        }
+
+        for (Entity obstacles: obstacles) {
+            obstacles.dispose();
+        }
+
+        fireStation.dispose();
+        fortress.dispose();
+
+
 
     }
 

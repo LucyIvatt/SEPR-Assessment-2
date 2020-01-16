@@ -65,6 +65,7 @@ public class LevelSelectState extends State{
         buttons.add(level4);
         buttons.add(level5);
         buttons.add(level6);
+        buttons.add(back);
     }
 
     /**
@@ -235,6 +236,11 @@ public class LevelSelectState extends State{
      */
     @Override
     public void dispose() {
-
+        background.dispose();
+        for (Button button : buttons) {
+            button.dispose();
+        }
+        click.dispose();
+        honk.dispose();
     }
 }

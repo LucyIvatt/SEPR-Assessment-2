@@ -10,23 +10,30 @@ import com.mygdx.game.misc.Button;
 
 /**
  * Implementation of the abstract class State which contains the methods and attributes required to control the
- * Credits screen.
+ * Credits screen and Instructions screen.
  *
  * @author Lucy Ivatt
  */
 
-public class CreditState extends State {
+public class InfoState extends State {
 
     private Texture background;
     private Button back;
 
-    public CreditState(GameStateManager gameStateManager) {
+    public InfoState(GameStateManager gameStateManager, int mode) {
         super(gameStateManager);
-        background = new Texture("CreditsBackground.png");
+
+        if (mode == 0) {
+            background = new Texture("CreditsBackground.png");
+        }
+
+        else if (mode == 1) {
+            background = new Texture("CreditsBackground.png");
+        }
+
         back = new com.mygdx.game.misc.Button(new Texture("backbutton2.png"),
                 new Texture("backbutton1.png"), 100, 100,
                 new Vector2(30, 960), false, false);
-
     }
 
     /**
@@ -55,7 +62,6 @@ public class CreditState extends State {
     @Override
     public void update(float deltaTime) {
         handleInput();
-
     }
 
     /**
@@ -69,7 +75,6 @@ public class CreditState extends State {
         spriteBatch.draw(back.getTexture(), back.getPosition().x, back.getPosition().y,
                 back.getWidth(), back.getHeight());
         spriteBatch.end();
-
     }
 
     /**
@@ -78,7 +83,7 @@ public class CreditState extends State {
     @Override
     public void dispose() {
         background.dispose();
+        back.dispose();
     }
-
 }
 

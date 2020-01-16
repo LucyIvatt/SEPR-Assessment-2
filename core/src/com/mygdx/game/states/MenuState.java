@@ -26,6 +26,7 @@ public class MenuState extends State {
     private Button play;
     private Button options;
     private Button credits;
+    private Button instructions;
     private Button quit;
     private Preferences saveData ;
     private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
@@ -35,10 +36,27 @@ public class MenuState extends State {
         super(gameStateManager);
         saveData = Gdx.app.getPreferences("My Preferences");
         background = new Texture("Menu.jpg");
-        options = new Button(new Texture("optionspressed.png"), new Texture("options.png"), 350,100, new Vector2((Kroy.WIDTH / 2) - 350 - (SPACING / 2), 300), false, false);
-        play = new Button(new Texture("playpressed.png"), new Texture("play.png"),350, 100, new Vector2((Kroy.WIDTH / 2) - 350 * 2 - SPACING - SPACING / 2, 300), false, false);
-        credits = new Button(new Texture("creditspressed.png"), new Texture("credits.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false, false);
-        quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300), false, false);
+
+        options = new Button(new Texture("optionspressed.png"), new Texture("options.png"),
+                350,100, new Vector2((Kroy.WIDTH / 2) - 350 - (SPACING / 2), 300), false,
+                false);
+
+        play = new Button(new Texture("playpressed.png"), new Texture("play.png"),350,
+                100, new Vector2((Kroy.WIDTH / 2) - 350 * 2 - SPACING - SPACING / 2, 300), false,
+                false);
+
+        credits = new Button(new Texture("creditspressed.png"), new Texture("credits.png"),
+                350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false,
+                false);
+
+        instructions = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),350,
+                100, new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300), false,
+                false);
+
+        quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),
+                350, 100, new Vector2(Kroy.WIDTH / 2 - (350 / 2), 100),
+                false, false);
+
         intro.play();
     }
 
@@ -77,11 +95,26 @@ public class MenuState extends State {
                 if (saveData.getBoolean("effects")){
                     click.play();
                 }
-                gameStateManager.push(new CreditState(gameStateManager));
+                gameStateManager.push(new InfoState(gameStateManager, 0));
             }
         }
+
         else {
             credits.setActive(false);
+        }
+
+        if (instructions.mouseInRegion()){
+            instructions.setActive(true);
+            if (Gdx.input.isTouched()) {
+                if (saveData.getBoolean("effects")){
+                    click.play();
+                }
+                gameStateManager.push(new InfoState(gameStateManager, 1));
+            }
+        }
+
+        else {
+            instructions.setActive(false);
         }
 
         if (quit.mouseInRegion()){
@@ -127,10 +160,16 @@ public class MenuState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
-        spriteBatch.draw(play.getTexture(), play.getPosition().x, play.getPosition().y, play.getWidth(), play.getHeight());
-        spriteBatch.draw(options.getTexture(), options.getPosition().x, options.getPosition().y, options.getWidth(), options.getHeight());
-        spriteBatch.draw(credits.getTexture(), credits.getPosition().x, credits.getPosition().y, credits.getWidth(), credits.getHeight());
-        spriteBatch.draw(quit.getTexture(), quit.getPosition().x, quit.getPosition().y, quit.getWidth(), quit.getHeight());
+        spriteBatch.draw(play.getTexture(), play.getPosition().x, play.getPosition().y, play.getWidth(),
+                play.getHeight());
+        spriteBatch.draw(options.getTexture(), options.getPosition().x, options.getPosition().y, options.getWidth(),
+                options.getHeight());
+        spriteBatch.draw(credits.getTexture(), credits.getPosition().x, credits.getPosition().y, credits.getWidth(),
+                credits.getHeight());
+        spriteBatch.draw(instructions.getTexture(), instructions.getPosition().x, instructions.getPosition().y,
+                instructions.getWidth(), instructions.getHeight());
+        spriteBatch.draw(quit.getTexture(), quit.getPosition().x, quit.getPosition().y, quit.getWidth(),
+                quit.getHeight());
         spriteBatch.end();
     }
 

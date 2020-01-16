@@ -72,6 +72,11 @@ public class OptionState extends State implements InputProcessor {
      */
     public void dispose() {
         background.dispose();
+        back.dispose();
+        musicToggle.dispose();
+        effectsToggle.dispose();
+        tick.dispose();
+        cross.dispose();
     }
 
     /**

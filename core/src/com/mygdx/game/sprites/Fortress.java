@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Fortress extends Unit {
 
-    private int spawnRate;
+    private float spawnRate;
     private ArrayList<Vector2> alienPositions;
 
     /**
@@ -15,13 +15,13 @@ public class Fortress extends Unit {
      * @author Jordan Spooner
      */
 
-    public Fortress(Vector2 position, int width, int height, Texture texture, int maxHealth, ArrayList<Vector2> alienPositions, int spawnRate) {
+    public Fortress(Vector2 position, int width, int height, Texture texture, int maxHealth, ArrayList<Vector2> alienPositions, float spawnRate) {
         super(position, width, height, texture, maxHealth);
         this.alienPositions = alienPositions;
         this.spawnRate = spawnRate;
     }
 
-    public int getSpawnRate() {
+    public float getSpawnRate() {
         return this.spawnRate;
     }
 

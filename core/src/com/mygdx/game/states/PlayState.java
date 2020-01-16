@@ -86,20 +86,12 @@ public class PlayState extends State {
 
         ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
 
-        firetruck1 = new Firetruck(new Vector2(33 + 10 * 32, 212 + 6 * 32), 25, 25,
-                new Texture("truck.png"), 50, 200,
-                null, 200, 2, 10, 150,
-                true, 5);
-
-        firetruck2 = new Firetruck(new Vector2(33 + 11 * 32, 212 + 6 * 32), 25, 25,
-                new Texture("truck.png"), 100, 200,
-                null, 200, 2, 10, 100,
-                false, 5);
-
-        firetrucks.add(firetruck1);
-        firetrucks.add(firetruck2);
+        Vector2 firetruck1pos = null;
+        Vector2 firetruck2pos = null;
 
         if (levelNumber == 1) { // Bottom left coord of map --> (33, 212)
+            firetruck1pos = new Vector2(33 + 10 * 32, 212 + 6 * 32);
+            firetruck2pos = new Vector2(33 + 11 * 32, 212 + 6 * 32);
 
             timeLimit = 120;
             map = new Texture("level1background.png");
@@ -142,27 +134,32 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1249, 628), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 692), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32,
+                    new Texture("teal.jpg")));
 
             fireStation = new Entity(new Vector2(33 + 8 * 32, 212 + 4 * 32), 128, 128, new Texture("teal.jpg"));
 
             // Level 1 Alien Spawn Coordinates
             spawnCoordinates.add(new Vector2(22 * 32, 1044 - 3 * 32));
             spawnCoordinates.add(new Vector2(33 * 32, 1044 - 3 * 32));
-
             spawnCoordinates.add(new Vector2(24 * 32, 1044 - 6 * 32));
             spawnCoordinates.add(new Vector2(31 * 32, 1044 - 6 * 32));
-
             spawnCoordinates.add(new Vector2(28 * 32 - 16, 1044 - 8 * 32));
 
             // Level 1 Fortress
-            fortress = new Fortress(new Vector2(33 + 24 * 32, 212 + 21 * 32), 6 * 32, 4 * 32, new Texture("grey.png"),
-                    5000, spawnCoordinates, 2);
+            fortress = new Fortress(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32, new Texture("grey.png"),
+                    5000, spawnCoordinates, 2.5f);
         }
+
         else if (levelNumber == 2) {
+            firetruck1pos = new Vector2(33 + 2 * 32, 212 + 4 * 32);
+            firetruck2pos = new Vector2(33 + 2 * 32, 212 + 5 * 32);
 
             timeLimit = 120;
 
             map = new Texture("level2background.png");
+
+
             // Level 2 Obstacles
             obstacles.add(new Entity(new Vector2(225, 212), 192, 64, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(225, 308), 224, 128, new Texture("teal.jpg")));
@@ -212,39 +209,35 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1665, 788), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(897, 372), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(897, 340), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32,
+                    new Texture("teal.jpg")));
 
-
-
-
-
-
-
-
-
-
-
-
-            fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
+            fireStation = new Entity(new Vector2(33 + 1 * 32, 212 + 4 * 32), 64, 128,
+                    new Texture("teal.jpg"));
 
             // Level 2 Alien Spawn Coordinates
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (GAME_HEIGHT / 2) - 64 / 2));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 64));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 160));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 128));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 224));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 320));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 256));
+            spawnCoordinates.add(new Vector2(33 + 37 * 32, 212 + 15 * 32));
+            spawnCoordinates.add(new Vector2(33 + 41 * 32, 212 + 15 * 32));
+            spawnCoordinates.add(new Vector2(33 + 33 * 32, 212 + 17 * 32));
+            spawnCoordinates.add(new Vector2(33 + 30 * 32, 212 + 20 * 32));
+            spawnCoordinates.add(new Vector2(33 + 30 * 32, 212 + 24 * 32));
+            spawnCoordinates.add(new Vector2(33 + 44 * 32, 212 + 20 * 32));
 
-            // Level 2 Fortress
-            fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
-                    1000, spawnCoordinates, 2);
+
+            // Level 2 Fortress  36
+            fortress = new Fortress(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32, new Texture("grey.png"),
+                    7500, spawnCoordinates, 4);
         }
 
         else if (levelNumber == 3) {
 
+            firetruck1pos = new Vector2(33 + 2 * 32, 212 + 4 * 32);
+            firetruck2pos = new Vector2(33 + 2 * 32, 212 + 5 * 32);
+
             timeLimit = 120;
 
             map = new Texture("level3background.png");
+
             // Level 2 Obstacles
             fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 
@@ -261,6 +254,19 @@ public class PlayState extends State {
             fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
                     1000, spawnCoordinates, 2);
         }
+
+        firetruck1 = new Firetruck(firetruck1pos, 25, 25,
+                new Texture("truck.png"), 50, 200,
+                null, 200, 2, 10, 150,
+                true, 5);
+
+        firetruck2 = new Firetruck(firetruck2pos, 25, 25,
+                new Texture("truck.png"), 100, 200,
+                null, 200, 2, 10, 100,
+                false, 5);
+
+        firetrucks.add(firetruck1);
+        firetrucks.add(firetruck2);
 
     }
 

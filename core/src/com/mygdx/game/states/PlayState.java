@@ -148,7 +148,7 @@ public class PlayState extends State {
 
             // Level 1 Fortress
             fortress = new Fortress(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32, new Texture("grey.png"),
-                    5000, spawnCoordinates, 2.5f);
+                    10000, spawnCoordinates, 1.5f);
         }
 
         else if (levelNumber == 2) {
@@ -222,6 +222,7 @@ public class PlayState extends State {
             spawnCoordinates.add(new Vector2(33 + 30 * 32, 212 + 20 * 32));
             spawnCoordinates.add(new Vector2(33 + 30 * 32, 212 + 24 * 32));
             spawnCoordinates.add(new Vector2(33 + 44 * 32, 212 + 20 * 32));
+            spawnCoordinates.add(new Vector2(33 + 44 * 32, 212 + 24 * 32));
 
 
             // Level 2 Fortress  36
@@ -234,7 +235,7 @@ public class PlayState extends State {
             firetruck1pos = new Vector2(33 + 2 * 32, 212 + 4 * 32);
             firetruck2pos = new Vector2(33 + 2 * 32, 212 + 5 * 32);
 
-            timeLimit = 120;
+            timeLimit = 60;
 
             map = new Texture("level3background.png");
 

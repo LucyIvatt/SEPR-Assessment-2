@@ -227,13 +227,13 @@ public class PlayState extends State {
 
             // Level 2 Fortress  36
             fortress = new Fortress(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32, new Texture("grey.png"),
-                    7500, spawnCoordinates, 4);
+                    12500, spawnCoordinates, 4);
         }
 
         else if (levelNumber == 3) {
 
-            firetruck1pos = new Vector2(33 + 2 * 32, 212 + 4 * 32);
-            firetruck2pos = new Vector2(33 + 2 * 32, 212 + 5 * 32);
+            firetruck1pos = new Vector2(33 + 27 * 32, 212 + 3 * 32);
+            firetruck2pos = new Vector2(33 + 28 * 32, 212 + 3 * 32);
 
             timeLimit = 60;
 
@@ -285,13 +285,15 @@ public class PlayState extends State {
             fireStation = new Entity(new Vector2(33, 212), 128, 128, new Texture("teal.jpg"));
 
             // Level 3 Alien Spawn Coordinates
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5, 212 + (GAME_HEIGHT / 2) - 64 / 2));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 64));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 160));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 128));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 224));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) - 320));
-            spawnCoordinates.add(new Vector2(1696 - 64 * 5 + 64 + 32 + 64 + 32, 212 + (GAME_HEIGHT / 2) + 256));
+            spawnCoordinates.add(new Vector2(33 + 25 * 32, 212 + 17 * 32));
+            spawnCoordinates.add(new Vector2(33 + 29 * 32, 212 + 17 * 32));
+            spawnCoordinates.add(new Vector2(33 + 32 * 32, 212 + 19 * 32));
+            spawnCoordinates.add(new Vector2(33 + 22 * 32, 212 + 19 * 32));
+            spawnCoordinates.add(new Vector2(33 + 20 * 32, 212 + 21 * 32));
+            spawnCoordinates.add(new Vector2(33 + 34 * 32, 212 + 21 * 32));
+            spawnCoordinates.add(new Vector2(33 + 20 * 32, 212 + 24 * 32));
+            spawnCoordinates.add(new Vector2(33 + 34 * 32, 212 + 24 * 32));
+
 
             // Level 3 Fortress
             fortress = new Fortress(new Vector2(1696, 212 + (GAME_HEIGHT / 2) - 300 / 2), 100, 300, new Texture("grey.png"),
@@ -300,12 +302,12 @@ public class PlayState extends State {
 
         firetruck1 = new Firetruck(firetruck1pos, 25, 25,
                 new Texture("truck.png"), 100, 200,
-                null, 100, 2, 10, 100,
+                null, 100, 2, 10, 200,
                 true, 5);
 
         firetruck2 = new Firetruck(firetruck2pos, 25, 25,
                 new Texture("truck.png"), 50, 200,
-                null, 200, 2, 10, 150,
+                null, 200, 2, 10, 100,
                 false, 5);
 
         firetrucks.add(firetruck1);

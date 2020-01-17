@@ -11,7 +11,7 @@ import com.mygdx.game.misc.Button;
 import com.badlogic.gdx.audio.*;
 
 /**
- * An implementation of the abstract class which controls the option menu. Uses InputProcessor due to having
+ * An implementation of the abstract class which controls the option menu. Uses InputProcessor due to
  * toggle buttons which need the input event handling rather than polling for input.
  *
  * @author Lucy Ivatt
@@ -32,40 +32,31 @@ public class OptionState extends State implements InputProcessor {
 
     public OptionState(GameStateManager gameStateManager) {
         super(gameStateManager);
+
         saveData = Gdx.app.getPreferences("Kroy");
         background = new Texture("optionsMenu.png");
+
         back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
                 100, 100, new Vector2(30, 960), false, false);
+
         tick = new Texture("tick.png");
         cross = new Texture("cross.png");
+
         musicToggle = new Button(tick, cross, 100, 100, new Vector2(1091, 389),
                 saveData.getBoolean("music"), false);
+
         effectsToggle = new Button(tick, cross, 100, 100, new Vector2(1274, 174),
                 saveData.getBoolean("effects"), false);
+
         Gdx.input.setInputProcessor(this);
     }
 
     /**
-     * Updates the game logic before the next render() is called
+     * Updates the game logic before the next render() is called. Unused due to input handling required and not input
+     * polling.
      * @param deltaTime the amount of time which has passed since the last render() call
      */
-    public void update(float deltaTime) {
-        if (saveData.getBoolean("music", true)) {
-            saveData.putBoolean("music", true);
-            musicToggle.setActive(true);
-        }
-        else {
-            musicToggle.setActive(false);
-        }
-
-        if (saveData.getBoolean("effects", true)) {
-            saveData.putBoolean("effects", true);
-            effectsToggle.setActive(true);
-        }
-        else {
-            effectsToggle.setActive(false);
-        }
-    }
+    public void update(float deltaTime) { }
 
     /**
      * Used to draw elements onto the screen.
@@ -95,7 +86,8 @@ public class OptionState extends State implements InputProcessor {
     }
 
     /**
-     * Used to handle the event when a user clicks
+     * Used to handle the event when a user clicks. Checks if the click was within any button on the screen
+     * and then activates the buttons functionality if so.
      * @param screenX x coordinate of click event
      * @param screenY y coordinate of click event
      * @param pointer pointer used in event
@@ -147,7 +139,8 @@ public class OptionState extends State implements InputProcessor {
     }
 
     /**
-     * Used to handle the event when a moves their mouse on the game screen.
+     * Used to handle the event when a moves their mouse on the game screen. Checks if the mouse hovers over the back
+     * button and if so triggers animation.
      * @param screenX x coordinate of mouse on event
      * @param screenY y coordinate of mouse on event
      */
@@ -160,9 +153,9 @@ public class OptionState extends State implements InputProcessor {
         return false;
     }
 
-    // ---------------------------------------------------------
-    // Unused methods implemented from the Input Processor class
-    // ---------------------------------------------------------
+    // -------------------------------------------------------------------------------
+    // Unused methods implemented from the Input Processor class for input handling
+    // -------------------------------------------------------------------------------
 
     public boolean scrolled(int amount) {
         return false;

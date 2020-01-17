@@ -61,7 +61,10 @@ public class MenuState extends State {
     }
 
     /**
-     * The game logic which is executed due to specific user inputs. Is called in the update method
+     * The game logic which is executed due to specific user inputs. Is called in the update method.
+     * Checks if mouse is hovering over a button and plays the animation accordingly as well as checking for
+     * mouse clicks which will activate the function of the button. Also checks user settings and plays
+     * effects and music accordingly.
      */
     public void handleInput() {
         if (play.mouseInRegion()){
@@ -135,6 +138,8 @@ public class MenuState extends State {
             System.exit(0);
         }
 
+         // Pauses and plays music depending on saved settings picked by the user.
+
         if ((intro.isPlaying()== true) && (saveData.getBoolean("music", true) == false)){
             intro.pause();
         }
@@ -160,16 +165,22 @@ public class MenuState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
+
         spriteBatch.draw(play.getTexture(), play.getPosition().x, play.getPosition().y, play.getWidth(),
                 play.getHeight());
+
         spriteBatch.draw(options.getTexture(), options.getPosition().x, options.getPosition().y, options.getWidth(),
                 options.getHeight());
+
         spriteBatch.draw(credits.getTexture(), credits.getPosition().x, credits.getPosition().y, credits.getWidth(),
                 credits.getHeight());
+
         spriteBatch.draw(instructions.getTexture(), instructions.getPosition().x, instructions.getPosition().y,
                 instructions.getWidth(), instructions.getHeight());
+
         spriteBatch.draw(quit.getTexture(), quit.getPosition().x, quit.getPosition().y, quit.getWidth(),
                 quit.getHeight());
+
         spriteBatch.end();
     }
 

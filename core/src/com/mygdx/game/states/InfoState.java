@@ -20,7 +20,7 @@ public class InfoState extends State {
     private Texture background;
     private Button back;
 
-    public InfoState(GameStateManager gameStateManager, int mode) {
+    public InfoState(GameStateManager gameStateManager, int mode) { // mode 0 = Credits, mode 1 = Instructions
         super(gameStateManager);
 
         if (mode == 0) {
@@ -31,19 +31,18 @@ public class InfoState extends State {
             background = new Texture("CreditsBackground.png");
         }
 
-        back = new com.mygdx.game.misc.Button(new Texture("backbutton2.png"),
+        back = new Button(new Texture("backbutton2.png"),
                 new Texture("backbutton1.png"), 100, 100,
                 new Vector2(30, 960), false, false);
     }
 
     /**
      * The game logic which is executed due to specific user inputs. Is called in the update method.
+     *
+     * Checks if mouse is hovering over a button and plays the animation accordingly as well as checking for
+     * mouse clicks which will activate the function of the button.
      */
     public void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            gameStateManager.pop();
-        }
-
         if (back.mouseInRegion()){
             back.setActive(true);
             if (Gdx.input.isTouched()) {

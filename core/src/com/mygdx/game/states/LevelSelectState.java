@@ -11,6 +11,7 @@ import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * An implementation of the abstract class State which controls the Level Select Screen.
@@ -29,47 +30,50 @@ public class LevelSelectState extends State{
     private Button level5;
     private Button level6;
     private Button back;
-    private ArrayList<Button> buttons = new ArrayList<Button>();
+    private ArrayList<Button> buttons;
     private Preferences saveData;
     private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
     private Sound honk = Gdx.audio.newSound((Gdx.files.internal("honk.wav")));
 
     protected LevelSelectState(GameStateManager gameStateManager) {
         super(gameStateManager);
+
         background = new Texture("LevelSelectBackground.png");
         saveData = Gdx.app.getPreferences("Kroy");
+
         back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
                 100, 100, new Vector2(30, 960), false, false);
 
         level1 = new Button(new Texture("PressedBlue1.png"), new Texture("NotPressedBlue1.png"),
-                350, 100, new Vector2(Kroy.WIDTH / 2 - 350 / 2 - 100 - 350, 400), false, false);
+                350, 100, new Vector2(Kroy.WIDTH / 2 - 350 / 2 - 100 - 350, 400), false,
+                false);
 
         level2 = new Button(new Texture("PressedGrey2.png"), new Texture("PressedGrey2.png"),
                 350, 100, new Vector2(Kroy.WIDTH / 2 - 350 / 2, 400), false, true);
 
         level3 = new Button(new Texture("PressedGrey3.png"), new Texture("PressedGrey3.png"),
-                350, 100, new Vector2(Kroy.WIDTH / 2 + 350 / 2 + 100, 400), false, true);
+                350, 100, new Vector2(Kroy.WIDTH / 2 + 350 / 2 + 100, 400), false,
+                true);
 
         level4 = new Button(new Texture("PressedGrey4.png"), new Texture("PressedGrey4.png"),
-                350, 100, new Vector2(Kroy.WIDTH / 2 - 350 / 2 - 100 - 350, 200), false, true);
+                350, 100, new Vector2(Kroy.WIDTH / 2 - 350 / 2 - 100 - 350, 200), false,
+                true);
 
         level5 = new Button(new Texture("PressedGrey5.png"), new Texture("PressedGrey5.png"),
                 350, 100, new Vector2(Kroy.WIDTH / 2 - 350 / 2, 200), false, true);
 
         level6 = new Button(new Texture("PressedGrey6.png"), new Texture("PressedGrey6.png"),
-                350, 100, new Vector2(Kroy.WIDTH / 2 + 350 / 2 + 100, 200), false, true);
+                350, 100, new Vector2(Kroy.WIDTH / 2 + 350 / 2 + 100, 200), false,
+                true);
 
-        buttons.add(level1);
-        buttons.add(level2);
-        buttons.add(level3);
-        buttons.add(level4);
-        buttons.add(level5);
-        buttons.add(level6);
-        buttons.add(back);
+        buttons = new ArrayList<>(Arrays.asList(level1, level2, level3, level4, level5, level6, back));
     }
 
     /**
      * The game logic which is executed due to specific user inputs. Is called in the update method.
+     *
+     * Checks if mouse is hovering over a button and plays the animation accordingly as well as checking for
+     * mouse clicks which will activate the function of the button.
      */
     public void handleInput() {
         if (back.mouseInRegion()) {
@@ -147,22 +151,18 @@ public class LevelSelectState extends State{
         else {
             level6.setActive(false);
         }
-
-
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            click.play();
-            Gdx.app.exit();
-            System.exit(0);
-        }
     }
 
     /**
-     * Updates the game logic before the next render() is called
+     * Updates the game logic before the next render() is called. In this instance the update method checks the game
+     * save and unlocks level buttons accordingly.
      * @param deltaTime the amount of time which has passed since the last render() call
      */
     @Override
     public void update(float deltaTime) {
+
         handleInput();
+
         if(saveData.getBoolean("1") == true) {
             level1.setOnTexture(new Texture("PressedGreen1.png"));
             level1.setOffTexture(new Texture("NotPressedGreen1.png"));
@@ -184,6 +184,13 @@ public class LevelSelectState extends State{
         if(saveData.getBoolean("3") == true) {
             level3.setOnTexture(new Texture("PressedGreen3.png"));
             level3.setOffTexture(new Texture("NotPressedGreen3.png"));
+
+// ----------------------------------------------------------------------------------------------------------------- //
+
+// Below is commented out as not needed for Assessment 2 but left in as will be useful for any groups using our game.
+
+// ----------------------------------------------------------------------------------------------------------------- //
+
 //            level4.setLocked(false);
 //
 //            level4.setOnTexture(new Texture("PressedBlue4.png"));

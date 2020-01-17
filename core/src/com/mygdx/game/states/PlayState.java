@@ -60,24 +60,32 @@ public class PlayState extends State {
     private BitmapFont ui;
     private BitmapFont healthBars;
     private String level;
+
     private Sound waterShoot = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
 
     public PlayState(GameStateManager gsm, int levelNumber) {
         super(gsm);
+
         background = new Texture("LevelProportions.png");
 
-        quitLevel = new Button(new Texture("PressedQuitLevel.png"), new Texture("NotPressedQuitLevel.png"),
-                350 / 2, 100 / 2, new Vector2(30, 30), false, false);
-        quitGame = new Button(new Texture("PressedQuitGame.png"), new Texture("NotPressedQuitGame.png"),
-                350 / 2, 100 / 2, new Vector2(1920 - 30 - 350 / 2, 30), false, false);
+        quitLevel = new Button(new Texture("PressedQuitLevel.png"),
+                new Texture("NotPressedQuitLevel.png"),350 / 2, 100 / 2,
+                new Vector2(30, 30), false, false);
 
-        level = Integer.toString(levelNumber);
+        quitGame = new Button(new Texture("PressedQuitGame.png"),
+                new Texture("NotPressedQuitGame.png"), 350 / 2, 100 / 2,
+                new Vector2(1920 - 30 - 350 / 2, 30), false, false);
+
+        level = Integer.toString(levelNumber); // Used as a key when saving level progress
+
         levelLost = false;
         levelWon = false;
+
         saveData = Gdx.app.getPreferences("Kroy");
 
         ui = new BitmapFont(Gdx.files.internal("font.fnt"));
         ui.setColor(Color.DARK_GRAY);
+
         healthBars = new BitmapFont();
 
         timer = new Timer();
@@ -90,7 +98,8 @@ public class PlayState extends State {
         Vector2 firetruck1pos = null;
         Vector2 firetruck2pos = null;
 
-        if (levelNumber == 1) { // Bottom left coord of map --> (33, 212)
+        if (levelNumber == 1) { // Bottom left coordinate of map --> (33, 212) Each grid square = 32px
+
             firetruck1pos = new Vector2(33 + 10 * 32, 212 + 6 * 32);
             firetruck2pos = new Vector2(33 + 11 * 32, 212 + 6 * 32);
 
@@ -135,10 +144,13 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1249, 628), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 692), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));
+
             obstacles.add(new Entity(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32,
                     new Texture("teal.jpg")));
 
-            fireStation = new Entity(new Vector2(33 + 8 * 32, 212 + 4 * 32), 128, 128, new Texture("teal.jpg"));
+            // Level 1 Firestation
+            fireStation = new Entity(new Vector2(33 + 8 * 32, 212 + 4 * 32), 128, 128,
+                    new Texture("teal.jpg"));
 
             // Level 1 Alien Spawn Coordinates
             spawnCoordinates.add(new Vector2(22 * 32, 1044 - 3 * 32));
@@ -148,18 +160,17 @@ public class PlayState extends State {
             spawnCoordinates.add(new Vector2(28 * 32 - 16, 1044 - 8 * 32));
 
             // Level 1 Fortress
-            fortress = new Fortress(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32, new Texture("grey.png"),
-                    10000, spawnCoordinates, 1.5f);
+            fortress = new Fortress(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32,
+                    new Texture("grey.png"), 10000, spawnCoordinates, 1.5f);
         }
 
         else if (levelNumber == 2) {
+
             firetruck1pos = new Vector2(33 + 2 * 32, 212 + 4 * 32);
             firetruck2pos = new Vector2(33 + 2 * 32, 212 + 5 * 32);
 
             timeLimit = 120;
-
             map = new Texture("level2background.png");
-
 
             // Level 2 Obstacles
             obstacles.add(new Entity(new Vector2(225, 212), 192, 64, new Texture("teal.jpg")));
@@ -213,6 +224,7 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32,
                     new Texture("teal.jpg")));
 
+            // Level 2 Firestation
             fireStation = new Entity(new Vector2(33 + 1 * 32, 212 + 4 * 32), 64, 128,
                     new Texture("teal.jpg"));
 
@@ -225,8 +237,7 @@ public class PlayState extends State {
             spawnCoordinates.add(new Vector2(33 + 44 * 32, 212 + 20 * 32));
             spawnCoordinates.add(new Vector2(33 + 44 * 32, 212 + 24 * 32));
 
-
-            // Level 2 Fortress  36
+            // Level 2 Fortress
             fortress = new Fortress(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32, new Texture("grey.png"),
                     12500, spawnCoordinates, 4);
         }
@@ -255,24 +266,21 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(673, 724), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(705, 756), 32, 32, new Texture("teal.jpg")));
 
-
+            // For loops to create diagonal wall obstacle
             for (int i = 0; i<= 192; i += 32){
                 obstacles.add(new Entity(new Vector2(257 + i, 1012 - i), 64, 32, new Texture("teal.jpg")));
-
             }
 
             obstacles.add(new Entity(new Vector2(33 + 14 * 32, 212 + 18 * 32), 32, 32, new Texture("teal.jpg")));
 
-
             for (int i = 0; i<= 192; i += 32){
                 obstacles.add(new Entity(new Vector2(1601 - i, 1012 - i), 64, 32, new Texture("teal.jpg")));
-
             }
+
             obstacles.add(new Entity(new Vector2(33 + 43 * 32, 212 + 18 * 32), 32, 32, new Texture("teal.jpg")));
 
             for (int i = 0; i<= 352; i += 32){
                 obstacles.add(new Entity(new Vector2(577 + i, 692 - i), 64, 32, new Texture("teal.jpg")));
-
             }
 
             obstacles.add(new Entity(new Vector2(33 + 17 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg")));
@@ -283,6 +291,7 @@ public class PlayState extends State {
 
             obstacles.add(new Entity(new Vector2(33 + 40 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg")));
 
+            // Level 3 Firestation
             fireStation = new Entity(new Vector2(33 + 27*32, 212), 96, 128, new Texture("teal.jpg"));
 
             // Level 3 Alien Spawn Coordinates
@@ -321,6 +330,7 @@ public class PlayState extends State {
      */
     public void handleInput() {
 
+        // Checks for hover and clicks on the 2 buttons located on the play screen.
         if (quitGame.mouseInRegion()){
             quitGame.setActive(true);
             if (Gdx.input.isTouched()) {
@@ -344,24 +354,28 @@ public class PlayState extends State {
             quitLevel.setActive(false);
         }
 
-        // Handles input for firetruck attacks
+        // If the user presses the space bar, creates Projectile instance if the selected firetruck has water remaining.
+        // Then adds this to the water ArrayList and removes 1 water from the firetrucks tank.
         for (Firetruck firetruck : firetrucks) {
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && firetruck.isSelected() && firetruck.getCurrentWater() > 0) {
                 Projectile drop = new Projectile(new Vector2(firetruck.getPosition().x + firetruck.getWidth() / 2, firetruck.getPosition().y + firetruck.getHeight() / 2), 5, 5,
                         new Texture("lightblue.jpg"), (new Vector2(Gdx.input.getX(), Kroy.HEIGHT - Gdx.input.getY())), 5, firetruck.getDamage(), firetruck.getRange());
                 water.add(drop);
-                waterShoot.play();
+                if (saveData.getBoolean("effects")) {
+                    waterShoot.play();
+                }
+
                 firetruck.updateCurrentWater(1);
                 firetruck.resetTimeSinceAttack();
             }
         }
 
-        // Opens pause menu
+        // Opens pause menu if user hits escape
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             gameStateManager.push(new OptionState(gameStateManager));
         }
 
-        // Switches active firetruck
+        // Switches active firetruck if the mouse clicks within another selectable firetruck.
         Vector2 mousePos = new Vector2(Gdx.input.getX(), Kroy.HEIGHT - Gdx.input.getY());
         if (Gdx.input.isTouched()) {
             for (Firetruck truck : firetrucks) {
@@ -377,14 +391,14 @@ public class PlayState extends State {
             }
         }
 
-        // Handles Truck Movement
+        // Changes which truck is moving and calls the truckMovement() method with the selected truck as input.
         if (firetruck1.isSelected()) {
             truckMovement(firetruck1);
         } else if (firetruck2.isSelected()) {
             truckMovement(firetruck2);
         }
 
-
+        // Checks if user presses ENTER when game is over and takes them back to level select.
         if ((levelLost || levelWon) && Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gameStateManager.set(new LevelSelectState(gameStateManager));
         }
@@ -397,11 +411,12 @@ public class PlayState extends State {
     @Override
     public void update(float deltaTime) {
 
-        // Calls input handler and updates timer each tick
+        // Calls input handler and updates timer each tick of the game.
         handleInput();
         timer.update();
 
-        // Updates aliens and handles automatic attacks
+        // Updates aliens and attacks firetruck if there is a firetruck in range and the Aliens attack cooldown is over.
+        // Adds the created bullet projectile to the ArrayList bullets
         for (Alien alien : aliens) {
             alien.update();
             alien.truckInRange(firetrucks);
@@ -419,14 +434,16 @@ public class PlayState extends State {
         timeSinceAlienKilled -= deltaTime;
 
 
-        // Respawns aliens
+        // Respawns an alien as long as the spawn cooldown is over and enough time has passed since the
+        // user killed an alien.
         if (alienSpawnCountdown <= 0 && timeSinceAlienKilled <= 0) {
             spawnAlien();
             alienSpawnCountdown = fortress.getSpawnRate();
             timeSinceAlienKilled = 0;
         }
 
-        // Handles alien projectile movement and collision
+        // Updates all bullets each tick, checks if bullet collides with firetruck and then removes health from the
+       // firetruck. If a firetruck is destroyed, checks if all have been destroyed and then activates game over screen.
         for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
             for (Firetruck truck : new ArrayList<Firetruck>(firetrucks)) {
@@ -446,19 +463,24 @@ public class PlayState extends State {
             }
         }
 
-        // Refills tank if truck overlaps the  refill location.
+        // Refills firetrucks tank if truck reaches the fire station.
         for (Firetruck truck : firetrucks) {
             if (!(truck.getTopRight().y < fireStation.getPosition().y || truck.getPosition().y > fireStation.getTopRight().y ||
                     truck.getTopRight().x < fireStation.getPosition().x || truck.getPosition().x > fireStation.getTopRight().x)) {
-                // Would call minigame here
+                // Would call our mini-game here -- potentially on a random chance or every X amount of visits etc.
                 truck.setCurrentWater(truck.getMaxWater());
             }
         }
 
-        // Handles movement and collision for firetruck projectiles
+        // Updates all water drops each tick, if the drop reaches a certain distance then it is deleted. Otherwise,
+        // Checks if drop collides with alien/fortress and then removes health from it if so. If alien dies, removes it
+        // and adds its coordinates back to the fortresses potential spawn locations. If fortress reaches 0 then
+        // game win screen is called and level progress saved.
+
         for (Projectile drop : new ArrayList<Projectile>(water)) {
             drop.update();
             if (drop.getLength() > drop.getMaxLength()) {
+                drop.dispose();
                 water.remove(drop);
             }
             for (Alien alien : new ArrayList<Alien>(aliens)) {
@@ -467,6 +489,7 @@ public class PlayState extends State {
                     water.remove(drop);
                     if (alien.getCurrentHealth() == 0) {
                         fortress.getAlienPositions().add(alien.getPosition());
+                        alien.dispose();
                         aliens.remove(alien);
                         timeSinceAlienKilled = fortress.getSpawnRate();
                     }
@@ -483,24 +506,27 @@ public class PlayState extends State {
             }
         }
 
-        // Handles game end states
-        if (timer.getTime() > timeLimit) {
-            levelLost = true;
-        }
-
-        if (timer.getTime() > timeLimit + 4) {
-            gameStateManager.set(new LevelSelectState(gameStateManager));
-        }
-
-        if (levelWon && timer.getTime() > timeTaken + 2) {
-            gameStateManager.set(new LevelSelectState(gameStateManager));
-        }
-
+        // Regenerates fortress health each second
         if(timeSinceLastFortressRegen <= 0) {
             fortress.addHealth(10);
             timeSinceLastFortressRegen = 1;
         }
         timeSinceLastFortressRegen -= deltaTime;
+
+        // If the time is greater than the time limit, calls end game state.
+        if (timer.getTime() > timeLimit) {
+            levelLost = true;
+        }
+
+        // Forces user back to level select screen, even without needing to press ENTER after 4 seconds.
+        if (timer.getTime() > timeLimit + 4) {
+            gameStateManager.set(new LevelSelectState(gameStateManager));
+        }
+
+        // Forces user back to level select screen, even without needing to press ENTER after 4 seconds.
+        if (levelWon && timer.getTime() > timeTaken + 4) {
+            gameStateManager.set(new LevelSelectState(gameStateManager));
+        }
     }
 
     /**
@@ -510,31 +536,40 @@ public class PlayState extends State {
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
+
+        // Draws background and map onto play screen
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
         spriteBatch.draw(map, 33, 212, 1856, 832);
+
+        // Draws buttons onto play screen
         spriteBatch.draw(quitLevel.getTexture(), quitLevel.getPosition().x, quitLevel.getPosition().y,
                 quitLevel.getWidth(), quitLevel.getHeight());
+
         spriteBatch.draw(quitGame.getTexture(), quitGame.getPosition().x, quitGame.getPosition().y,
                 quitGame.getWidth(), quitGame.getHeight());
 
-//        spriteBatch.draw(fireStation.getTexture(), fireStation.getPosition().x, fireStation.getPosition().y, fireStation.getWidth(),
-//                fireStation.getHeight());
-
+        // Draws updated firetrucks and overhead water tank statistics.
         for (Firetruck truck : firetrucks) {
             spriteBatch.draw(truck.getTexture(), truck.getPosition().x, truck.getPosition().y, truck.getWidth(),
                     truck.getHeight());
-            healthBars.draw(spriteBatch, "Water: " + truck.getCurrentWater(), truck.getPosition().x, truck.getPosition().y + truck.getHeight() + 10);
+            healthBars.draw(spriteBatch, "Water: " + truck.getCurrentWater(), truck.getPosition().x,
+                    truck.getPosition().y + truck.getHeight() + 10);
         }
 
+        // Draws updated fortress HP
         healthBars.draw(spriteBatch, "HP: " + fortress.getCurrentHealth(), fortress.getPosition().x + 70,
                 fortress.getPosition().y + fortress.getHeight() + 20);
 
+        // Draws updated alien locations
         for (Alien alien : aliens) {
             spriteBatch.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(),
                     alien.getHeight());
-            healthBars.draw(spriteBatch, "HP: " + alien.getCurrentHealth(), alien.getPosition().x, alien.getPosition().y + alien.getHeight() + 10);
+            healthBars.draw(spriteBatch, "HP: " + alien.getCurrentHealth(), alien.getPosition().x,
+                    alien.getPosition().y + alien.getHeight() + 10);
 
         }
+
+        // Draws updated projectile locations
         for (Projectile bullet : bullets) {
             spriteBatch.draw(bullet.getTexture(), bullet.getPosition().x, bullet.getPosition().y, bullet.getWidth(),
                     bullet.getHeight());
@@ -545,16 +580,15 @@ public class PlayState extends State {
                     drop.getHeight());
         }
 
-//        for (Entity obstacle : obstacles) {
-//            spriteBatch.draw(obstacle.getTexture(), obstacle.getPosition().x, obstacle.getPosition().y, obstacle.getWidth(),
-//                    obstacle.getHeight());
-//        }
-
         timer.drawTime(spriteBatch, ui);
         ui.setColor(Color.WHITE);
+
+        // Gives user 15 second warning as time limit approaches.
         if ((timeLimit - 15) < timer.getTime() && timer.getTime() < (timeLimit - 10)) {
             ui.draw(spriteBatch, "15 seconds remaining!", 150, 1000);
         }
+
+        // Draws UI Text onto the screen
         ui.setColor(Color.DARK_GRAY);
         ui.draw(spriteBatch, "Truck 1 Health: " + Integer.toString(firetruck1.getCurrentHealth()), 70,
                 Kroy.HEIGHT - 920);
@@ -563,6 +597,7 @@ public class PlayState extends State {
         ui.draw(spriteBatch, "Truck 3 Health: N/A", 1023, Kroy.HEIGHT - 920);
         ui.draw(spriteBatch, "Truck 4 Health: N/A", 1499, Kroy.HEIGHT - 920);
 
+        // If end game reached, draws level fail or level won images to the screen
         if (levelLost) {
             spriteBatch.draw(new Texture("levelFail.png"), 0, 0);
         }
@@ -570,7 +605,6 @@ public class PlayState extends State {
         if (levelWon) {
             spriteBatch.draw(new Texture("LevelWon.png"), 0, 0);
         }
-
         spriteBatch.end();
     }
 
@@ -611,14 +645,11 @@ public class PlayState extends State {
 
         fireStation.dispose();
         fortress.dispose();
-
-
-
     }
 
     /**
-     * Used to call the correct methods to move the trucks position depending on obstacles and which truck is
-     * currently selected.
+     * Used to call the correct method to move the trucks position depending on potential obstacle overlap and which
+     * truck is currently selected.
      * @param truck the truck which is currently selected
      */
     public void truckMovement(Firetruck truck) {
@@ -703,17 +734,3 @@ public class PlayState extends State {
         }
     }
 }
-
-// Used to freeze the game when the level is completed while the notifier pops up but currently hangs the game.
-//    public void freezeLevel() {
-//        timer.stop();
-//        for (Firetruck truck : firetrucks) {
-//            truck.setSpeed(0);
-//            truck.setDps(0);
-//        }
-//        for (Alien alien : aliens) {
-//            alien.setSpeed(0);
-//            alien.setDps(0);
-//        }
-//
-//    }

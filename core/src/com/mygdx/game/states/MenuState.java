@@ -46,11 +46,12 @@ public class MenuState extends State {
                 false);
 
         credits = new Button(new Texture("creditspressed.png"), new Texture("credits.png"),
-                350, 100, new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false,
+                350, 100,new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300) , false,
                 false);
 
-        instructions = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),350,
-                100, new Vector2((Kroy.WIDTH / 2) + SPACING + (SPACING / 2) + 350, 300), false,
+        instructions = new Button(new Texture("PressedControls.png"),
+                new Texture("NotPressedControls.png"),350, 100,
+                new Vector2((Kroy.WIDTH / 2) + SPACING / 2, 300), false,
                 false);
 
         quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),

@@ -1,7 +1,6 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -28,7 +27,7 @@ public class InfoState extends State {
         }
 
         else if (mode == 1) {
-            background = new Texture("CreditsBackground.png");
+            background = new Texture("Instructions.png");
         }
 
         back = new Button(new Texture("backbutton2.png"),

@@ -23,6 +23,7 @@ public class GameStateManager {
 
     /**
      * Adds a State to the top of the stack
+     * @param state State object to be pushed onto the stack
      */
     public void push (State state) {
         states.push(state);

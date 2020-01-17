@@ -44,6 +44,8 @@ public class Button {
 
     /**
      * A method which determines a click, given by integer coordinates, is within the buttons region
+     * @param x x coordinate of mouse click
+     * @param y y coordinate of mouse click
      * @return true if the click is on the button or false if not
      */
     public boolean clickInRegion(int x, int y) {

@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * The abstract class containing the shared methods and attributes used by the Firetruck and Alien class.
  *
- * @author Jordan Spooner & Alasdair Pilmore-Bedford
+ * @author Jordan Spooner and Alasdair Pilmore-Bedford
  */
 
 public abstract class Unit extends Entity {

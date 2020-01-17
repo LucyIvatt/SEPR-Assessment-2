@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
  * The class containing the 5 primary attributes and their relevant getters and/or setters which are inherited by
  * multiple classes and is itself implemented to create obstacle object.
  *
- * @author Matthew Gilmore
+ * @author Bethany Gilmore
  */
 
 public class Entity {
@@ -17,10 +17,6 @@ public class Entity {
     private int height;
     private Vector2 topRight;
 
-    /**
-     * A constructor which includes the new attributes which will be super called by the Projectile and Unit classes.
-     * Will also be used to initialize objects which are impassable by the Firetruck during gameplay.
-     */
     public Entity(Vector2 position, int width, int height, Texture texture) {
         this.position = position;
         this.width = width;

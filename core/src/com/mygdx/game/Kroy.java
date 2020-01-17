@@ -8,7 +8,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * Class which initialises the SpriteBatch, GameStateManager and loads sounds settings before
+ * pushing the beginning MenuState instance.
+ *
+ * @author Lucy Ivatt
+ */
+
 public class Kroy extends ApplicationAdapter {
+
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
 	public static final String TITLE = "Kroy";

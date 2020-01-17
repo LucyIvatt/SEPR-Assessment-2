@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * The Button class is used to create button objects for use on the MenuScreen
  * which can be used to change the current game State
  *
- * @author Alasdair Pilmore-Bedford & Lucy Ivatt
+ * @author Alasdair Pilmore-Bedford and Lucy Ivatt
  */
 
 public class Alien extends Character {

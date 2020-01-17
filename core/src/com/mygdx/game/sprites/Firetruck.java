@@ -26,7 +26,7 @@ public class Firetruck extends Character {
 
     /**
      * A method which controllers Firetruck movement depending on the direction input
-     * @param direction 1 --> Left, 2 --> Right, 3 --> Up, 4 --> Down
+     * @param direction 1 = Left, 2 = Right, 3 = Up, 4 = Down
      */
     public void move(int direction) { // 1, 2, 3, 4 --> Left, Right, Up, Down
         float deltaTime = Gdx.graphics.getDeltaTime();
@@ -45,7 +45,8 @@ public class Firetruck extends Character {
      * A method which checks if the Firetruck will collide with the input object if it moves on the input direction
      * next game tick.
      * @param other the object that the collision will be checked for
-     * @param direction 1 --> Left, 2 --> Right, 3 --> Up, 4 --> Down
+     * @param direction 1 = Left, 2 = Right, 3 = Up, 4 = Down
+     * @return true if the objects will collide, otherwise false
      */
     public boolean willCollide(Entity other, int direction) {
         if (direction == 3) { // up

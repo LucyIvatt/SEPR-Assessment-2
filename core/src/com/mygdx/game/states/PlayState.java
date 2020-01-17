@@ -107,7 +107,7 @@ public class PlayState extends State {
             map = new Texture("level1background.png");
 
             // Level 1 Obstacles
-            obstacles.add(new Entity(new Vector2(257, 628), 64, 64, new Texture("teal.jpg")));
+            { obstacles.add(new Entity(new Vector2(257, 628), 64, 64, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(257, 724), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(289, 756), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(257, 820), 64, 32, new Texture("teal.jpg")));
@@ -143,7 +143,7 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1249, 692), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1249, 628), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 692), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));}
 
             obstacles.add(new Entity(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32,
                     new Texture("teal.jpg")));
@@ -173,7 +173,7 @@ public class PlayState extends State {
             map = new Texture("level2background.png");
 
             // Level 2 Obstacles
-            obstacles.add(new Entity(new Vector2(225, 212), 192, 64, new Texture("teal.jpg")));
+            {obstacles.add(new Entity(new Vector2(225, 212), 192, 64, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(225, 308), 224, 128, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(257, 436), 192, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(321, 468), 96, 32, new Texture("teal.jpg")));
@@ -220,7 +220,7 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1665, 820), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1665, 788), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(897, 372), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(897, 340), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(897, 340), 32, 32, new Texture("teal.jpg")));}
             obstacles.add(new Entity(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32,
                     new Texture("teal.jpg")));
 
@@ -252,7 +252,7 @@ public class PlayState extends State {
             map = new Texture("level3background.png");
 
             // Level 3 Obstacles
-            obstacles.add(new Entity(new Vector2(737, 244), 32, 32, new Texture("teal.jpg")));
+            {obstacles.add(new Entity(new Vector2(737, 244), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(705, 276), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(609, 500), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(577, 532), 64, 32, new Texture("teal.jpg")));
@@ -264,7 +264,7 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1665, 500), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1665, 532), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(673, 724), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(705, 756), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(705, 756), 32, 32, new Texture("teal.jpg")));}
 
             // For loops to create diagonal wall obstacle
             for (int i = 0; i<= 192; i += 32){
@@ -307,7 +307,7 @@ public class PlayState extends State {
 
             // Level 3 Fortress
             fortress = new Fortress(new Vector2(33 + 24*32, 212 + 32*21), 224, 96, new Texture("grey.png"),
-                    1000, spawnCoordinates, 2);
+                    15000, spawnCoordinates, 2);
         }
 
         firetruck1 = new Firetruck(firetruck1pos, 25, 25,

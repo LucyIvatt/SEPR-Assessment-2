@@ -527,6 +527,11 @@ public class PlayState extends State {
         if (levelWon && timer.getTime() > timeTaken + 4) {
             gameStateManager.set(new LevelSelectState(gameStateManager));
         }
+
+        // Speeds up the background music when the player begins to run out of time.
+        if ((14 < timeLimit - timer.getTime()) && (timeLimit - timer.getTime() < 16)){
+            Kroy.INTRO.setPitch(Kroy.ID, 2f);
+        }
     }
 
     /**
@@ -600,10 +605,12 @@ public class PlayState extends State {
         // If end game reached, draws level fail or level won images to the screen
         if (levelLost) {
             spriteBatch.draw(new Texture("levelFail.png"), 0, 0);
+            Kroy.INTRO.setPitch(Kroy.ID, 1f);
         }
 
         if (levelWon) {
             spriteBatch.draw(new Texture("LevelWon.png"), 0, 0);
+            Kroy.INTRO.setPitch(Kroy.ID, 1f);
         }
         spriteBatch.end();
     }

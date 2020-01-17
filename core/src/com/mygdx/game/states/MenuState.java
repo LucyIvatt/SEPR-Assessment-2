@@ -56,8 +56,10 @@ public class MenuState extends State {
         quit = new Button(new Texture("quitpressed.png"), new Texture("quit.png"),
                 350, 100, new Vector2(Kroy.WIDTH / 2 - (350 / 2), 100),
                 false, false);
+        if (saveData.getBoolean("music", true) == true){
+            Kroy.INTRO.resume(Kroy.ID);
+        }
 
-        Kroy.INTRO.play();
     }
 
     /**
@@ -138,14 +140,7 @@ public class MenuState extends State {
             System.exit(0);
         }
 
-         // Pauses and plays music depending on saved settings picked by the user.
 
-        if ((Kroy.INTRO.isPlaying()== true) && (saveData.getBoolean("music", true) == false)){
-            Kroy.INTRO.pause();
-        }
-        if ((Kroy.INTRO.isPlaying()== false) && (saveData.getBoolean("music", true) == true)){
-            Kroy.INTRO.play();
-        }
     }
 
     /**

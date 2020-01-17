@@ -57,12 +57,7 @@ public class OptionState extends State implements InputProcessor {
      * @param deltaTime the amount of time which has passed since the last render() call
      */
     public void update(float deltaTime) {
-        if ((Kroy.INTRO.isPlaying()== true) && (saveData.getBoolean("music", true) == false)){
-            Kroy.INTRO.pause();
-        }
-        if ((Kroy.INTRO.isPlaying()== false) && (saveData.getBoolean("music", true) == true)){
-            Kroy.INTRO.play();
-        }
+
     }
 
     /**
@@ -107,7 +102,9 @@ public class OptionState extends State implements InputProcessor {
                 if (saveData.getBoolean("effects")) {
                     click.play();
                 }
+                Kroy.INTRO.pause(Kroy.ID);
                 musicToggle.setActive(false);
+
             }
             else {
                 saveData.putBoolean("music", true);
@@ -115,6 +112,7 @@ public class OptionState extends State implements InputProcessor {
                     click.play();
                 }
                 musicToggle.setActive(true);
+                Kroy.INTRO.resume(Kroy.ID);
             }
             return false;
         }

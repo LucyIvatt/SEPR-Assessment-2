@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.states.GameStateManager;
 import com.mygdx.game.states.MenuState;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -20,6 +21,7 @@ public class Kroy extends ApplicationAdapter {
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
 	public static final String TITLE = "Kroy";
+	public static Music INTRO;
 
 	private GameStateManager gameStateManager;
 	private SpriteBatch batch;
@@ -27,6 +29,7 @@ public class Kroy extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		INTRO = Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
 		batch = new SpriteBatch();
 		gameStateManager = new GameStateManager();
 		Gdx.gl.glClearColor(0, 0, 1, 1);

@@ -56,7 +56,14 @@ public class OptionState extends State implements InputProcessor {
      * polling.
      * @param deltaTime the amount of time which has passed since the last render() call
      */
-    public void update(float deltaTime) { }
+    public void update(float deltaTime) {
+        if ((Kroy.INTRO.isPlaying()== true) && (saveData.getBoolean("music", true) == false)){
+            Kroy.INTRO.pause();
+        }
+        if ((Kroy.INTRO.isPlaying()== false) && (saveData.getBoolean("music", true) == true)){
+            Kroy.INTRO.play();
+        }
+    }
 
     /**
      * Used to draw elements onto the screen.

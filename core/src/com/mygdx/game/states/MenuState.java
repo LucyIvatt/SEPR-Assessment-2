@@ -30,7 +30,6 @@ public class MenuState extends State {
     private Button quit;
     private Preferences saveData ;
     private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
-    private Music intro = Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
 
     public MenuState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -58,7 +57,7 @@ public class MenuState extends State {
                 350, 100, new Vector2(Kroy.WIDTH / 2 - (350 / 2), 100),
                 false, false);
 
-        intro.play();
+        Kroy.INTRO.play();
     }
 
     /**
@@ -141,11 +140,11 @@ public class MenuState extends State {
 
          // Pauses and plays music depending on saved settings picked by the user.
 
-        if ((intro.isPlaying()== true) && (saveData.getBoolean("music", true) == false)){
-            intro.pause();
+        if ((Kroy.INTRO.isPlaying()== true) && (saveData.getBoolean("music", true) == false)){
+            Kroy.INTRO.pause();
         }
-        if ((intro.isPlaying()== false) && (saveData.getBoolean("music", true) == true)){
-            intro.play();
+        if ((Kroy.INTRO.isPlaying()== false) && (saveData.getBoolean("music", true) == true)){
+            Kroy.INTRO.play();
         }
     }
 
@@ -196,6 +195,5 @@ public class MenuState extends State {
         credits.dispose();
         quit.dispose();
         click.dispose();
-        intro.dispose();
     }
 }

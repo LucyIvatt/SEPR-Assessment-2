@@ -1,8 +1,9 @@
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import com.mygdx.game.sprites.Unit;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 //
 //NEED TO CHECK IF CREATING AN INSTANCE IS GOOD OR I SHOULD MOCK INSTEAD (no dependencies)

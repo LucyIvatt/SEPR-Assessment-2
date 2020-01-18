@@ -1,14 +1,8 @@
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Entity;
-import com.sun.source.tree.AssertTree;
-import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //70% line coverage (not testing getter and setters)
 

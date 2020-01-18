@@ -3,12 +3,12 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
-import com.badlogic.gdx.audio.*;
 
 /**
  * An implementation of the abstract class State which controls the

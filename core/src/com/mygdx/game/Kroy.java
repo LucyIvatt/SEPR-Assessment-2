@@ -1,14 +1,13 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.mygdx.game.states.GameStateManager;
-import com.mygdx.game.states.MenuState;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.states.GameStateManager;
+import com.mygdx.game.states.MenuState;
 
 /**
  * Class which initialises the SpriteBatch, GameStateManager and loads sounds settings before

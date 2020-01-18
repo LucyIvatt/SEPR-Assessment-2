@@ -2,8 +2,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Fortress;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //66% line coverage
 

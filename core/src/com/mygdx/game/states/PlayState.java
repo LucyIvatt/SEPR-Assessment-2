@@ -9,10 +9,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Timer;
-import com.mygdx.game.Kroy;
 import com.mygdx.game.sprites.*;
+
 import java.util.ArrayList;
 import java.util.Random;
 

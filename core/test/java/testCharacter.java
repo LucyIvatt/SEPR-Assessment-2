@@ -1,9 +1,10 @@
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.sprites.Character;
 import com.mygdx.game.sprites.Unit;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import com.mygdx.game.sprites.Character;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //Instance of the Unit class to test on (is abstract)
 class characterTestClass extends Character {

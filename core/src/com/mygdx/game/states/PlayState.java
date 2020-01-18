@@ -14,6 +14,7 @@ import com.mygdx.game.misc.Timer;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.sprites.*;
 
+import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -93,7 +94,6 @@ public class PlayState extends State {
         timeSinceLastFortressRegen = 0;
         timeSinceAlienKilled = -1;
 
-        ArrayList<Vector2> spawnCoordinates = new ArrayList<Vector2>();
 
         Vector2 firetruck1pos = null;
         Vector2 firetruck2pos = null;
@@ -152,16 +152,9 @@ public class PlayState extends State {
             fireStation = new Entity(new Vector2(33 + 8 * 32, 212 + 4 * 32), 128, 128,
                     new Texture("teal.jpg"));
 
-            // Level 1 Alien Spawn Coordinates
-            spawnCoordinates.add(new Vector2(22 * 32, 1044 - 3 * 32));
-            spawnCoordinates.add(new Vector2(33 * 32, 1044 - 3 * 32));
-            spawnCoordinates.add(new Vector2(24 * 32, 1044 - 6 * 32));
-            spawnCoordinates.add(new Vector2(31 * 32, 1044 - 6 * 32));
-            spawnCoordinates.add(new Vector2(28 * 32 - 16, 1044 - 8 * 32));
-
             // Level 1 Fortress
             fortress = new Fortress(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32,
-                    new Texture("grey.png"), 10000, spawnCoordinates, 1.5f);
+                    new Texture("grey.png"), 10000, 1.5f, 1);
         }
 
         else if (levelNumber == 2) {
@@ -224,22 +217,13 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32,
                     new Texture("teal.jpg")));
 
-            // Level 2 Firestation
+            // Level 2 Fire Station
             fireStation = new Entity(new Vector2(33 + 1 * 32, 212 + 4 * 32), 64, 128,
                     new Texture("teal.jpg"));
 
-            // Level 2 Alien Spawn Coordinates
-            spawnCoordinates.add(new Vector2(33 + 37 * 32, 212 + 15 * 32));
-            spawnCoordinates.add(new Vector2(33 + 41 * 32, 212 + 15 * 32));
-            spawnCoordinates.add(new Vector2(33 + 33 * 32, 212 + 17 * 32));
-            spawnCoordinates.add(new Vector2(33 + 30 * 32, 212 + 20 * 32));
-            spawnCoordinates.add(new Vector2(33 + 30 * 32, 212 + 24 * 32));
-            spawnCoordinates.add(new Vector2(33 + 44 * 32, 212 + 20 * 32));
-            spawnCoordinates.add(new Vector2(33 + 44 * 32, 212 + 24 * 32));
-
             // Level 2 Fortress
             fortress = new Fortress(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32, new Texture("grey.png"),
-                    12500, spawnCoordinates, 4);
+                    12500, 4, 2);
         }
 
         else if (levelNumber == 3) {
@@ -291,23 +275,12 @@ public class PlayState extends State {
 
             obstacles.add(new Entity(new Vector2(33 + 40 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg")));
 
-            // Level 3 Firestation
+            // Level 3 Fire Station
             fireStation = new Entity(new Vector2(33 + 27*32, 212), 96, 128, new Texture("teal.jpg"));
-
-            // Level 3 Alien Spawn Coordinates
-            spawnCoordinates.add(new Vector2(33 + 25 * 32, 212 + 17 * 32));
-            spawnCoordinates.add(new Vector2(33 + 29 * 32, 212 + 17 * 32));
-            spawnCoordinates.add(new Vector2(33 + 32 * 32, 212 + 19 * 32));
-            spawnCoordinates.add(new Vector2(33 + 22 * 32, 212 + 19 * 32));
-            spawnCoordinates.add(new Vector2(33 + 20 * 32, 212 + 21 * 32));
-            spawnCoordinates.add(new Vector2(33 + 34 * 32, 212 + 21 * 32));
-            spawnCoordinates.add(new Vector2(33 + 20 * 32, 212 + 24 * 32));
-            spawnCoordinates.add(new Vector2(33 + 34 * 32, 212 + 24 * 32));
-
 
             // Level 3 Fortress
             fortress = new Fortress(new Vector2(33 + 24*32, 212 + 32*21), 224, 96, new Texture("grey.png"),
-                    15000, spawnCoordinates, 2);
+                    15000, 2, 3);
         }
 
         firetruck1 = new Firetruck(firetruck1pos, 25, 25,

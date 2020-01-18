@@ -106,7 +106,15 @@ public class PlayState extends State {
             timeLimit = 90;
             map = new Texture("level1background.png");
 
-            // Level 1 Obstacles
+            // Level 1 Obstacles - These are used to create the hit boxes for the buildings so that the player
+            // can't drive through them. You can create any rectangular hit box as one singular entity. To calculate
+            // the coords do:
+
+            // X_COORD = 33 + (GRID_X * 32)    and    Y_COORD = 212 + (GRID_Y * 32)
+            // Where (33, 212) is the bottom left corner of the game screen and GRID_X, and GRID_Y is the grid position
+            // of the bottom left corner of the hit box you want to create. These are multiplied by 32 as each grid
+            // square is 32 pixels in both height and width.
+
             { obstacles.add(new Entity(new Vector2(257, 628), 64, 64, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(257, 724), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(289, 756), 32, 32, new Texture("teal.jpg")));
@@ -143,10 +151,10 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1249, 692), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1249, 628), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1345, 692), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));}
+            obstacles.add(new Entity(new Vector2(1345, 628), 64, 32, new Texture("teal.jpg")));
 
             obstacles.add(new Entity(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32,
-                    new Texture("teal.jpg")));
+                    new Texture("teal.jpg"))); }
 
             // Level 1 Firestation
             fireStation = new Entity(new Vector2(33 + 8 * 32, 212 + 4 * 32), 128, 128,
@@ -165,7 +173,15 @@ public class PlayState extends State {
             timeLimit = 120;
             map = new Texture("level2background.png");
 
-            // Level 2 Obstacles
+            // Level 2 Obstacles - These are used to create the hit boxes for the buildings so that the player
+            // can't drive through them. You can create any rectangular hit box as one singular entity. To calculate
+            // the coords do:
+
+            // X_COORD = 33 + (GRID_X * 32)    and    Y_COORD = 212 + (GRID_Y * 32)
+            // Where (33, 212) is the bottom left corner of the game screen and GRID_X, and GRID_Y is the grid position
+            // of the bottom left corner of the hit box you want to create. These are multiplied by 32 as each grid
+            // square is 32 pixels in both height and width.
+
             {obstacles.add(new Entity(new Vector2(225, 212), 192, 64, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(225, 308), 224, 128, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(257, 436), 192, 32, new Texture("teal.jpg")));
@@ -213,9 +229,9 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1665, 820), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1665, 788), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(897, 372), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(897, 340), 32, 32, new Texture("teal.jpg")));}
+            obstacles.add(new Entity(new Vector2(897, 340), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32,
-                    new Texture("teal.jpg")));
+                    new Texture("teal.jpg")));}
 
             // Level 2 Fire Station
             fireStation = new Entity(new Vector2(33 + 1 * 32, 212 + 4 * 32), 64, 128,
@@ -235,7 +251,15 @@ public class PlayState extends State {
 
             map = new Texture("level3background.png");
 
-            // Level 3 Obstacles
+            // Level 3 Obstacles - These are used to create the hit boxes for the buildings so that the player
+            // can't drive through them. You can create any rectangular hit box as one singular entity. To calculate
+            // the coords do:
+
+            // X_COORD = 33 + (GRID_X * 32)    and    Y_COORD = 212 + (GRID_Y * 32)
+            // Where (33, 212) is the bottom left corner of the game screen and GRID_X, and GRID_Y is the grid position
+            // of the bottom left corner of the hit box you want to create. These are multiplied by 32 as each grid
+            // square is 32 pixels in both height and width.
+
             {obstacles.add(new Entity(new Vector2(737, 244), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(705, 276), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(609, 500), 32, 32, new Texture("teal.jpg")));
@@ -248,7 +272,7 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1665, 500), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(1665, 532), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(673, 724), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(705, 756), 32, 32, new Texture("teal.jpg")));}
+            obstacles.add(new Entity(new Vector2(705, 756), 32, 32, new Texture("teal.jpg")));
 
             // For loops to create diagonal wall obstacle
             for (int i = 0; i<= 192; i += 32){
@@ -273,7 +297,7 @@ public class PlayState extends State {
                 obstacles.add(new Entity(new Vector2(1281 - i, 692 - i), 64, 32, new Texture("teal.jpg")));
             }
 
-            obstacles.add(new Entity(new Vector2(33 + 40 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(33 + 40 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg"))); }
 
             // Level 3 Fire Station
             fireStation = new Entity(new Vector2(33 + 27*32, 212), 96, 128, new Texture("teal.jpg"));

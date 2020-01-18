@@ -17,8 +17,8 @@ public class Firetruck extends Character {
     private boolean selected;
 
     public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
-                     int speed, int dps, int bearing, int maxWater, boolean selected, float attackCooldown) {
-        super(position, width, height, texture, maxHealth, range, target, speed, dps, attackCooldown);
+                     int speed, int dps, int maxWater, boolean selected) {
+        super(position, width, height, texture, maxHealth, range, target, speed, dps);
         this.maxWater = maxWater;
         this.currentWater = maxWater;
         this.selected = selected;

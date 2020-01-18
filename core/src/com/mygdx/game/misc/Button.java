@@ -17,11 +17,11 @@ public class Button {
 
     private Texture onTexture;
     private Texture offTexture;
-    private boolean active;
     private int width;
     private int height;
     private Vector2 position;
     private boolean locked;
+    private boolean active;
 
     public Button(Texture onTexture, Texture offTexture, int width, int height, Vector2 position, boolean active, boolean locked) {
         this.onTexture = onTexture;

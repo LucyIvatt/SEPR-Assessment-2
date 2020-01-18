@@ -13,8 +13,6 @@ import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Timer;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.sprites.*;
-
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -89,7 +87,6 @@ public class PlayState extends State {
 
         healthBars = new BitmapFont();
 
-        timer = new Timer();
         alienSpawnCountdown = 0;
         timeSinceLastFortressRegen = 0;
         timeSinceAlienKilled = -1;
@@ -309,16 +306,17 @@ public class PlayState extends State {
 
         firetruck1 = new Firetruck(firetruck1pos, 25, 25,
                 new Texture("truck.png"), 100, 200,
-                null, 100, 2, 10, 175,
-                true, 5);
+                null, 100, 2,  175,
+                true);
 
         firetruck2 = new Firetruck(firetruck2pos, 25, 25,
                 new Texture("truck.png"), 50, 200,
-                null, 200, 2, 10, 100,
-                false, 5);
+                null, 200, 2,  100,
+                false);
 
         firetrucks.add(firetruck1);
         firetrucks.add(firetruck2);
+        timer = new Timer(timeLimit);
 
     }
 
@@ -363,7 +361,6 @@ public class PlayState extends State {
                 }
 
                 firetruck.updateCurrentWater(1);
-                firetruck.resetTimeSinceAttack();
             }
         }
 

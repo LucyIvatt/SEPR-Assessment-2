@@ -15,10 +15,13 @@ import com.mygdx.game.Kroy;
 
 public class Timer {
     private float time;
+    private float timeLimit;
     private String timeString;
 
-    public Timer() {
+
+    public Timer(float timeLimit) {
         time = 0;
+        this.timeLimit = timeLimit;
         timeString = "0";
     }
 
@@ -27,7 +30,7 @@ public class Timer {
      */
     public void update(){
         time += (Gdx.graphics.getDeltaTime());
-        timeString = String.format("%.0f", time);
+        timeString = String.format("%.0f", timeLimit - time);
     }
 
     /**
@@ -36,7 +39,7 @@ public class Timer {
      * @param font the BitmapFont which will be used for the text
      */
     public void drawTime(SpriteBatch spriteBatch, BitmapFont font) {
-        font.draw(spriteBatch, "Time Elapsed: " + timeString, 810, Kroy.HEIGHT - 1005);
+        font.draw(spriteBatch, "Time Remaining: " + timeString, 780, Kroy.HEIGHT - 1005);
     }
 
     public float getTime() {

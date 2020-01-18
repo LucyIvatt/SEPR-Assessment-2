@@ -14,12 +14,16 @@ public class Alien extends Character {
 
     private Vector2[] waypoints;
     private int currentIndex;
+    private float attackCooldown; // The time the Character must wait before being able to attack again
+    private float timeSinceAttack; // The time that has passed since the Character last attacked
 
     public Alien(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                  int speed, int dps, Vector2[] wayPoints, float attackCooldown) {
-        super(position, width, height, texture, maxHealth, range, target, speed, dps, attackCooldown);
+        super(position, width, height, texture, maxHealth, range, target, speed, dps);
         this.waypoints = wayPoints;
         currentIndex = 0;
+        this.attackCooldown = attackCooldown;
+        this.timeSinceAttack = 0;
     }
 
     /**
@@ -95,6 +99,22 @@ public class Alien extends Character {
         } else {
             return true;
         }
+    }
+
+    public float getTimeSinceAttack() {
+        return timeSinceAttack;
+    }
+
+    public void resetTimeSinceAttack() {
+        this.timeSinceAttack = 0;
+    }
+
+    public void updateTimeSinceAttack(float deltaTime) {
+        this.timeSinceAttack += deltaTime;
+    }
+
+    public float getAttackCooldown() {
+        return attackCooldown;
     }
 }
 

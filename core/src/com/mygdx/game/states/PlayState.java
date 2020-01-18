@@ -602,7 +602,7 @@ public class PlayState extends State {
             Kroy.INTRO.setPitch(Kroy.ID, 1f);
         }
 
-        if (levelWon) {
+        if (levelWon & !levelLost) {
             spriteBatch.draw(new Texture("LevelWon.png"), 0, 0);
             Kroy.INTRO.setPitch(Kroy.ID, 1f);
         }

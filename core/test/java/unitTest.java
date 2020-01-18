@@ -10,8 +10,8 @@ import com.mygdx.game.sprites.Unit;
 //Instance of the Unit class to test on (is abstract)
 class unitTestClass extends Unit {
 
-    public unitTestClass( Vector2 position, int width, int height, Texture texture) {
-        super(position, width, height, texture);
+    public unitTestClass(Vector2 position, int width, int height, Texture texture, int maxHealth) {
+        super(position, width, height, texture, maxHealth);
     }
 }
 
@@ -20,7 +20,7 @@ class unitTestClass extends Unit {
 public class unitTest {
 
     //Instance of the Unit class to test on
-    Unit testUnit = new unitTestClass(new Vector2(0, 0),100, 100, null);
+    Unit testUnit = new unitTestClass(new Vector2(0, 0),100, 100, null, 100);
 
     //Test for constructor that takes maxHealth
     @Test
@@ -49,6 +49,7 @@ public class unitTest {
         assertTrue(testUnit.isDead(), "Unit had '-1' health during test");
     }
 
+    //Test if setCurrentHealth() will cap the health input to the max from constructor
     @Test
     public void testSetCurrentHealthShouldCapMaxHealth() {
         testUnit.setCurrentHealth(100000);
@@ -96,5 +97,7 @@ public class unitTest {
         assertEquals(0, testUnit.getCurrentHealth());
         assertTrue(testUnit.isDead(), "Test Unit took 101 damage (-1 in health) so should be dead");
     }
+
+
 
 }

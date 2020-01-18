@@ -30,6 +30,9 @@ public class Entity {
     }
 
     public void setPosition(float x, float y) {
+//        if (x < 0 || y < 0 ){
+//            throw new IllegalArgumentException("X and Y position cannot be negative");
+//        }
         this.position = new Vector2(x, y);
         this.topRight = new Vector2(x + width, y + height);
     }

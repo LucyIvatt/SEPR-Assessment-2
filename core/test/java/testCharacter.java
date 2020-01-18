@@ -26,8 +26,20 @@ class characterTestClass extends Character {
     }
 }
 
-//No non-getter and setters to test...
+//55% line coverage - only getters and setters
+
+//No functions to test - will just test the constructor
 public class testCharacter {
+    //Constructor used to ensure it works as intended
     Character testCharacter = new characterTestClass(new Vector2(100, 100 ), 100, 100, null,
-            100, 10, null, 10, 10, 10);
+            100, 10, null, 10, 10, 11);
+
+    //Testing to ensure constructor works as intended through basic getter functions
+    @Test
+    public void constructorShouldInitializeCorrectly() {
+        assertEquals(null, testCharacter.getTarget());
+        assertEquals(10, testCharacter.getDamage());
+        assertEquals(11, testCharacter.getAttackCooldown());
+    }
+
 }

@@ -584,7 +584,8 @@ public class PlayState extends State {
 
         // Gives user 15 second warning as time limit approaches.
         if ((timeLimit - 15) < timer.getTime() && timer.getTime() < (timeLimit - 10)) {
-            ui.draw(spriteBatch, "15 seconds remaining!", 150, 1000);
+            ui.draw(spriteBatch, "The firestation is being attacked \n You have 15 seconds before it's destroyed!",
+                    50, 1020);
         }
 
         // Draws UI Text onto the screen

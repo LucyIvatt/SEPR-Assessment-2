@@ -28,7 +28,10 @@ public class Kroy extends ApplicationAdapter {
 	private GameStateManager gameStateManager;
 	private SpriteBatch batch;
 	private Preferences saveData;
-	
+
+	/**
+	 * Initializes the game. During the start of the game loop thread, create() will be called only once.
+	 */
 	@Override
 	public void create () {
 		INTRO = Gdx.audio.newSound(Gdx.files.internal("intro.mp3"));
@@ -49,13 +52,19 @@ public class Kroy extends ApplicationAdapter {
 		}
 	}
 
+	/**
+	 * Updates and draws the State on the top of the stack to the screen.
+	 */
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gameStateManager.update(Gdx.graphics.getDeltaTime());
 		gameStateManager.render(batch);
 	}
-	
+
+	/**
+	 * Garbage disposal when the game is closed
+	 */
 	@Override
 	public void dispose () {
 		batch.dispose();

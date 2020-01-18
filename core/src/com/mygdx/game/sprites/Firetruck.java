@@ -49,25 +49,32 @@ public class Firetruck extends Character {
      * @return true if the objects will collide, otherwise false
      */
     public boolean willCollide(Entity other, int direction) {
-        if (direction == 3) { // up
-            if (getPosition().y >= other.getTopRight().y || getTopRight().y + getSpeed() * Gdx.graphics.getDeltaTime()<= other.getPosition().y ||
-                    getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
+
+        if (direction == 1) { // left
+            if (getPosition().x - getSpeed() * Gdx.graphics.getDeltaTime() >= other.getTopRight().x || getTopRight().x <= other.getPosition().x ||
+                    getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
                 return false;
             }
-        } else if (direction == 4) { // down
-            if (getPosition().y - getSpeed() * Gdx.graphics.getDeltaTime() >= other.getTopRight().y || getTopRight().y <= other.getPosition().y ||
-                    getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
-                return false;
-            }
-        } else if (direction == 2) { // right
+        }
+
+        else if (direction == 2) { // right
 
             if ((getTopRight().x + getSpeed() * Gdx.graphics.getDeltaTime() <= other.getPosition().x || getPosition().x >= other.getTopRight().x ||
                     getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y)) {
                 return false;
             }
-        } else if (direction == 1) { // left
-            if (getPosition().x - getSpeed() * Gdx.graphics.getDeltaTime() >= other.getTopRight().x || getTopRight().x <= other.getPosition().x ||
-                    getPosition().y >= other.getTopRight().y || getTopRight().y <= other.getPosition().y) {
+        }
+
+        else if (direction == 3) { // up
+            if (getPosition().y >= other.getTopRight().y || getTopRight().y + getSpeed() * Gdx.graphics.getDeltaTime()<= other.getPosition().y ||
+                    getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
+                return false;
+            }
+        }
+
+        else if (direction == 4) { // down
+            if (getPosition().y - getSpeed() * Gdx.graphics.getDeltaTime() >= other.getTopRight().y || getTopRight().y <= other.getPosition().y ||
+                    getPosition().x >= other.getTopRight().x || getTopRight().x <= other.getPosition().x) {
                 return false;
             }
         }

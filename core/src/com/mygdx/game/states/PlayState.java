@@ -125,7 +125,7 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(577, 692), 32, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(577, 724), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(577, 436), 64, 32, new Texture("teal.jpg")));
-            obstacles.add(new Entity(new Vector2(609, 468), 64, 32, new Texture("teal.jpg")));
+            obstacles.add(new Entity(new Vector2(609, 468), 32, 32, new Texture("teal.jpg")));
 
             obstacles.add(new Entity(new Vector2(737, 404), 64, 32, new Texture("teal.jpg")));
             obstacles.add(new Entity(new Vector2(737, 692), 64, 64, new Texture("teal.jpg")));

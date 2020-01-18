@@ -14,7 +14,6 @@ import com.mygdx.game.misc.Timer;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.sprites.*;
 
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Random;
 

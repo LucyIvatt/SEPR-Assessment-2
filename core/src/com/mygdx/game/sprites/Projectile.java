@@ -17,7 +17,8 @@ public class Projectile extends Entity
     private int damage;
     private float maxLength;
 
-    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed, int damage, float maxLength) {
+    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed,
+                      int damage, float maxLength) {
         super(position, width, height, texture);
         startPosition = position;
         this.speed = speed;

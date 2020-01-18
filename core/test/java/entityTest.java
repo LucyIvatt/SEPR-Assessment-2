@@ -1,6 +1,13 @@
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Entity;
+import com.sun.source.tree.AssertTree;
+import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 //70% line coverage (not testing getter and setters)
@@ -19,7 +26,7 @@ public class entityTest {
         assertEquals(new Vector2(200, 200), testEntity.getTopRight());
     }
 
-    //Testing nothing changes when 0 is inputted
+    //Testing that setPosition() will allow for the boundary input of 0
     @Test
     public void testSetPositionShouldAllowForZeros() {
         testEntity.setPosition(0, 0);
@@ -27,13 +34,17 @@ public class entityTest {
         assertEquals(new Vector2(100, 100), testEntity.getTopRight());
     }
 
-    //Testing negative numbers !!! Dont think this works
-    @Test
-    public void testSetPositionNegativeNumbersShouldReturnArgumentException() throws  IllegalArgumentException{
-        testEntity.setPosition(-1, -1);
-        assertEquals(new Vector2(-1, -1) , testEntity.getPosition());
-    }
-
+    //Testing that negative numbers throw an IllegalArgumentException
+//    @Test
+//    public void testSetPositionShouldThrowExceptionForOutOfBoundaryNegative() {
+//        try{
+//            testEntity.setPosition(-100, -100);
+//        } catch (IllegalArgumentException e){
+//            assertEquals(new Vector2(100, 100), testEntity.getPosition());
+//        } catch (Exception e){
+//            Assert.fail();
+//        }
+//    }
 
 }
 

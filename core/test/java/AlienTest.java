@@ -16,7 +16,12 @@ public class AlienTest {
     Alien testAlien = new Alien(new Vector2(100, 100), 100, 100, null, 100,
             10, null, 0, 5, null, 10.0f);
 
-    //Test for update() done manually
+    //Test Alien with wayPoints
+    Alien wayPointAlien = new Alien(new Vector2(100, 100), 100, 100, null, 100,
+            10, null, 0, 5, new Vector2[]{new Vector2(200, 200), new Vector2(200, 200)}, 10.0f);
+
+    //Test basic constructor functionality
+
 
     //Test if truckInRange will set a new target with an in range mocked truck
     @Test
@@ -60,4 +65,7 @@ public class AlienTest {
         testAlien.truckInRange(firetrucks);
         assertEquals(null, testAlien.getTarget());
     }
+
+
+
 }

@@ -98,6 +98,10 @@ public class Firetruck extends Character {
     }
 
     public void updateCurrentWater(int waterUsed) {
+        if ((this.currentWater - waterUsed) < 0) {
+            this.currentWater = 0;
+            return;
+        }
         this.currentWater -=  waterUsed;
     }
 

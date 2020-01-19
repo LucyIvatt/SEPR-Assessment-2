@@ -17,8 +17,8 @@ class characterTestClass extends Character {
     private int range;
 
     public characterTestClass(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
-                              int speed, int dps, float attackCooldown) {
-        super(position, width, height, texture, maxHealth, range, target, speed, dps, attackCooldown);
+                              int speed, int dps) {
+        super(position, width, height, texture, maxHealth, range, target, speed, dps);
         this.target = target;
         this.speed = speed;
         this.dps = dps;
@@ -27,20 +27,32 @@ class characterTestClass extends Character {
     }
 }
 
-//55% line coverage - only getters and setters
+//100% line coverage - only getters and setters
 
 //No functions to test - will just test the constructor
 public class testCharacter {
     //Constructor used to ensure it works as intended
     Character testCharacter = new characterTestClass(new Vector2(100, 100 ), 100, 100, null,
-            100, 10, null, 10, 10, 11);
+            100, 11, null, 10, 12);
 
     //Testing to ensure constructor works as intended through basic getter functions
     @Test
     public void constructorShouldInitializeCorrectly() {
         assertEquals(null, testCharacter.getTarget());
-        assertEquals(10, testCharacter.getDamage());
-        assertEquals(11, testCharacter.getAttackCooldown());
+        assertEquals(12, testCharacter.getDamage());
+        assertEquals(10, testCharacter.getSpeed());
+        assertEquals(11, testCharacter.getRange());
     }
+
+    //Instance of the Unit class to test on
+    Unit testUnit = new unitTestClass(new Vector2(0, 0),50, 50, null, 100);
+
+    //Testing to make sure setTarget sets the target to the given unit
+    @Test
+    public void setTargetShouldSetTargetToGivenUnit() {
+        testCharacter.setTarget(testUnit);
+        assertEquals(testUnit, testCharacter.getTarget());
+    }
+
 
 }

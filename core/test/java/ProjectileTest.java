@@ -10,6 +10,8 @@ import org.junit.runner.Result;
 import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,7 +28,6 @@ class unitForProjectile extends Unit {
 
 
 @RunWith(Parameterized.class)
-@Category(Unit.class)
 public class ProjectileTest {
     private Unit instance;
     private boolean expected;
@@ -39,18 +40,19 @@ public class ProjectileTest {
     private static Unit instance3 = new unitForProjectile(new Vector2(0, 0),1, 1, null,
             100);
 
-    public ProjectileTest(Unit instance, boolean expected){
-        super();
-        this.instance = instance;
-        this.expected = expected;
 
-    }
 
     @Before
     public void initialise(){
 
         projectile = new Projectile(new Vector2(100, 100), 10, 10, null,
                 new Vector2(200, 200), 10.0f, 10, 10);
+
+    }
+
+    public ProjectileTest(Unit instance, boolean expected){
+        this.instance = instance;
+        this.expected = expected;
 
     }
 
@@ -63,20 +65,10 @@ public class ProjectileTest {
     //Testing through parameterized testing that hitUnit() works with both false and true values.
     @Test
     public void testHitUnit() {
-        System.out.println("The projectile aiming at Unit should : " + expected);
+        System.out.println("The projectile aiming at Unit should: " + expected);
         assertEquals(expected, projectile.hitUnit(instance));
     }
 
-
 }
 
-class testRunner {
-    public static void main(String[] args){
-        Result result = JUnitCore.runClasses(ProjectileTest.class);
-        for(Failure failure : result.getFailures()){
-            System.out.println(failure.toString());
-        }
-        System.out.println(result.wasSuccessful());
-    }
-}
 

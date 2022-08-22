@@ -4,6 +4,19 @@
 
 'Kroy' game built by team NP Studios in Java using libGDX - built as part of a second year Computer Science module at the University of York. 
 
+## Assessment Results
+| Section                            | Mark                               |
+| ---------------------------------- | ---------------------------------- |
+| Website                            | 3/3                                |
+| Architecture                       | 21/25                             |
+| Implementation                     | 18/20                              |
+| Testing                            | 16/22                              |
+| Updates on assessment 1            | 19/20                             |
+| Self-assessment                    | 10/10                              |
+| **Overall Mark**                   | **93% (including 6 bonus marks\*)** |
+
+*\*Two bonus marks were awarded for each team that selected this product to use in assessment 3. Overall, 3 of the 9 teams in the cohort chose this project.*
+
 ## Client Brief
 
 The year is 2042 and York has been invaded by evil extraterrestrials (ETs) from planet Kroy,

@@ -50,8 +50,12 @@ ETs should not be able to destroy the Fire Station and their fortresses should n
 over time.**
 
 ## Demo & Screenshots
-Download the JAR to try the game out under [releases](https://github.com/Luceapuce/SEPR-Assessment-2/releases/tag/0.1), click [Here](https://www.youtube.com/watch?v=xEWfE4PIEK0&t=86s) to view a demonstration of the game on Youtube, or check out the screenshots of the game below.
+Download the JAR under [releases](https://github.com/Luceapuce/SEPR-Assessment-2/releases/tag/0.1) to try the game out, click [here](https://www.youtube.com/watch?v=xEWfE4PIEK0&t) to view a demonstration of the game on YouTube, or check out the screenshots of the game below.
 
-![Kroy Game Menu](https://imgur.com/PRzuBbB.jpg)
-![Kroy Game Controls](https://imgur.com/cjGdKML.jpg)
-![Kroy Game Level 1](https://imgur.com/ZQcTjvm.jpg)
+<div align="center">
+  <l>
+    <img src="https://imgur.com/PRzuBbB.jpg.type" width="700">
+    <img src="https://imgur.com/cjGdKML.jpg.type" width="700">
+    <img src="https://imgur.com/ZQcTjvm.jpg.type" width="700">
+  </l>
+</div>
